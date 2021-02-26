@@ -1,4 +1,8 @@
 <!-- Vertical navbar -->
+
+<?php 
+  $uri = service('uri');
+?>
 <div class="vertical-nav bg-white" id="sidebar">
   <div class="py-4 px-3 mb-4 bg-light">
     <div class="media d-flex align-items-center">
@@ -11,10 +15,10 @@
   </div>
 
 
-
+  <?php if(session()->get('isLoggedIn')): ?>
   <ul class="nav flex-column bg-white mb-0">
-    <li class="nav-item">
-      <a href="#" class="nav-link text-dark bg-light">
+    <li class="nav-item <?= ($uri->getSegment(1) == 'dashboard' ? 'active' : null) ?>">
+      <a href="dashboard" class="nav-link text-dark bg-light">
                 <i class="fa fa-home mr-3 text-primary fa-fw"></i>
                 home
             </a>
@@ -38,13 +42,14 @@
             </a>
     </li>
     
-    <li class="nav-item">
-      <a href="/" class="nav-link text-dark">
+    <li class="nav-item ">
+      <a href="/logout" class="nav-link text-dark">
                 <i class="fas fa-sign-out-alt mr-3 text-primary fa-fw"></i>
                 logout
             </a>
     </li>
   </ul>
+  <?php endif; ?>
 
   <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p>
 

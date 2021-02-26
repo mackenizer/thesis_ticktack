@@ -8,8 +8,10 @@ class Dashboard extends BaseController
 	{
 		$data = [];
 
+		
+
         echo view('templates/header1', $data);
-        echo view('dashboard/admin');
+        echo view('dashboard/student');
         echo view('templates/footer');
 	}
 }

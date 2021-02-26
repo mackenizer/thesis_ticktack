@@ -58,6 +58,23 @@ class Users extends BaseController
 
     }
 
+    public function profile(){
+
+
+        echo view('templates/header1', $data);
+        echo view('profile');
+        echo view('templates/footer');
+
+
+    }
+
+    public function logout(){
+
+        session()->destroy();
+        return redirect()->to('/');
+        
+    }
+
     public function register(){
 
         $data = [];

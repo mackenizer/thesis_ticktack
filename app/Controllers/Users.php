@@ -32,9 +32,18 @@ class Users extends BaseController
 
                 $this->setUserSession($user);
 
+                if($user['role'] == 'adviser'){
+                    return redirect()->to('adviser');
+                }elseif($user['role'] == 'student'){
+                     return redirect()->to('dashboard');
+                }
+
+            //   print_r($user);
+            //   echo $user['role'];
+
             
                 // $session->setFlashdata('success', 'Successful Registration');
-                return redirect()->to('dashboard');
+               
             }
         }
         echo view('templates/header', $data);
@@ -55,6 +64,7 @@ class Users extends BaseController
 
         session()->set($data);
         return true;
+
 
     }
 

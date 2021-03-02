@@ -36,6 +36,7 @@ $routes->get('/', 'Users::index', ['filter' => 'noauth']);
 $routes->get('logout', 'Users::logout');
 $routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------

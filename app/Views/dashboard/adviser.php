@@ -17,7 +17,7 @@
 
   <?php if(session()->get('isLoggedIn')): ?>
   <ul class="nav flex-column bg-white mb-0">
-    <li class="nav-item <?= ($uri->getSegment(1) == 'dashboard' ? 'active' : null) ?>">
+    <li class="nav-item <?= ($uri->getSegment(1) == 'adviser' ? 'active' : null) ?>">
       <a href="dashboard" class="nav-link text-dark bg-light">
                 <i class="fa fa-home mr-3 text-primary fa-fw"></i>
                 home
@@ -31,8 +31,8 @@
     </li>
     <li class="nav-item">
       <a href="#" class="nav-link text-dark">
-                <i class="fas fa-tasks mr-3 text-primary fa-fw"></i>
-                My task
+                <i class="fas fa-user-plus mr-3 text-primary fa-fw"></i>
+                add team
             </a>
     </li>
     <li class="nav-item">
@@ -42,7 +42,7 @@
             </a>
     </li>
     
-    <li class="nav-item ">
+    <li class="nav-item">
       <a href="/logout" class="nav-link text-dark">
                 <i class="fas fa-sign-out-alt mr-3 text-primary fa-fw"></i>
                 logout

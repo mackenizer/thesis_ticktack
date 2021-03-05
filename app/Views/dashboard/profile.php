@@ -8,7 +8,7 @@
     <div class="media d-flex align-items-center">
       <img loading="lazy" src="/assets/images/nancy.jpg" alt="..." width="80" height="80" class="mr-3 rounded-circle img-thumbnail shadow-sm">
       <div class="media-body">
-        <h4 class="m-0"><? $user['firstname'].' '.$user['lastname'] ?></h4>
+        <h4 class="m-0"> Nancy Mcdonie</h4>
         
       </div>
     </div>
@@ -71,67 +71,7 @@
 <div class="page-content p-5" id="content">
   <!-- Toggle button -->
   <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold"></small></button>
-  <div class="container">
-  <div class="row">
-    <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 mt-5 pt-3 pb-3 bg-white from-wrapper">
-      <div class="container">
-        <h3><center>Edit Profile</center></h3>
-        <hr>
-        <form class="" action="/register" method="post">
-          <div class="row">
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-               <label for="firstname">First Name</label>
-               <input type="text" class="form-control" name="firstname" id="firstname">
-              </div>
-            </div>
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-               <label for="lastname">Last Name</label>
-               <input type="text" class="form-control" name="lastname" id="lastname" >
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group">
-               <label for="email">Email address</label>
-               <input type="text" class="form-control" name="email" id="email" >
-              </div>
-            </div>
-            <div class="col-12 col-sm-6">
-              <div class="form-group">
-               <label for="password">Password</label>
-               <input type="password" class="form-control" name="password" id="password" value="">
-             </div>
-           </div>
-           <div class="col-12 col-sm-6">
-             <div class="form-group">
-              <label for="password_confirm">Confirm Password</label>
-              <input type="password" class="form-control" name="password_confirm" id="password_confirm" value="">
-            </div>
-          </div>
-          <?php if (isset($validation)): ?>
-            <div class="col-12">
-              <div class="alert alert-danger" role="alert">
-                <?= $validation->listErrors() ?>
-              </div>
-            </div>
-          <?php endif; ?>
-          </div>
-
-          <div class="row">
-            <div class="col-12 col-sm-4">
-            </br>
-       
-              <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-           
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+    
   <!-- Demo content -->
   <!-- <h2 class="display-4 text-white">Bootstrap vertical nav</h2>
   <p class="lead text-white mb-0">Build a fixed sidebar using Bootstrap 4 vertical navigation and media objects.</p> 

@@ -35,7 +35,9 @@ class Users extends BaseController
                 if($user['role'] == 'adviser'){
                     return redirect()->to('adviser');
                 }elseif($user['role'] == 'student'){
-                     return redirect()->to('dashboard');
+                    return redirect()->to('student');
+                }elseif($user['role'] == 'admin'){
+                    return redirect()->to('admin');
                 }
 
             //   print_r($user);
@@ -70,8 +72,12 @@ class Users extends BaseController
 
     public function profile(){
 
+        $data = [];
 
-        echo view('templates/header1', $data);
+        helper(['form']);
+
+
+        echo view('templates/header1');
         echo view('profile');
         echo view('templates/footer');
 

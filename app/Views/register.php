@@ -14,17 +14,17 @@
                     <div class="form-row my-4">
                         <div class="col-md-12 mb-2">
                     
-                           <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name">
+                           <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" value="<?= set_value('firstname')?>">
                            
                         </div>
                         <div class="col-md-12 mb-2">
                            
-                           <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name">
+                           <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" value="<?= set_value('lastname')?>">
                            
                         </div>
                         <div class="col-md-12 mb-2">
                            
-                            <input type="text" name="email" id="email" class="form-control" placeholder="Email">
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Email" value="<?= set_value('email')?>">
                         </div>
                         <div class="col-md-12 mb-2">
                           
@@ -39,6 +39,7 @@
                        
                             <option value="adviser">Adviser</option>
                             <option value="student">Student</option>
+                            
 
                         </select>
                          </div>

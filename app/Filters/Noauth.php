@@ -12,7 +12,7 @@ class Noauth implements FilterInterface
     {
         // Do something here
         if( session()->get('isLoggedIn')){
-		  return redirect()->to('/dashboard');
+		  return redirect()->to('/student');
 
         }  
     }

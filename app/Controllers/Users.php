@@ -33,7 +33,7 @@ class Users extends BaseController
                 $this->setUserSession($user);
 
                 if($user['role'] == 'adviser'){
-                    return redirect()->to('adviser');
+                    return redirect()->to('admin');
                 }elseif($user['role'] == 'student'){
                     return redirect()->to('student');
                 }elseif($user['role'] == 'admin'){

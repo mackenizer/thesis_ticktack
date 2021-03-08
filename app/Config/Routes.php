@@ -33,6 +33,10 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Users::index', ['filter' => 'noauth']);
+$routes->get('admin', 'Admin::index');
+$routes->get('addteam', 'Admin::addteam');
+$routes->get('viewteam', 'Admin::viewteam');
+$routes->get('viewmodule', 'Admin::viewmodule');
 $routes->get('logout', 'Users::logout');
 $routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], 'profile', 'Users::profile', ['filter' => 'auth']);

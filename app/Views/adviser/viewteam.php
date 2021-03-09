@@ -6,7 +6,7 @@
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/admin">Dashboard</a>
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/adviser">Dashboard</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/addteam">Add Team</a>
@@ -32,7 +32,7 @@
             <li><a class="dropdown-item" href="#">Change Password</a></li>
             
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
         </li>
     </ul>

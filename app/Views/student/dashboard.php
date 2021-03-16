@@ -7,13 +7,15 @@
       
       <li class="nav-item">
       
-      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/adviser">Dashboard</a>
+      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/student">Dashboard</a>
       
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addteam">Add Team</a>
+        <a class="nav-link" href="<?=base_url()?>/studentmodule">View Module</a>
       </li>
-      
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>/moduleteam">My Team</a>
+      </li>
       
     </ul>
   </div>
@@ -43,7 +45,7 @@
   <!-- Main body -->
   <div class="main">
     <div class="card text-center mt-5">
-      <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a>
+      <a href="<?=base_url()?>/moduleteam"><h2>Module 1</h2></a>
       <p>Project Leader</p>
       <p>Members:</p>
     </div>

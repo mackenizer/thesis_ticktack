@@ -33,15 +33,25 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Users::index', ['filter' => 'noauth']);
-$routes->get('adviser', 'Adviser::index');
+$routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('addteam', 'Adviser::addteam');
 $routes->get('viewteam', 'Adviser::viewteam');
 $routes->get('viewmodule', 'Adviser::viewmodule');
+
+$routes->get('leader', 'Leader::index', ['filter' => 'auth']);
+$routes->get('addmodule', 'Leader::addmodule');
+$routes->get('moduleview', 'Leader::moduleview');
+$routes->get('resultmodule', 'Leader::resultmodule');
+
 $routes->get('logout', 'Users::logout');
 $routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], 'profile', 'Users::profile', ['filter' => 'auth']);
+
 $routes->get('student', 'Student::index', ['filter' => 'auth']);
-$routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
+$routes->get('moduleteam', 'Student::moduleteam');
+$routes->get('studentmodule', 'Student::studentmodule');
+$routes->get('studentresult', 'Student::studentresult');
+
 $routes->get('admin', 'Admin::index', ['filter' => 'auth']);
 
 /*

@@ -35,12 +35,16 @@
                             <input type="password" name="repass" id="repass" class="form-control" placeholder="Confirm Password">
                         </div>
                         <div class="col-md-12 mb-4">
-                        <select class="form-control" id="inlineFormCustomSelectPref" name="role">
+                        <!-- <select class="form-control" id="inlineFormCustomSelectPref" name="role">
                        
                             <option value="adviser">Adviser</option>
                             <option value="student">Student</option>
                             
 
+                        </select> -->
+                        <select class="form-select" aria-label="Default select example" name="role">
+                            <option value="adviser">Adviser</option>
+                            <option value="student">Student</option>
                         </select>
                          </div>
                         <div class="form-check form-check-inline">

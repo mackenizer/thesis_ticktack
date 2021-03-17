@@ -1,6 +1,8 @@
 <?php namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\StudentModel;
+use App\Models\AdviserModel;
 
 class Users extends BaseController
 {
@@ -13,33 +15,82 @@ class Users extends BaseController
         if ($this->request->getMethod() == 'post'){
             $rules = [
                 'email' => 'required|min_length[6]|max_length[50]|valid_email',
-                'password' => 'required|min_length[8]|max_length[255]|validateUser[email,password]',
+                'password' => 'required|min_length[8]|max_length[255]',
             ];
 
-            $errors = [
-                'password' => [
-                    'validateUser' => 'Email or Password doesn\'t match'
-                ]
-            ];
 
-            if(!$this->validate($rules, $errors)){
+
+            if(!$this->validate($rules)){
                 $data['validation'] = $this->validator;
             }else{
-                $model = new UserModel();
+                $model = new AdviserModel();
+                $model1 = new StudentModel();
 
-                $user = $model->where('email', $this->request->getVar('email'))
+                $role = $this->request->getVar('role');
+
+
+
+                if($role == 'adviser'){
+
+                    
+                    $user = $model->where('email', $this->request->getVar('email'))
                                 ->first();
-
-                $this->setUserSession($user);
-
-                if($user['role'] == 'adviser'){
-                    return redirect()->to('adviser');
-                }elseif($user['role'] == 'student'){
-                    return redirect()->to('student');
-                }elseif($user['role'] == 'admin'){
-                    return redirect()->to('admin');
+                    // print_r($user);
+                    if(!$user){
+                        $session = session();
+                        $session->setFlashdata('error', 'User does not exist');
+                    }
+                    else{
+                        if(!password_verify($this->request->getVar('password'), $user['password'])){
+                            $session = session();
+                            $session->setFlashdata('error', 'Invalid Credentials');
+                        }
+                            
+                        
+                        else{
+                            $this->setAdviserSession($user);
+                            return redirect()->to('adviser');
+                        }
+                        
+                    }
+                }elseif($role == 'student'){
+                    $user = $model1->where('email', $this->request->getVar('email'))
+                                ->first();
+                    
+                    if(!$user){
+                        $session = session();
+                        $session->setFlashdata('error', 'User does not exist');
+                    }
+                    else{
+                        if(!password_verify($this->request->getVar('password'), $user['password'])){
+                            $session = session();
+                            $session->setFlashdata('error', 'Invalid Credentials');
+                        }
+                            
+                        
+                        else{
+                            $this->setStudentSession($user);
+                            if($user['leader'] == 'yes'){
+                                return redirect()->to('leader');
+                            }elseif($user['leader'] == 'no'){
+                                return redirect()->to('student');
+                            }
+                            
+                        }
+                        
+                    }
                 }
+                
 
+                
+
+                
+
+                
+
+                
+                    
+               
             //   print_r($user);
             //   echo $user['role'];
 
@@ -54,13 +105,29 @@ class Users extends BaseController
 
 	}
 
-    public function setUserSession($user){
+    public function setStudentSession($user){
         $data = [
-            'userID' => $user['userID'],
+            'studentID' => $user['studentID'],
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
             'email' => $user['email'],
-            'role' => $user['role'],
+            'projectID' => $user['projectID'],
+
+            'isLoggedIn' => true, 
+        ];
+
+        session()->set($data);
+        return true;
+
+
+    }
+
+    public function setAdviserSession($user){
+        $data = [
+            'adviserID' => $user['adviserID'],
+            'firstname' => $user['firstname'],
+            'lastname' => $user['lastname'],
+            'email' => $user['email'],
             'isLoggedIn' => true, 
         ];
 
@@ -109,17 +176,27 @@ class Users extends BaseController
             if(!$this->validate($rules)){
                 $data['validation'] = $this->validator;
             }else{
-                $model = new UserModel();
+                $model = new AdviserModel();
+                $model1 = new StudentModel();
+
+
+                $role = $this->request->getVar('role');
 
                 $newData = [
                     'firstname' => $this->request->getVar('firstname'),
                     'lastname' => $this->request->getVar('lastname'),
                     'email' => $this->request->getVar('email'),
                     'password' => $this->request->getVar('password'),
-                    'role' => $this->request->getVar('role'),
+                    
   
                 ];
-                $model->save($newData);
+
+                if($role == 'adviser'){
+                     $model->save($newData);
+                }elseif($role == 'student'){
+                    $model1->save($newData);
+                }
+                
                 $session = session();
                 $session->setFlashdata('success', 'Successfuly Registered!');
                 return redirect()->to('/');

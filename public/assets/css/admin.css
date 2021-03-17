@@ -41,6 +41,10 @@ body {
   border-radius: 20px;
 }
 
+.card a:link {
+  text-decoration: none !important;
+}
+
 .card-add {
   width: 700px;
 

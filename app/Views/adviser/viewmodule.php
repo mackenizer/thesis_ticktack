@@ -6,10 +6,10 @@
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/adviser">Dashboard</a>
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addteam">Add Team</a>
+        <a class="nav-link" href="<?=base_url()?>/addteam"><i class="fas fa-tasks"></i> Add Project</a>
       </li>
       
     </ul>
@@ -26,7 +26,7 @@
         </a>
       </li>
        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>

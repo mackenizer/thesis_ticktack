@@ -3,11 +3,11 @@
     <div class="img">
         <img src="/assets/images/bg.svg" alt="">
     </div>
-    <div class="login-container">
+    <div class="login-container pt-0">
         <form action="/" method="post">
-            <img class="avatar" src="/assets/images/avatar.svg" alt="">
-            <h2>TickTack</h2>
-            <p>Build a project with your team.</p>
+            <img class="text-center mx-auto d-block" width="100%" height="300px" src="/assets/images/loggo.jpg" alt="">
+           
+            
             <?php if(session()->get('success')): ?>
                     <div class="alert alert-success text-center" role="alert">
                         <?= session()->get('success') ?>
@@ -48,6 +48,18 @@
                             </div>
                         </div>
                         <?php endif; ?>
+                    <?php if(session()->get('error')): ?>
+                    <div class="alert alert-danger text-center mt-2" role="alert">
+                        <?= session()->get('error') ?>
+                    </div>
+               
+                <?php endif; ?>
+            <select class="form-select mt-3" aria-label=".form-select-sm example" name="role">
+                <option selected>Login As</option>
+                <option value="student">Student</option>
+                <option value="adviser">Adviser</option>
+                
+            </select>
             
             <input type="submit" class="btn" value="Login">
             

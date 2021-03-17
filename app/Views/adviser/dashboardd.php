@@ -7,11 +7,11 @@
       
       <li class="nav-item">
       
-      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/adviser">Dashboard</a>
+      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
       
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addteam">Add Team</a>
+        <a class="nav-link" href="<?=base_url()?>/addteam"><i class="fas fa-tasks"></i> Add Project</a>
       </li>
       
       
@@ -29,7 +29,7 @@
         </a>
       </li>
        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>
@@ -42,11 +42,29 @@
   </div>
   <!-- Main body -->
   <div class="main">
-    <div class="card text-center mt-5">
-      <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a>
-      <p>Project Leader</p>
-      <p>Members:</p>
-    </div>
+   <?php if(session()->get('error')): ?>
+                    <div class="alert alert-danger text-center mt-2" role="alert">
+                        <?= session()->get('error') ?>
+                    </div>
+               
+                <?php endif; ?>
+                <?php if(session()->get('success')): ?>
+                    <div class="alert alert-success text-center mt-2" role="alert">
+                        <?= session()->get('success') ?>
+                    </div>
+               
+                <?php endif; ?>
+                <?php if(!$project == null) :?>
+                <?php foreach($project as $proj): ?>
+
+                  <div class="card text-center mt-5">
+                    <!-- <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a> -->
+                    <a class="text-light text-decoration-none" href="<?=base_url()?>/viewteam"><h2><?= $proj['projectTitle']?></h2></a>
+                    <p><?= $proj['Fulllname']?></p>
+                    <p>Members:</p>
+                  </div>
+                  <?php endforeach; ?>
+                  <?php endif; ?>
 
   </div>
 </div>

@@ -37,6 +37,7 @@ $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('addteam', 'Adviser::addteam');
 $routes->get('viewteam', 'Adviser::viewteam');
 $routes->get('viewmodule', 'Adviser::viewmodule');
+$routes->post('addproject', 'AddProject::index');
 
 $routes->get('leader', 'Leader::index', ['filter' => 'auth']);
 $routes->get('addmodule', 'Leader::addmodule');

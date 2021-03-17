@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\ProjectModel;
+use App\Models\ProjectViewModel;
 
 class Adviser extends BaseController
 {
@@ -8,6 +10,12 @@ class Adviser extends BaseController
 	{
 		$data = [];
 		$data['title'] = 'Dashboard';
+
+		$model = new ProjectViewModel();
+
+		$data['project'] = $model->where('adviserID', session()->get('adviserID'))->findall();
+
+
 
 		
 

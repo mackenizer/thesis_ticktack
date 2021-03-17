@@ -6,13 +6,13 @@
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/leader">Dashboard</a>
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/leader"><i class="fas fa-home"></i> Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?=base_url()?>/addmodule">Add Module</a>
+        <a class="nav-link active" href="<?=base_url()?>/addmodule"><i class="fas fa-tasks"></i> Add Module</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/moduleview">View Team</a>
+        <a class="nav-link" href="<?=base_url()?>/moduleview"><i class="fas fa-user-friends"></i> View Team</a>
       </li>
       
     </ul>

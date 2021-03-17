@@ -7,14 +7,14 @@
       
       <li class="nav-item">
       
-      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/leader">Dashboard</a>
+      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/leader"><i class="fas fa-home"></i> Dashboard</a>
       
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addmodule">Add Module</a>
+        <a class="nav-link" href="<?=base_url()?>/addmodule"><i class="fas fa-tasks"></i> Add Module</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/moduleview">View Team</a>
+        <a class="nav-link" href="<?=base_url()?>/moduleview"><i class="fas fa-user-friends"></i> View Team</a>
       </li>
       
     </ul>
@@ -45,7 +45,7 @@
   <!-- Main body -->
   <div class="main">
     <div class="card text-center mt-5">
-      <a href="<?=base_url()?>/moduleview"><h2>Module 1</h2></a>
+      <a class="text-light text-decoration-none" href="<?=base_url()?>/moduleview"><h2>Module 1</h2></a>
       <p>Project Leader</p>
       <p>Members:</p>
     </div>

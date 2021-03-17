@@ -6,13 +6,13 @@
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/student">Dashboard</a>
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/student"><i class="fas fa-home"></i> Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/studentmodule">View Module</a>
+        <a class="nav-link" href="<?=base_url()?>/studentmodule"><i class="fas fa-tasks"></i> View Task</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?=base_url()?>/moduleteam">My Team</a>
+        <a class="nav-link active" href="<?=base_url()?>/moduleteam"><i class="fas fa-user-friends"></i> My Team</a>
       </li>
       
     </ul>
@@ -48,7 +48,7 @@
         <h3>Team Name:</h3>
         <p>Project Leader:</p>
         <p>Team Members:</p>
-        <a href="#exampleModal" data-bs-toggle="modal"><p>Gantt Chart</p></a>
+        <a class="text-info text-decoration-none" href="#exampleModal" data-bs-toggle="modal"><p>Gantt Chart</p></a>
       
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -70,21 +70,21 @@
     </div>
     <div class="card-view text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a href="<?=base_url()?>/resultmodule"><p>Module 1</p></a>
+          <a class="text-dark text-decoration-none" href="<?=base_url()?>/studentresult"><p>Module 1</p></a>
           <p>Assigned Members</p>
           <p>Status</p>
       </div>
     </div>
     <div class="card-view2 text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a href=""><p>Module 2</p></a>
+          <a class="text-dark text-decoration-none" href=""><p>Module 2</p></a>
           <p>Assigned Members</p>
           <p>Status</p>
       </div>
     </div>
     <div class="card-view text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a href=""><p>Module 3</p></a>
+          <a class="text-dark text-decoration-none" href=""><p>Module 3</p></a>
           <p>Assigned Members</p>
           <p>Status</p>
       </div>

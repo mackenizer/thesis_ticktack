@@ -6,10 +6,10 @@
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/adviser">Dashboard</a>
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addteam">Add Team</a>
+        <a class="nav-link" href="<?=base_url()?>/addteam"><i class="fas fa-tasks"></i> Add Project</a>
       </li>
       
     </ul>
@@ -26,7 +26,7 @@
         </a>
       </li>
        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>
@@ -45,7 +45,8 @@
         <h3>Team Name:</h3>
         <p>Project Leader:</p>
         <p>Team Members:</p>
-        <a href="#exampleModal" data-bs-toggle="modal"><p>Gantt Chart</p></a>
+        <a class="text-info text-decoration-none" href="#"><p><i class="far fa-user-plus"></i> Add Team</p></a>
+        <a class="text-info text-decoration-none" href="#exampleModal" data-bs-toggle="modal"><p>Gantt Chart</p></a>
       
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,21 +68,21 @@
     </div>
     <div class="card-view text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a href="<?=base_url()?>/viewmodule"><p>Module 1</p></a>
+          <a class="text-dark text-decoration-none" href="<?=base_url()?>/viewmodule"><p>Module 1</p></a>
           <p>Assigned Members</p>
           <p>Status</p>
       </div>
     </div>
     <div class="card-view text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a href=""><p>Module 2</p></a>
+          <a class="text-dark text-decoration-none" href=""><p>Module 2</p></a>
           <p>Assigned Members</p>
           <p>Status</p>
       </div>
     </div>
     <div class="card-view text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a href=""><p>Module 3</p></a>
+          <a class="text-dark text-decoration-none" href=""><p>Module 3</p></a>
           <p>Assigned Members</p>
           <p>Status</p>
       </div>

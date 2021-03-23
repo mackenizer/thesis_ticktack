@@ -175,7 +175,7 @@ class Users extends BaseController
 
             if(!$this->validate($rules)){
                 $data['validation'] = $this->validator;
-            }else{
+            }else{  
                 $model = new AdviserModel();
                 $model1 = new StudentModel();
 

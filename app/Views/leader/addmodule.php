@@ -29,7 +29,7 @@
         </a>
       </li>
        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>
@@ -44,36 +44,51 @@
   <div class="main">
       <h1 class="text-center mt-5">Add Module</h1>
     <div class="card-add text-center mt-5">
-      <form action="" class="m-5">
+      <form action="<?=base_url()?>/addmodule" class="m-5" method="post">
           
             <div class="mb-3 row">
                 <label for="inputProject" class="col-sm-2 col-form-label">Module Name:</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputProject">
+                <input type="text" class="form-control" id="inputProject" name="moduleName">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputMembers" class="col-sm-2 col-form-label">Assign Member:</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputMembers">
+                 <select class="form-select mt-3" aria-label=".form-select-sm example" name="memberID">
+                <option selected>Select Member</option>
+                <?php if(!$member == null) :?>
+         
+      
+     
+                <?php foreach($member as $mem): ?>
+                    <option value="<?=$mem['studentID']?>"><?= $mem['firstname'].' '.$mem['lastname']?></option>
+                   
+
+                  
+                  <?php endforeach; ?>
+                  <?php endif; ?>
+                
+                
+            </select>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputMembers" class="col-sm-2 col-form-label">Module Description:</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputMembers">
+                <input type="text" class="form-control" id="inputMembers" name="description">
                 </div>
             </div>
              <div class="mb-3 row">
                 <label for="inputLeader" class="col-sm-2 col-form-label">Due Date:</label>
                 <div class="col-sm-10">
-                <input type="date" class="form-control" id="datePicker">
+                <input type="date" class="form-control" id="datePicker" name="dueDate">
                 </div>
                 
             </div>
             
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4 me-4">
-            <button class="btn btn-primary me-md-2" type="button">Submit</button>
+            <button class="btn btn-primary me-md-2" type="submit">Submit</button>
             
         </div>
       </form>

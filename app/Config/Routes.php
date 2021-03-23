@@ -38,9 +38,10 @@ $routes->get('addteam', 'Adviser::addteam');
 $routes->get('viewteam', 'Adviser::viewteam');
 $routes->get('viewmodule', 'Adviser::viewmodule');
 $routes->post('addproject', 'AddProject::index');
+$routes->post('AddMembers', 'AddMembers::index');
 
 $routes->get('leader', 'Leader::index', ['filter' => 'auth']);
-$routes->get('addmodule', 'Leader::addmodule');
+$routes->match(['get', 'post'],'addmodule', 'Leader::addmodule');
 $routes->get('moduleview', 'Leader::moduleview');
 $routes->get('resultmodule', 'Leader::resultmodule');
 

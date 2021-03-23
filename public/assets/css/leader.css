@@ -21,6 +21,7 @@ body {
   box-shadow: 10px 0px 10px 5px rgba(0, 0, 0, 0.19);
   z-index: 90;
   height: 8vh;
+  background-color: #fff;
 }
 
 .main {
@@ -34,20 +35,20 @@ body {
 .card {
   width: 700px;
   height: 150px;
-  border: 1px solid black;
+  border: 1.5px solid #32be8f;
   box-shadow: 10px 0px 10px 5px rgba(0, 0, 0, 0.19);
   margin: auto;
-  background-color: #32be8f;
+  background-color: #fff;
   border-radius: 20px;
 }
 
 .card-add {
   width: 700px;
 
-  border: 1px solid black;
+  border: 1.5px solid #32be8f;
   box-shadow: 10px 0px 10px 5px rgba(0, 0, 0, 0.19);
   margin: auto;
-  background-color: #32be8f;
+  background-color: #fff;
   border-radius: 20px;
 }
 
@@ -68,7 +69,7 @@ body {
 .card-view2 {
   width: 850px;
   height: 70px;
-  border: 1px solid black;
+  border: 1.5px solid #32be8f;
   box-shadow: 10px 0px 10px 5px rgba(0, 0, 0, 0.19);
   margin: auto;
   background-color: #fff;

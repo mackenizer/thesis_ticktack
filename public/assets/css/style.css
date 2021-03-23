@@ -66,7 +66,7 @@ form p {
   grid-template-columns: 7% 93%;
   margin: 20px 0;
   padding: 5px 0;
-  border-bottom: 2px solid darkblue;
+  border-bottom: 2px solid darkgray;
 }
 
 .input-div.one {
@@ -84,7 +84,7 @@ form p {
 }
 
 .i i {
-  color: darkcyan;
+  color: #202120;
 }
 
 .input-div > div {
@@ -114,7 +114,7 @@ form p {
   background: none;
   padding: 0.5rem 0.7rem;
   font-size: 1.1rem;
-  color: darkcyan;
+  color: darkgray;
 }
 
 .a {

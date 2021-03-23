@@ -31,7 +31,7 @@
         </a>
       </li>
        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>
@@ -44,11 +44,23 @@
   </div>
   <!-- Main body -->
   <div class="main">
-    <div class="card text-center mt-5">
-      <a class="text-light text-decoration-none" href="<?=base_url()?>/moduleview"><h2>Module 1</h2></a>
-      <p>Project Leader</p>
-      <p>Members:</p>
-    </div>
+  <?php if(session()->get('success')): ?>
+                    <div class="alert alert-success text-center mt-2" role="alert">
+                        <?= session()->get('success') ?>
+                    </div>
+               
+                <?php endif; ?>
+    <?php if(!$module == null) :?>
+                <?php foreach($module as $mode): ?>
+
+                  <div class="card text-center mt-5">
+                    <!-- <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a> -->
+                    <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule"><h2><?= $mode['moduleName']?></h2></a>
+                    <p><?= $mode['memberID']?></p>
+                    <p>Members:</p>
+                  </div>
+                  <?php endforeach; ?>
+                  <?php endif; ?>
 
   </div>
 </div>

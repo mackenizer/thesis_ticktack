@@ -29,7 +29,7 @@
         </a>
       </li>
        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class="dropdown-item" href="#">Change Password</a></li>
@@ -48,10 +48,26 @@
         <h3>Team Name:</h3>
         <p>Project Leader:</p>
         <p>Team Members:</p>
-        <a class="text-info text-decoration-none" href="#exampleModal" data-bs-toggle="modal"><p>Gantt Chart</p></a>
+        <a class="text-info text-decoration-none" href="#gantt" data-bs-toggle="modal"><p>Gantt Chart</p></a>
+         <a class="text-info text-decoration-none" href="#addTeam" data-bs-toggle="modal"><p>Add Members</p></a>
       
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div>
+      <?php if(!$member == null) :?>
+      <ul>
+      
+     
+                <?php foreach($member as $mem): ?>
+                    <li>
+                    <?= $mem['firstname'].' '.$mem['lastname']?>
+                    </li>
+                  
+                  <?php endforeach; ?>
+           </ul>
+                  <?php endif; ?>
+
+    </div>
+    <div class="modal fade" id="gantt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -61,14 +77,33 @@
         <div class="modal-body">
             ...
         </div>
-        
-           
-            
-        
+
         </div>
     </div>
     </div>
-    <div class="card-view text-center mt-5">
+    <div class="modal fade" id="addTeam" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Members</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           
+        </div>
+          <form class="p-5 pt-0" method="post" action="<?=base_url()?>/AddMembers">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+    </div>
+    </div>
+    
+    
+    <div class="card-view2 text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
           <a class="text-dark text-decoration-none" href="<?=base_url()?>/resultmodule"><p>Module 1</p></a>
           <p>Assigned Members</p>
@@ -82,7 +117,7 @@
           <p>Status</p>
       </div>
     </div>
-    <div class="card-view text-center mt-5">
+    <div class="card-view2 text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
           <a class="text-dark text-decoration-none" href=""><p>Module 3</p></a>
           <p>Assigned Members</p>

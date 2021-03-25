@@ -59,9 +59,10 @@
 
                   <div class="card text-center mt-5">
                     <!-- <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a> -->
-                    <a class="text-light text-decoration-none" href="<?=base_url()?>/viewteam"><h2><?= $proj['projectTitle']?></h2></a>
-                    <p><?= $proj['Fulllname']?></p>
-                    <p>Members:</p>
+                    <a class="text-info text-decoration-none" href="<?=base_url()?>/viewteam/<?= $proj['projectID']?>"><h2><?= $proj['projectTitle']?></h2></a>
+                    <p>Project Leader: <?= $proj['Fulllname']?></p>
+                    
+                   
                   </div>
                   <?php endforeach; ?>
                   <?php endif; ?>

@@ -35,7 +35,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Users::index', ['filter' => 'noauth']);
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('addteam', 'Adviser::addteam');
-$routes->get('viewteam', 'Adviser::viewteam');
+$routes->get('viewteam/(:any)', 'Adviser::viewteam/$1');
 $routes->get('viewmodule', 'Adviser::viewmodule');
 $routes->post('addproject', 'AddProject::index');
 $routes->post('AddMembers', 'AddMembers::index');

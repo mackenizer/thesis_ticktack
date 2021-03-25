@@ -37,6 +37,7 @@ class AddProject extends BaseController
             $projectID = $model->getInsertID();
 
             $data2 = [
+                'projectTitle' => $this->request->getVar('projectTitle'),
                 'studentID' => $user['studentID'],
                 'leader' => 'yes',
                 'projectID'    => $projectID,

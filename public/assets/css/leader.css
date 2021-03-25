@@ -42,6 +42,11 @@ body {
   border-radius: 20px;
 }
 
+.card-table {
+  width: 700px;
+  border: 1.5px solid #32be8f;
+}
+
 .card-add {
   width: 700px;
 

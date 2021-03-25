@@ -3,6 +3,9 @@
 namespace App\Controllers;
 use App\Models\StudentModel;
 use App\Models\ModuleModel;
+use App\Models\ModuleViewModel;
+use App\Models\ProjectModel;
+use App\Models\ProjectViewModel;
 
 class Leader extends BaseController
 {
@@ -11,10 +14,14 @@ class Leader extends BaseController
 		$data = [];
 		$data['leader'] = 'Dashboard';
 
-		$module = new ModuleModel();
+		$module = new ModuleViewModel();
+		$project = new ProjectViewModel();
+		
+		$data['module'] = $module->where('studentID', session()->get('studentID'))
+			->first();
 
-		$data['module'] = $module->where('projectID', session()->get('projectID'))
-				->findall();
+		// $data['module'] = $module->where('projectID', session()->get('projectID'))
+		// 		->findall();
 
 		
 
@@ -83,10 +90,15 @@ class Leader extends BaseController
 		$data = [];
 		$data['leader'] = 'Project Details';
 
-		$student = new StudentModel();
+		$student = new ModuleViewModel();
+		
+		$project = new ProjectViewModel();
 
 		$data['member'] = $student->where('projectID', session()->get('projectID'))
 				->findall();
+
+		$data['project'] = $project->where('projectID', session()->get('projectID'))
+				->first();
 		
 
 		

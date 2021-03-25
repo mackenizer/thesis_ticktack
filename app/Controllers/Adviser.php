@@ -3,6 +3,9 @@
 namespace App\Controllers;
 use App\Models\ProjectModel;
 use App\Models\ProjectViewModel;
+use App\Models\ModuleViewModel;
+use App\Models\AdviserModel;
+
 
 class Adviser extends BaseController
 {
@@ -12,8 +15,11 @@ class Adviser extends BaseController
 		$data['title'] = 'Dashboard';
 
 		$model = new ProjectViewModel();
+		$model1 = new ModuleViewModel();
 
 		$data['project'] = $model->where('adviserID', session()->get('adviserID'))->findall();
+		$data['members'] = $model1->where('projectID', session()->get('projectID'))
+				->findall();
 
 
 
@@ -23,6 +29,8 @@ class Adviser extends BaseController
         echo view('adviser/dashboardd');
         echo view('templates/adminfooter');
 	}
+
+	
 
 
 	public function addteam(){
@@ -36,9 +44,23 @@ class Adviser extends BaseController
         echo view('templates/adminfooter');
 	}
 
-	public function viewteam(){
+	public function viewteam($id = null){
 		$data = [];
 		$data['title'] = 'View Team';
+
+		
+
+		$student = new ModuleViewModel();
+		$project = new ProjectViewModel();
+		
+		if($id!=null){
+			$data['members'] = $student->where('projectID', $id)
+				->findall();
+			
+			$data['project'] = $project->where('projectID', $id)
+				->first();
+		}
+		
 
 		
 

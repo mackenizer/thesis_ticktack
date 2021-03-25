@@ -44,27 +44,53 @@
   <div class="main">
 
 
-    <div class="ms-5 ps-5 mt-5">
-        <h3>Team Name:</h3>
-        <p>Project Leader:</p>
-        <p>Team Members:</p>
+    <div class="ms-5 px-3 mt-5">
+      <?php if(session()->get('error')): ?>
+                    <div class="alert alert-danger text-center" role="alert">
+                        <?= session()->get('error') ?>
+                    </div>
+               
+                <?php endif; ?>
+        <?php if(session()->get('success')): ?>
+                    <div class="alert alert-success text-center" role="alert">
+                        <?= session()->get('success') ?>
+                    </div>
+               
+                <?php endif; ?>
+        <?php if(!$project == null) :?>
+        <h3>Project Name:  <?= $project['projectTitle']?></h3>
+        <p>Project Leader: <?= $project['Fulllname']?></p>
         <a class="text-info text-decoration-none" href="#gantt" data-bs-toggle="modal"><p>Gantt Chart</p></a>
          <a class="text-info text-decoration-none" href="#addTeam" data-bs-toggle="modal"><p>Add Members</p></a>
       
     </div>
-    <div>
-      <?php if(!$member == null) :?>
-      <ul>
-      
-     
-                <?php foreach($member as $mem): ?>
-                    <li>
-                    <?= $mem['firstname'].' '.$mem['lastname']?>
-                    </li>
-                  
-                  <?php endforeach; ?>
-           </ul>
-                  <?php endif; ?>
+    <?php endif; ?>
+    <div class="p-5">
+     <p>Team Members:</p>
+    <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Project ID</th>
+              <th>Full Name</th>
+              <th>Module Name</th>
+              <th>Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php if(!$member == null) :?>
+          <?php foreach($member as $mem): ?>
+            <tr>
+              <td><?= $mem['projectID']?></th>
+              <td><?= $mem['fullname']?></td>
+              <td><?= $mem['moduleName']?></td>
+              <td><button class="btn btn-primary">Rate</button></td>
+              
+              
+            </tr>
+             <?php endforeach; ?>
+          </tbody>
+        </table>
+        <?php endif; ?>
 
     </div>
     <div class="modal fade" id="gantt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,28 +128,17 @@
     </div>
     </div>
     
-    
+    <?php if(!$member == null) :?>
+    <?php foreach($member as $memb): ?>
     <div class="card-view2 text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a class="text-dark text-decoration-none" href="<?=base_url()?>/resultmodule"><p>Module 1</p></a>
-          <p>Assigned Members</p>
+          <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule"><p><?= $memb['moduleName']?></p></a>
+          <p><?= $memb['fullname']?></p>
           <p>Status</p>
       </div>
     </div>
-    <div class="card-view2 text-center mt-5">
-      <div class="d-flex justify-content-around mt-3">
-          <a class="text-dark text-decoration-none" href=""><p>Module 2</p></a>
-          <p>Assigned Members</p>
-          <p>Status</p>
-      </div>
-    </div>
-    <div class="card-view2 text-center mt-5">
-      <div class="d-flex justify-content-around mt-3">
-          <a class="text-dark text-decoration-none" href=""><p>Module 3</p></a>
-          <p>Assigned Members</p>
-          <p>Status</p>
-      </div>
-    </div>
+   <?php endforeach; ?>
+    <?php endif; ?>
     
     
 

@@ -51,15 +51,14 @@
                
                 <?php endif; ?>
     <?php if(!$module == null) :?>
-                <?php foreach($module as $mode): ?>
+                
 
                   <div class="card text-center mt-5">
-                    <!-- <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a> -->
-                    <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule"><h2><?= $mode['moduleName']?></h2></a>
-                    <p><?= $mode['memberID']?></p>
-                    <p>Members:</p>
+                   
+                    <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule"><h2><?= $module['moduleName']?></h2></a>
+                    <p><?= $module['fullname']?></p>
                   </div>
-                  <?php endforeach; ?>
+                
                   <?php endif; ?>
 
   </div>

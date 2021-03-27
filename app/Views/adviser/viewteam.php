@@ -100,7 +100,7 @@
     <?php foreach($members as $memb): ?>
     <div class="card-view text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a class="text-dark text-decoration-none" href="<?=base_url()?>/viewmodule"><p><?= $memb['moduleName']?></p></a>
+          <a class="text-info text-decoration-none" href="<?=base_url()?>/viewmodule/<?= $memb['studentID']?>"><p><?= $memb['moduleName']?></p></a>
           <p><?= $memb['fullname']?></p>
           <p>Status</p>
       </div>

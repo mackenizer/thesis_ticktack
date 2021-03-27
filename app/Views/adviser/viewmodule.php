@@ -39,13 +39,15 @@
   </div>
   <!-- Main body -->
   <div class="main">
+  <?php if(!$module == null) :?>
     <div class="card-add text-center mt-5">
         <div class="ms-4 ps-4">
-            <p class="text-start">Module Name:</p>
-            <p class="text-start">Assigned Members:</p>
-            <p class="text-start">Description:</p>
-            <p class="text-start">Due Date:</p>
+            <p class="text-start">Module Name:  <?= $module['moduleName']?></p>
+            <p class="text-start">Assigned Member:  <?= $module['fullname']?></p>
+            <p class="text-start">Description:  <?= $module['description']?></p>
+            <p class="text-start">Due Date:  <?= $module['dueDate']?></p>
         </div>
+        <?php endif; ?>
         <div class="card-viewact p-4 m-3">
             <form action="">
                 

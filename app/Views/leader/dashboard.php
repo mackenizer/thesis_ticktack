@@ -51,11 +51,12 @@
                
                 <?php endif; ?>
     <?php if(!$module == null) :?>
+    
                 
 
                   <div class="card text-center mt-5">
                    
-                    <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule"><h2><?= $module['moduleName']?></h2></a>
+                    <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule/<?= $module['studentID']?>"><h2><?= $module['moduleName']?></h2></a>
                     <p><?= $module['fullname']?></p>
                   </div>
                 

@@ -36,14 +36,14 @@ $routes->get('/', 'Users::index', ['filter' => 'noauth']);
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('addteam', 'Adviser::addteam');
 $routes->get('viewteam/(:any)', 'Adviser::viewteam/$1');
-$routes->get('viewmodule', 'Adviser::viewmodule');
+$routes->get('viewmodule/(:any)', 'Adviser::viewmodule/$1');
 $routes->post('addproject', 'AddProject::index');
 $routes->post('AddMembers', 'AddMembers::index');
 
 $routes->get('leader', 'Leader::index', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'addmodule', 'Leader::addmodule');
 $routes->get('moduleview', 'Leader::moduleview');
-$routes->get('resultmodule', 'Leader::resultmodule');
+$routes->get('resultmodule/(:any)', 'Leader::resultmodule/$1');
 
 $routes->get('logout', 'Users::logout');
 $routes->match(['get', 'post'], 'register', 'Users::register', ['filter' => 'noauth']);
@@ -52,7 +52,7 @@ $routes->match(['get', 'post'], 'profile', 'Users::profile', ['filter' => 'auth'
 $routes->get('student', 'Student::index', ['filter' => 'auth']);
 $routes->get('moduleteam', 'Student::moduleteam');
 $routes->get('studentmodule', 'Student::studentmodule');
-$routes->get('studentresult', 'Student::studentresult');
+$routes->get('studentresult/(:any)', 'Student::studentresult/$1');
 
 $routes->get('admin', 'Admin::index', ['filter' => 'auth']);
 

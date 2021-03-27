@@ -8,9 +8,9 @@
       <li class="nav-item">
       <a class="nav-link" aria-current="page" href="<?=base_url()?>/student"><i class="fas fa-home"></i> Dashboard</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/studentmodule"><i class="fas fa-tasks"></i> View Task</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/moduleteam"><i class="fas fa-user-friends"></i> My Team</a>
       </li>
@@ -42,13 +42,15 @@
   </div>
   <!-- Main body -->
   <div class="main">
+    <?php if(!$module == null) :?>
     <div class="card-add text-center mt-5">
         <div class="ms-4 ps-4">
-            <p class="text-start">Module Name:</p>
-            <p class="text-start">Assigned Members:</p>
-            <p class="text-start">Description:</p>
-            <p class="text-start">Due Date:</p>
+            <p class="text-start">Module Name:  <?= $module['moduleName']?></p>
+            <p class="text-start">Assigned Member:  <?= $module['fullname']?></p>
+            <p class="text-start">Description:  <?= $module['description']?></p>
+            <p class="text-start">Due Date:  <?= $module['dueDate']?></p>
         </div>
+        <?php endif; ?>
         <div class="card-viewact p-4 m-3">
             <form action="">
                 

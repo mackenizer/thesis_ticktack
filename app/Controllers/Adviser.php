@@ -69,9 +69,18 @@ class Adviser extends BaseController
         echo view('templates/adminfooter');
 	}
 
-	public function viewmodule(){
+	public function viewmodule($id = null){
 		$data = [];
 		$data['title'] = 'View Module';
+
+		$module = new ModuleViewModel();
+
+		if($id!=null){
+			
+			
+			$data['module'] = $module->where('studentID', $id)
+				->first();
+		}
 
 		
 

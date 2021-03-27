@@ -10,9 +10,9 @@
       <a class="nav-link active" aria-current="page" href="<?=base_url()?>/student"><i class="fas fa-home"></i> Dashboard</a>
       
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/studentmodule"><i class="fas fa-tasks"></i> View Task</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/moduleteam"><i class="fas fa-user-friends"></i> My Team</a>
       </li>
@@ -44,11 +44,13 @@
   </div>
   <!-- Main body -->
   <div class="main">
+  <?php if(!$project == null) :?>
     <div class="card text-center mt-5">
-      <a class="text-light text-decoration-none" href="<?=base_url()?>/moduleteam"><h2>Module 1</h2></a>
+      <a class="text-info text-decoration-none" href="<?=base_url()?>/studentresult/<?= $project['studentID']?>"><h2><?= $project['moduleName']?></h2></a>
       <p>Project Leader</p>
-      <p>Members:</p>
+      <p>Assigned member: <?= $project['fullname']?></p>
     </div>
+    <?php endif; ?>
 
   </div>
 </div>

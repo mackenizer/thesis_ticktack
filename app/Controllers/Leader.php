@@ -9,7 +9,7 @@ use App\Models\ProjectViewModel;
 
 class Leader extends BaseController
 {
-	public function index()
+	public function index($id = null)
 	{
 		$data = [];
 		$data['leader'] = 'Dashboard';
@@ -22,6 +22,13 @@ class Leader extends BaseController
 
 		// $data['module'] = $module->where('projectID', session()->get('projectID'))
 		// 		->findall();
+
+		if($id!=null){
+			
+			
+			$data['module'] = $project->where('projectID', $id)
+				->first();
+		}
 
 		
 
@@ -108,9 +115,25 @@ class Leader extends BaseController
         echo view('templates/leaderfooter');
 	}
 
-	public function resultmodule(){
+	public function resultmodule($id = null){
 		$data = [];
 		$data['leader'] = 'Project Details';
+
+		$project = new ProjectViewModel();
+		$module = new ModuleModel();
+		$model1 = new ModuleViewModel();
+
+		if($id!=null){
+			
+			
+			$data['project'] = $project->where('projectID', $id)
+				->first();
+
+			
+			$data['module'] = $model1->where('studentID', $id)
+				->first();
+		}
+
 
 		
 

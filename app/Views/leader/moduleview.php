@@ -59,12 +59,12 @@
                 <?php endif; ?>
         <?php if(!$project == null) :?>
         <h3>Project Name:  <?= $project['projectTitle']?></h3>
+        <p>Adviser:  <?= $project['adviser_fullname']?></p>
         <p>Project Leader: <?= $project['Fulllname']?></p>
         <a class="text-info text-decoration-none" href="#gantt" data-bs-toggle="modal"><p>Gantt Chart</p></a>
          <a class="text-info text-decoration-none" href="#addTeam" data-bs-toggle="modal"><p>Add Members</p></a>
       
-    </div>
-    <?php endif; ?>
+   
     <div class="p-5">
      <p>Team Members:</p>
     <table class="table table-striped table-hover">
@@ -93,6 +93,8 @@
         <?php endif; ?>
 
     </div>
+     </div>
+    <?php endif; ?>
     <div class="modal fade" id="gantt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -122,7 +124,7 @@
               <label for="exampleInputEmail1" class="form-label">Email address</label>
               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Add</button>
           </form>
         </div>
     </div>
@@ -132,7 +134,7 @@
     <?php foreach($member as $memb): ?>
     <div class="card-view2 text-center mt-5">
       <div class="d-flex justify-content-around mt-3">
-          <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule"><p><?= $memb['moduleName']?></p></a>
+          <a class="text-info text-decoration-none" href="<?=base_url()?>/resultmodule/<?= $memb['studentID']?>"><p><?= $memb['moduleName']?></p></a>
           <p><?= $memb['fullname']?></p>
           <p>Status</p>
       </div>

@@ -6,6 +6,7 @@ use App\Models\ModuleModel;
 use App\Models\ModuleViewModel;
 use App\Models\ProjectModel;
 use App\Models\ProjectViewModel;
+use App\Models\FileUpload;
 
 class Leader extends BaseController
 {
@@ -119,9 +120,12 @@ class Leader extends BaseController
 		$data = [];
 		$data['leader'] = 'Project Details';
 
+		
+
 		$project = new ProjectViewModel();
 		$module = new ModuleModel();
 		$model1 = new ModuleViewModel();
+		$fileUpload = new FileUpload();
 
 		if($id!=null){
 			
@@ -132,6 +136,32 @@ class Leader extends BaseController
 			
 			$data['module'] = $model1->where('studentID', $id)
 				->first();
+			
+		}
+
+		if($this->request->getMethod() == 'post'){
+			$rules = [
+				'fileUpload' => 'uploaded[fileUpload]',
+			];
+			if(!$this->validate($rules)){
+				session()->setFlashdata('error', $this->validator);
+			}else{
+				$file = $this->request->getFile('fileUpload');
+				// print_r($file);
+				// exit();
+				if($file->isValid() && !$file->hasMoved()){
+					$file->move('./uploads/fileUpload', session()->get('studentID').'_'. $file->getName().'.'. $file->getExtension());
+					
+					
+				}
+				$Data = [
+					'moduleID' => $data['module']['moduleID'],
+					'studentID' => session()->get('studentID'),
+					'file' => $file->getName(),
+				];
+				$fileUpload->insert($Data);
+				return redirect()->to(base_url().'/resultmodule'.'/'.$id);
+			}
 		}
 
 
@@ -140,6 +170,29 @@ class Leader extends BaseController
         echo view('templates/leaderheader', $data);
         echo view('leader/resultmodule');
         echo view('templates/leaderfooter');
+	}
+
+	public function chat(){
+
+		$data = [];
+
+		echo view('templates/leaderheader', $data);
+        echo view('leader/leaderchat');
+        echo view('templates/leaderfooter');
+
+
+	}
+
+	public function video(){
+
+		$data = [];
+		$data['leader'] = 'Project Details';
+
+		echo view('templates/leaderheader', $data);
+        echo view('leader/video');
+        echo view('templates/leaderfooter');
+
+		
 	}
 
 	

@@ -77,17 +77,12 @@
 </div>
 
 <script>
-    $('#imageUpload').change(function() {
-  readImgUrlAndPreview(this);
-
-  function readImgUrlAndPreview(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $('#imagePreview').removeClass('hide').attr('src', e.target.result);
-      }
+   var conn = new WebSocket('ws://localhost:8080');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
     };
-    reader.readAsDataURL(input.files[0]);
-  }
-});
+
+    conn.onmessage = function(e) {
+        console.log(e.data);
+    };
 </script>

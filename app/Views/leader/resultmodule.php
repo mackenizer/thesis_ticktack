@@ -1,5 +1,8 @@
 
 <div class="container-fluid">
+<?php $uri = service('uri'); 
+
+?>
   <!-- Sidebar -->
   <div class="sidebar">
     <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="/assets/images/nancy.jpg" data-holder-rendered="true" id="img">
@@ -52,19 +55,20 @@
         </div>
         <?php endif; ?>
         <div class="card-viewact p-4 m-3">
-            <form action="">
+            <form method="post" action="<?= base_url()?>/resultmodule/<?= $uri->getSegment(2) ?>" enctype="multipart/form-data">
                 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Add comment" aria-label="Recipient's username with two button addons">
-                    <button class="btn btn-outline-secondary" type="button"><span><i class="fas fa-paper-plane"></i></span></button>
+                    
                     <div clas="file_input_wrap">
-                        <input type="file" name="imageUpload" id="imageUpload" class="hide" />
+                        <input type="file" name="fileUpload" id="imageUpload" class="hide" />
                         <label for="imageUpload" class="btn1 btn-large btn-outline-secondary"><span><i class="fas fa-paperclip"></i></span></label>
+                        <button class="btn btn-outline-secondary" type="submit"><span><i class="fas fa-paper-plane"></i></span></button>
                         </div>
                         
                 </div>
             </form>
-            <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia vitae aliquam delectus inventore maiores, corporis libero voluptatum earum necessitatibus unde nostrum saepe quibusdam nemo magnam reprehenderit recusandae harum? Quae, consequatur?</p>
+            
        
         </div>
         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4 me-4">
@@ -79,7 +83,7 @@
 
 <script>
     $('#imageUpload').change(function() {
-  readImgUrlAndPreview(this);
+    readImgUrlAndPreview(this);
 
   function readImgUrlAndPreview(input) {
     if (input.files && input.files[0]) {

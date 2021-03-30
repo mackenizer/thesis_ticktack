@@ -59,11 +59,11 @@
                 
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Add comment" aria-label="Recipient's username with two button addons">
-                    
+                    <button class="btn btn-outline-secondary" type="submit"><span><i class="fas fa-paper-plane"></i></span></button>
                     <div clas="file_input_wrap">
                         <input type="file" name="fileUpload" id="imageUpload" class="hide" />
                         <label for="imageUpload" class="btn1 btn-large btn-outline-secondary"><span><i class="fas fa-paperclip"></i></span></label>
-                        <button class="btn btn-outline-secondary" type="submit"><span><i class="fas fa-paper-plane"></i></span></button>
+                        
                         </div>
                         
                 </div>

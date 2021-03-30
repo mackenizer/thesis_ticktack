@@ -6,7 +6,7 @@
             <div class="col-4">
                 <div class="text-center pb-5"></br>
                 <h1>Create Account</h1>
-                <span>Already have account? You can <a href="/">Login</a> here</span>
+                <span>Already have account?  <a href="/" class="text-decoration-none">Login here</a></span>
                 </div>
                 
                 <div class="d-flex justify-content-center">
@@ -49,7 +49,7 @@
                          </div>
                         <div class="form-check form-check-inline">
                             <input type="checkbox" name="agreement" id="agreement" class="form-check-input" required>
-                            <label for="agreement" class="form-check-label">I agree <a href="#">term, condition and policy</a></label>
+                            <label for="agreement" class="form-check-label">I agree <a href="#" class="text-decoration-none">term, condition and policy</a></label>
                         </div>
 
                         <?php if(isset($validation)): ?>

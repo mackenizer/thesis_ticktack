@@ -35,7 +35,7 @@ class Student extends BaseController
 
         echo view('templates/studentheader', $data);
         echo view('student/dashboard');
-        echo view('templates/studentfooter');
+        echo view('templates/footer');
 	}
 
 	public function moduleteam()
@@ -56,7 +56,7 @@ class Student extends BaseController
 
         echo view('templates/studentheader', $data);
         echo view('student/moduleteam');
-        echo view('templates/studentfooter');
+        echo view('templates/footer');
 	}
 
 	public function studentmodule()
@@ -68,7 +68,7 @@ class Student extends BaseController
 
         echo view('templates/studentheader', $data);
         echo view('student/studentmodule');
-        echo view('templates/studentfooter');
+        echo view('templates/footer');
 	}
 
 	
@@ -89,6 +89,6 @@ class Student extends BaseController
 
         echo view('templates/studentheader', $data);
         echo view('student/studentresult');
-        echo view('templates/studentfooter');
+        echo view('templates/footer');
 	}
 }

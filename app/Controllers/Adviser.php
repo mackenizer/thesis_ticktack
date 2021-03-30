@@ -27,7 +27,7 @@ class Adviser extends BaseController
 
         echo view('templates/adminheader', $data);
         echo view('adviser/dashboardd');
-        echo view('templates/adminfooter');
+        echo view('templates/footer');
 	}
 
 	
@@ -41,7 +41,7 @@ class Adviser extends BaseController
 
         echo view('templates/adminheader', $data);
         echo view('adviser/addteam');
-        echo view('templates/adminfooter');
+        echo view('templates/footer');
 	}
 
 	public function viewteam($id = null){
@@ -66,7 +66,7 @@ class Adviser extends BaseController
 
         echo view('templates/adminheader', $data);
         echo view('adviser/viewteam');
-        echo view('templates/adminfooter');
+        echo view('templates/footer');
 	}
 
 	public function viewmodule($id = null){
@@ -86,7 +86,7 @@ class Adviser extends BaseController
 
         echo view('templates/adminheader', $data);
         echo view('adviser/viewmodule');
-        echo view('templates/adminfooter');
+        echo view('templates/footer');
 	}
 
 	

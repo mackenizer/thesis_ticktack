@@ -35,12 +35,13 @@
                     <h5>Password</h5>
                   
                     <input type="password" name="password" class="input" placeholder="Password" required>
+                    
                 </div>
             </div>
             
           
 
-            <a href="" class="forgot">Forgot Password?</a>
+            <a href="" class="forgot text-decoration-none">Forgot Password?</a>
             <?php if(isset($validation)): ?>
                         <div class="col-12">
                             <div class="alert alert-danger" role="alert">
@@ -63,10 +64,15 @@
             
             <input type="submit" class="btn" value="Login">
             
-            <a href="/register" class="signup">Don't have account yet?</a>
+            <a href="/register" class="signup  text-decoration-none">Don't have account yet?</a>
 
         </form>
     </div>
 
     
 </div>
+
+
+<script>
+
+</script>

@@ -4,13 +4,13 @@ class Chat extends BaseController
 {
 	public function index()
 	{
-		$data = [];
+		// $data = [];
 
-        $data['leader'] = 'Project Details';
+        // $data['leader'] = 'Chat';
 
-		echo view('templates/leaderheader', $data);
-        echo view('leader/chat');
-        echo view('templates/leaderfooter');
+		// echo view('templates/newheader', $data);
+        // echo view('leader/chat');
+        // echo view('templates/footer');
 	}
 
 	

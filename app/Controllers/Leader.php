@@ -37,7 +37,7 @@ class Leader extends BaseController
 
         echo view('templates/leaderheader', $data);
         echo view('leader/dashboard');
-        echo view('templates/leaderfooter');
+        echo view('templates/footer');
 	}
 
 
@@ -91,7 +91,7 @@ class Leader extends BaseController
 
         echo view('templates/leaderheader', $data);
         echo view('leader/addmodule');
-        echo view('templates/leaderfooter');
+        echo view('templates/footer');
 	}
 
 	public function moduleview(){
@@ -113,7 +113,7 @@ class Leader extends BaseController
 
         echo view('templates/leaderheader', $data);
         echo view('leader/moduleview');
-        echo view('templates/leaderfooter');
+        echo view('templates/footer');
 	}
 
 	public function resultmodule($id = null){
@@ -169,16 +169,17 @@ class Leader extends BaseController
 
         echo view('templates/leaderheader', $data);
         echo view('leader/resultmodule');
-        echo view('templates/leaderfooter');
+        echo view('templates/footer');
 	}
 
 	public function chat(){
 
 		$data = [];
+		$data['leader'] = 'Chat';
 
-		echo view('templates/leaderheader', $data);
-        echo view('leader/leaderchat');
-        echo view('templates/leaderfooter');
+		echo view('templates/newheader', $data);
+        echo view('leader/chat');
+        echo view('templates/footer');
 
 
 	}
@@ -190,7 +191,7 @@ class Leader extends BaseController
 
 		echo view('templates/leaderheader', $data);
         echo view('leader/video');
-        echo view('templates/leaderfooter');
+        echo view('templates/footer');
 
 		
 	}

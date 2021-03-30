@@ -43,6 +43,7 @@ $routes->post('AddMembers', 'AddMembers::index');
 $routes->get('leader', 'Leader::index', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'addmodule', 'Leader::addmodule', ['filter' => 'auth']);
 $routes->get('moduleview', 'Leader::moduleview', ['filter' => 'auth']);
+$routes->get('chat', 'Leader::chat', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'resultmodule/(:any)', 'Leader::resultmodule/$1');
 
 

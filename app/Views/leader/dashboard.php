@@ -16,6 +16,9 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/moduleview"><i class="fas fa-user-friends"></i> View Team</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>/chat"><i class="far fa-user-md-chat"></i> Chat</a>
+      </li>
       
     </ul>
   </div>

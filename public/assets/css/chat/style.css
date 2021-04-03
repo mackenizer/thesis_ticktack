@@ -209,6 +209,7 @@ h4.card-title {
 }
 
 .media-chat.media-chat-reverse .media-body p {
+  word-wrap: break-word;
   float: right;
   clear: right;
   background-color: #32be8f;
@@ -371,4 +372,16 @@ textarea {
 
 .users-list a .status-dot.offline {
   color: #ccc;
+}
+
+/* Chat Area CSS Code */
+
+.chat-area header {
+  display: flex;
+  align-items: center;
+  padding: 18px 30px;
+}
+
+.chat-box {
+  height: 500px;
 }

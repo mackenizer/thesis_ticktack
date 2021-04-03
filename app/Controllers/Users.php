@@ -112,6 +112,7 @@ class Users extends BaseController
             'lastname' => $user['lastname'],
             'email' => $user['email'],
             'projectID' => $user['projectID'],
+            'status' => $user['status'],
 
             'isLoggedIn' => true, 
         ];
@@ -128,6 +129,7 @@ class Users extends BaseController
             'firstname' => $user['firstname'],
             'lastname' => $user['lastname'],
             'email' => $user['email'],
+            'status' => $user['status'],
             'isLoggedIn' => true, 
         ];
 
@@ -153,7 +155,13 @@ class Users extends BaseController
 
     public function logout(){
 
+        // $model = new AdviserModel();
+        // $model1 = new StudentModel();
+
+
+        // $user['status'] == 'Offline';
         session()->destroy();
+
         return redirect()->to('/');
         
     }
@@ -171,6 +179,7 @@ class Users extends BaseController
                 'password' => 'required|min_length[8]|max_length[255]',
                 'repass' => 'matches[password]',
                 'role' => 'required',
+                
             ];
 
             if(!$this->validate($rules)){
@@ -187,6 +196,7 @@ class Users extends BaseController
                     'lastname' => $this->request->getVar('lastname'),
                     'email' => $this->request->getVar('email'),
                     'password' => $this->request->getVar('password'),
+                    'status' => 'Active now',
                     
   
                 ];

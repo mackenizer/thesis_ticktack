@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class StudentModel extends Model{
     protected $table = 'students';
     protected $primaryKey = 'studentID';
-    protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'leader', 'projectID', 'updated_at'];
+    protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'leader', 'projectID', 'status', 'updated_at'];
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
 

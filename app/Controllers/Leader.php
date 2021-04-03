@@ -172,13 +172,48 @@ class Leader extends BaseController
         echo view('templates/footer');
 	}
 
-	public function chat(){
+	public function chat($id = null){
+
+		$data = [];
+		$data['leader'] = 'Chat';
+
+		$users = new ModuleViewModel();
+
+		$data['user'] = $users->where('projectID', session()->get('projectID'))
+				->first();
+
+		$data['display'] = $users->where('projectID', session()->get('projectID'))
+				->findall();
+
+		// $data['display'] = $users->where('studentID', session()->get('projectID'))
+		// 		->first();
+
+		if($id!=null){
+			
+			
+			// $data['users'] = $project->where('projectID', $id)
+			// 	->first();
+
+			
+			$data['display'] = $users->where('projectID', $id)
+				->first();
+			
+		}
+
+		echo view('templates/newheader', $data);
+        echo view('leader/chat');
+        echo view('templates/footer');
+
+
+	}
+
+	public function userschat(){
 
 		$data = [];
 		$data['leader'] = 'Chat';
 
 		echo view('templates/newheader', $data);
-        echo view('leader/chat');
+        echo view('leader/userschat');
         echo view('templates/footer');
 
 

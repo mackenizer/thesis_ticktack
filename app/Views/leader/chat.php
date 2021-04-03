@@ -47,178 +47,48 @@
   </div>
   <!-- Main body -->
   <div class="main">
-      <div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-            <div class="col-md-6">
-                <div class="cardd card-bordered">
-                    <div class="card-header">
-                        <span class="card-title"><strong>Name sa imong imessage</strong></span> <a class="btn btn-xs btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#" data-abc="true">Active Friends</a>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <span class="modal-title" id="staticBackdropLabel">Friends</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="wrapper modal-body">
-                            <section class="users">
-                                <header>
-                                  <div class="content">
-                                    <img class="img" src="/assets/images/nancy.jpg" alt="">
-                                    <div class="details p-2">
-                                      <span>Mark Achacoso</span>
-                                      <p>Active now</p>
-                                    </div>
-                                  </div>
-                                </header>
-                                <div class="users-list mt-4">
-                                  <a href="" class="text-decoration-none">
-                                    <div class="content">
-                                      <img class="img"  src="/assets/images/nancy.jpg" alt="">
-                                      <div class="details">
-                                        <span>Mark Achacoso</span>
-                                        <p>This is message</p>
-                                      </div>
-                                </div>
-                                <div class="status-dot"><i class="fas fa-circle"></i></div>
-                                </a>
-                                <a href="" class="text-decoration-none">
-                                    <div class="content">
-                                      <img class="img"  src="/assets/images/nancy.jpg" alt="">
-                                      <div class="details">
-                                        <span>Mark Achacoso</span>
-                                        <p>This is message</p>
-                                      </div>
-                                </div>
-                                <div class="status-dot"><i class="fas fa-circle"></i></div>
-                                </a>
-                                <a href="" class="text-decoration-none">
-                                    <div class="content">
-                                      <img class="img"  src="/assets/images/nancy.jpg" alt="">
-                                      <div class="details">
-                                        <span>Mark Achacoso</span>
-                                        <p>This is message</p>
-                                      </div>
-                                </div>
-                                <div class="status-dot"><i class="fas fa-circle"></i></div>
-                                </a>
-                                <a href="" class="text-decoration-none">
-                                    <div class="content">
-                                      <img class="img"  src="/assets/images/nancy.jpg" alt="">
-                                      <div class="details">
-                                        <span>Mark Achacoso</span>
-                                        <p>This is message</p>
-                                      </div>
-                                </div>
-                                <div class="status-dot"><i class="fas fa-circle"></i></div>
-                                </a>
-                                <a href="" class="text-decoration-none">
-                                    <div class="content">
-                                      <img class="img"  src="/assets/images/nancy.jpg" alt="">
-                                      <div class="details">
-                                        <span>Mark Achacoso</span>
-                                        <p>This is message</p>
-                                      </div>
-                                </div>
-                                <div class="status-dot"><i class="fas fa-circle"></i></div>
-                                </a>
-                                <a href="" class="text-decoration-none">
-                                    <div class="content">
-                                      <img class="img"  src="/assets/images/nancy.jpg" alt="">
-                                      <div class="details">
-                                        <span>Mark Achacoso</span>
-                                        <p>This is message</p>
-                                      </div>
-                                </div>
-                                <div class="status-dot"><i class="fas fa-circle"></i></div>
-                                </a>
-                            </section>
-                            
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Hi</p>
-                                <p>How are you ...???</p>
-                                <p>What are you doing tomorrow?<br> Can we come up a bar?</p>
-                                <p class="meta"><time datetime="2018">23:58</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-meta-day">Today</div>
-                        <div class="media media-chat media-chat-reverse">
-                            <div class="media-body">
-                                <p>Hiii, I'm good.</p>
-                                <p>How are you doing?</p>
-                                <p>Long time no see! Tomorrow office. will be free on sunday.</p>
-                                <p class="meta"><time datetime="2018">00:06</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Okay</p>
-                                <p>We will go on sunday? </p>
-                                <p class="meta"><time datetime="2018">00:07</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat media-chat-reverse">
-                            <div class="media-body">
-                                <p>That's awesome!</p>
-                                <p>I will meet you Sandon Square sharp at 10 AM</p>
-                                <p>Is that okay?</p>
-                                <p class="meta"><time datetime="2018">00:09</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Okay i will meet you on Sandon Square </p>
-                                <p class="meta"><time datetime="2018">00:10</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat media-chat-reverse">
-                            <div class="media-body">
-                                <p>Do you have pictures of Matley Marriage?</p>
-                                <p class="meta"><time datetime="2018">00:10</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat"> <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <div class="media-body">
-                                <p>Sorry I don't have. i changed my phone.</p>
-                                <p class="meta"><time datetime="2018">00:12</time></p>
-                            </div>
-                        </div>
-                        <div class="media media-chat media-chat-reverse">
-                            <div class="media-body">
-                                <p>Okay then see you on sunday!!</p>
-                                <p class="meta"><time datetime="2018">00:12</time></p>
-                            </div>
-                        </div>
-                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                        </div>
-                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
-                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
-                        </div>
-                    </div>
-                    <div class="publisher bt-1 border-light"> <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="..."> <input class="publisher-input" type="text" placeholder="Write something"> <span class="publisher-btn file-group"> <i class="fa fa-paperclip file-browser"></i> <input type="file"> </span> <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a> <a class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a> </div>
-                </div>
-            </div>
+ 
+    <div class="wrapper mt-4">
+    <section class="users">
+      
+      <header>
+        
+        <div class="content">
+         <?php if(!$user == null) :?>
+          <img src="/assets/images/nancy.jpg" alt="">
+          <div class="details">
+            
+            <span><?= $user['fullname']?></span>
+            <p><?= $user['status']?></p>
+          </div>
         </div>
+        <?php endif; ?>
+      </header>
+      <?php if(!$display == null) :?>
+      <?php foreach($display as $disp): ?>
+      <div class="users-list">
+        <a href="<?=base_url()?>/userschat">
+          <div class="content">
+            <img src="/assets/images/nancy.jpg" alt="">
+             <div class="details">
+               <span><?= $disp['fullname']?></span>
+                <p>Test Message</p>
+            </div>
+          </div>
+          <div class="status-dot"><i class="fas fa-circle"></i></div>
+        </a>
+        
+      </div>
+      <?php endforeach; ?>
+      <?php endif; ?>
+
+    </section>
     </div>
-</div>
-  
+ 
   </div>
 </div>
 
+ 
 
 
   

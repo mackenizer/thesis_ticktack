@@ -1,5 +1,9 @@
 
 <div class="container-fluid">
+<?php $uri = service('uri'); 
+
+
+?>
   <!-- Sidebar -->
   <div class="sidebar">
     <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="/assets/images/nancy.jpg" data-holder-rendered="true" id="img">
@@ -53,10 +57,14 @@
       <header>
           <a href="<?=base_url()?>/chat" class="back-icon"><i class="fas fa-arrow-left"></i></a>
           <img src="/assets/images/nancy.jpg" alt="">
+          <?php if(!$chatuser == null) :?>
+          
+          
           <div class="details">
-            <span>Mark Achacoso</span>
-            <p>Active now</p>
+            <span><?= $chatuser['fullname']?></span>
+            <p><?= $chatuser['status']?></p>
           </div>
+          <?php endif; ?>
       </header>
       <div class="chat-box">
           <div class="chat outgoing">
@@ -70,33 +78,16 @@
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
               </div>
           </div>
-          <div class="chat outgoing">
-              <div class="details">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-              </div>
-          </div>
-           <div class="chat incoming">
-               <img src="/assets/images/nancy.jpg" alt="">
-              <div class="details">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-              </div>
-          </div>
-          <div class="chat outgoing">
-              <div class="details">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-              </div>
-          </div>
-           <div class="chat incoming">
-               <img src="/assets/images/nancy.jpg" alt="">
-              <div class="details">
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-              </div>
-          </div>
+          
       </div>
-      <form action="" class="typing-area">
-          <input type="text" name="" id="" placeholder="Send a message...">
-          <button><i class="fab fa-telegram-plane"></i></button>
+      
+      <form method="post" action="<?= base_url()?>/userschat/<?= $uri->getSegment(2) ?>" class="typing-area" autocomplete="off">
+         <input type="text" name="outgoing_msg_id" value="<?= $chatuser['studentID'] ?>" hidden>
+          <input type="text" name="incoming_msg_id" value="<?php echo session()->get('studentID') ?>" hidden>
+          <input type="text" name="msg" class="input-field" id="" placeholder="Send a message...">
+          <button type="submit"><i class="fab fa-telegram-plane"></i></button>
       </form>
+    
     </section>
     </div>
  

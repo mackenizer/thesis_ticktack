@@ -67,7 +67,7 @@
       <?php if(!$display == null) :?>
       <?php foreach($display as $disp): ?>
       <div class="users-list">
-        <a href="<?=base_url()?>/userschat">
+        <a href="<?=base_url()?>/userschat/<?= $disp['studentID']?>">
           <div class="content">
             <img src="/assets/images/nancy.jpg" alt="">
              <div class="details">

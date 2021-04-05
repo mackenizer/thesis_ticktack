@@ -7,6 +7,7 @@ use App\Models\ModuleViewModel;
 use App\Models\ProjectModel;
 use App\Models\ProjectViewModel;
 use App\Models\FileUpload;
+use App\Models\MessageModel;
 
 class Leader extends BaseController
 {
@@ -172,7 +173,7 @@ class Leader extends BaseController
         echo view('templates/footer');
 	}
 
-	public function chat($id = null){
+	public function chat(){
 
 		$data = [];
 		$data['leader'] = 'Chat';
@@ -188,17 +189,17 @@ class Leader extends BaseController
 		// $data['display'] = $users->where('studentID', session()->get('projectID'))
 		// 		->first();
 
-		if($id!=null){
+		// if($id!=null){
 			
 			
-			// $data['users'] = $project->where('projectID', $id)
-			// 	->first();
+		// 	// $data['users'] = $project->where('projectID', $id)
+		// 	// 	->first();
 
 			
-			$data['display'] = $users->where('projectID', $id)
-				->first();
+		// 	$data['display'] = $users->where('projectID', $id)
+		// 		->first();
 			
-		}
+		// }
 
 		echo view('templates/newheader', $data);
         echo view('leader/chat');
@@ -207,10 +208,64 @@ class Leader extends BaseController
 
 	}
 
-	public function userschat(){
+	public function userschat($id = null){
 
 		$data = [];
+		helper(['form']);
 		$data['leader'] = 'Chat';
+		$chat = new ModuleViewModel();
+		
+		
+
+		if($id!=null){
+			
+
+			
+			$data['chatuser'] = $chat->where('studentID', $id)
+				->first();
+				
+
+				
+
+			
+
+			// $data['users'] = $chatmsg->where('studentID', $id)
+			// 	->first();
+			
+		}
+
+		if($this->request->getMethod() == 'post'){
+			$rules = [
+                'message' => 'required',
+                
+            ];
+			if(!$this->validate($rules)){
+                $data['validation'] = $this->validator;
+            }else{ 
+
+				$message = new MessageModel();
+				
+
+				
+                $newData = [
+                    'incoming_msg_id' => session()->get('studentID'),
+                    'outgoing_msg_id' => $data['chatuser']['studentID'],
+                    'msg' => $this->request->getVar('msg'),
+                   
+                    
+  
+                ];
+				
+
+				$message->insert($newData);
+
+				return redirect()->to(base_url().'/userschat'.'/'.$id);
+
+
+				
+			}
+
+		}
 
 		echo view('templates/newheader', $data);
         echo view('leader/userschat');

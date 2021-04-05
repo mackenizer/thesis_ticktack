@@ -44,7 +44,7 @@ $routes->get('leader', 'Leader::index', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'addmodule', 'Leader::addmodule', ['filter' => 'auth']);
 $routes->get('moduleview', 'Leader::moduleview', ['filter' => 'auth']);
 $routes->get('chat', 'Leader::chat', ['filter' => 'auth']);
-$routes->get('userschat', 'Leader::userschat', ['filter' => 'auth']);
+$routes->match(['get', 'post'],'userschat/(:any)', 'Leader::userschat/$1', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'resultmodule/(:any)', 'Leader::resultmodule/$1');
 
 

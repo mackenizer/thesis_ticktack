@@ -5,19 +5,19 @@
     <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic')?>" data-holder-rendered="true" id="img">
     <ul class="nav flex-column nav-pills">
       
-      <li class="nav-item">
-      
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/leader"><i class="fas fa-home"></i> Dashboard</a>
-      
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addmodule"><i class="fas fa-tasks"></i> Add Module</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/moduleview"><i class="fas fa-user-friends"></i> View Team</a>
-      </li>
        <li class="nav-item">
-        <a class="nav-link active" href="<?=base_url()?>/chat"><i class="far fa-user-md-chat"></i> Chat</a>
+      
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/student"><i class="fas fa-home"></i> Dashboard</a>
+      
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>/studentmodule"><i class="fas fa-tasks"></i> View Task</a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>/moduleteam"><i class="fas fa-user-friends"></i> My Team</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="<?=base_url()?>/studentchat"><i class="far fa-user-md-chat"></i> Chat</a>
       </li>
       
     </ul>
@@ -55,7 +55,7 @@
         <div class="modal-body">
            
         </div>
-          <form class="p-5 pt-0" method="post" action="<?=base_url()?>/leader" enctype="multipart/form-data">
+          <form class="p-5 pt-0" method="post" action="<?=base_url()?>/student" enctype="multipart/form-data">
             <div class="mb-3">
               <div class="row">
               <div class="mb-3">
@@ -88,7 +88,7 @@
           <img src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic')?>" alt="">
           <div class="details">
             
-            <span><?= $user['fullname']?></span>
+            <span><?php echo session()->get('firstname').' '. session()->get('lastname') ?></span>
             <p><?= $user['status']?></p>
           </div>
         </div>
@@ -96,9 +96,9 @@
       </header>
       <?php if(!$display == null) :?>
       <?php foreach($display as $disp): ?>
-     
+      <?php if($disp['studentID'] != session()->get('outgoing_msg_id') ) :?>
       <div class="users-list">
-        <a href="<?=base_url()?>/userschat/<?= $disp['studentID']?>">
+        <a href="<?=base_url()?>/userstudentchat/<?= $disp['studentID']?>">
           <div class="content">
             <img src="<?=base_url()?>/uploads/addPic/<?=$disp['pic']?>" alt="">
              <div class="details">
@@ -110,10 +110,9 @@
         </a>
         
       </div>
-    
+      <?php endif; ?>
       <?php endforeach; ?>
       <?php endif; ?>
-
 
     </section>
     </div>

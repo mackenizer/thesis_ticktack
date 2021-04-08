@@ -8,6 +8,7 @@ use App\Models\ProjectModel;
 use App\Models\ProjectViewModel;
 use App\Models\FileUpload;
 use App\Models\MessageModel;
+use App\Models\ViewMessages;
 
 class Leader extends BaseController
 {
@@ -18,6 +19,7 @@ class Leader extends BaseController
 
 		$module = new ModuleViewModel();
 		$project = new ProjectViewModel();
+		$studentModel = new StudentModel();
 		
 		$data['module'] = $module->where('studentID', session()->get('studentID'))
 			->first();
@@ -31,6 +33,50 @@ class Leader extends BaseController
 			$data['module'] = $project->where('projectID', $id)
 				->first();
 		}
+
+		if($this->request->getMethod() == 'post'){
+			$rules = [
+				'addPic' => 'uploaded[addPic]|is_image[addPic]',
+				
+			];
+			if(!$this->validate($rules)){
+				session()->setFlashdata('error', $this->validator);
+			}else{
+				$student = $this->request->getFile('addPic');
+				// print_r($file);
+				// exit();
+				if($student->isValid() && !$student->hasMoved()){
+					$student->move('./uploads/addPic', session()->get('studentID').'_'. $student->getName());
+					
+					
+				}
+				
+				$Data = [
+		
+					'studentID' => session()->get('studentID'),
+					'pic' => $student->getName(),
+				];
+				
+				$studentModel->save($Data);
+
+				$stud = $studentModel->where('studentID', session()->get('studentID'))
+				->first();
+
+				
+
+				 $data = [
+					'pic' => $stud['pic'],
+					
+				];
+				
+
+       			 session()->set($data);
+
+				return redirect()->to('leader');
+			}
+		}
+
+		
 
 		
 
@@ -128,6 +174,10 @@ class Leader extends BaseController
 		$model1 = new ModuleViewModel();
 		$fileUpload = new FileUpload();
 
+		
+
+		
+
 		if($id!=null){
 			
 			
@@ -137,12 +187,16 @@ class Leader extends BaseController
 			
 			$data['module'] = $model1->where('studentID', $id)
 				->first();
+
+			$data['files'] = $fileUpload->where('studentID', $id)
+				->findall();
 			
 		}
 
 		if($this->request->getMethod() == 'post'){
 			$rules = [
 				'fileUpload' => 'uploaded[fileUpload]',
+				'description' => 'required',
 			];
 			if(!$this->validate($rules)){
 				session()->setFlashdata('error', $this->validator);
@@ -151,18 +205,25 @@ class Leader extends BaseController
 				// print_r($file);
 				// exit();
 				if($file->isValid() && !$file->hasMoved()){
-					$file->move('./uploads/fileUpload', session()->get('studentID').'_'. $file->getName().'.'. $file->getExtension());
+					$file->move('./uploads/fileUpload', $file->getName());
 					
 					
 				}
+				
 				$Data = [
 					'moduleID' => $data['module']['moduleID'],
 					'studentID' => session()->get('studentID'),
 					'file' => $file->getName(),
+					'description' => $this->request->getVar('description'),
 				];
 				$fileUpload->insert($Data);
 				return redirect()->to(base_url().'/resultmodule'.'/'.$id);
 			}
+
+			$this->load->helper('download');
+
+			
+			force_download('./uploads/fileUpload', null);
 		}
 
 
@@ -173,12 +234,31 @@ class Leader extends BaseController
         echo view('templates/footer');
 	}
 
-	public function chat(){
+	public function download($id){
+
+		
+			
+			$this->load->helper('download');
+
+			
+			force_download('./uploads/fileUpload', null);
+			
+			
+			
+		
+
+	}
+
+	public function chat($id = null){
 
 		$data = [];
 		$data['leader'] = 'Chat';
 
 		$users = new ModuleViewModel();
+		$message = new ViewMessages();
+		$message = new MessageModel();
+
+		$data['mess'] = $message->findall();
 
 		$data['user'] = $users->where('projectID', session()->get('projectID'))
 				->first();
@@ -186,20 +266,33 @@ class Leader extends BaseController
 		$data['display'] = $users->where('projectID', session()->get('projectID'))
 				->findall();
 
+		$data['mess'] = $message->where('incoming_msg_id', session()->get('incoming_msg_id'))
+				->findall();
+		// $data['pics'] = $users->where('projectID', session()->get('projectID'))
+		// 		->first();
+
+
+
+		// echo $data['display']['pic'];
+		// exit();
+
 		// $data['display'] = $users->where('studentID', session()->get('projectID'))
 		// 		->first();
+		
 
-		// if($id!=null){
+		if($id!=null){
 			
 			
-		// 	// $data['users'] = $project->where('projectID', $id)
-		// 	// 	->first();
+			// $data['users'] = $project->where('projectID', $id)
+			// 	->first();
 
 			
-		// 	$data['display'] = $users->where('projectID', $id)
-		// 		->first();
+			$data['pics'] = $users->where('studentID', $id)
+				->findall();
+
 			
-		// }
+			
+		}
 
 		echo view('templates/newheader', $data);
         echo view('leader/chat');
@@ -215,7 +308,14 @@ class Leader extends BaseController
 		$data['leader'] = 'Chat';
 		$chat = new ModuleViewModel();
 		
+		$message = new MessageModel();
 		
+		
+		
+		
+				// echo $data['mess']['msg'];
+				// exit();
+	
 
 		if($id!=null){
 			
@@ -223,10 +323,20 @@ class Leader extends BaseController
 			
 			$data['chatuser'] = $chat->where('studentID', $id)
 				->first();
+
+			$data['mess'] = $message->findall();
+
+			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
+			// 	->findall();
+			
+				
+			 
+
+			
 				
 
 				
-
+			
 			
 
 			// $data['users'] = $chatmsg->where('studentID', $id)
@@ -236,28 +346,39 @@ class Leader extends BaseController
 
 		if($this->request->getMethod() == 'post'){
 			$rules = [
-                'message' => 'required',
+                'msg' => 'required',
                 
             ];
 			if(!$this->validate($rules)){
                 $data['validation'] = $this->validator;
+
+				
             }else{ 
 
-				$message = new MessageModel();
+				
 				
 
 				
-                $newData = [
+                $data2 = [
                     'incoming_msg_id' => session()->get('studentID'),
                     'outgoing_msg_id' => $data['chatuser']['studentID'],
                     'msg' => $this->request->getVar('msg'),
+
                    
                     
   
                 ];
 				
+				
+				session()->set($data2);	
+				$message->insert($data2);
 
-				$message->insert($newData);
+
+				 
+				
+				
+
+				
 
 				return redirect()->to(base_url().'/userschat'.'/'.$id);
 

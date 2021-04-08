@@ -3,6 +3,7 @@
 use App\Models\UserModel;
 use App\Models\StudentModel;
 use App\Models\AdviserModel;
+use App\Models\MessageModel;
 
 class Users extends BaseController
 {
@@ -25,6 +26,7 @@ class Users extends BaseController
             }else{
                 $model = new AdviserModel();
                 $model1 = new StudentModel();
+                
 
                 $role = $this->request->getVar('role');
 
@@ -69,6 +71,7 @@ class Users extends BaseController
                             
                         
                         else{
+                            
                             $this->setStudentSession($user);
                             if($user['leader'] == 'yes'){
                                 return redirect()->to('leader');
@@ -106,6 +109,12 @@ class Users extends BaseController
 	}
 
     public function setStudentSession($user){
+
+        $messages = new MessageModel();
+        $datas = $messages->where('incoming_msg_id',$user['studentID'])
+            ->first();
+        $datas = $messages->where('outgoing_msg_id',$user['studentID'])
+            ->first();
         $data = [
             'studentID' => $user['studentID'],
             'firstname' => $user['firstname'],
@@ -113,7 +122,10 @@ class Users extends BaseController
             'email' => $user['email'],
             'projectID' => $user['projectID'],
             'status' => $user['status'],
-
+            'pic' => $user['pic'],
+            'incoming_msg_id' => $datas['incoming_msg_id'],
+            'outgoing' => $datas['outgoing_msg_id'],
+           
             'isLoggedIn' => true, 
         ];
 
@@ -130,6 +142,7 @@ class Users extends BaseController
             'lastname' => $user['lastname'],
             'email' => $user['email'],
             'status' => $user['status'],
+            'pic' => $user['pic'],
             'isLoggedIn' => true, 
         ];
 

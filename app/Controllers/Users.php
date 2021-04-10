@@ -123,8 +123,8 @@ class Users extends BaseController
             'projectID' => $user['projectID'],
             'status' => $user['status'],
             'pic' => $user['pic'],
-            'incoming_msg_id' => $datas['incoming_msg_id'],
-            'outgoing' => $datas['outgoing_msg_id'],
+            // 'incoming_msg_id' => $datas['incoming_msg_id'],
+            // 'outgoing' => $datas['outgoing_msg_id'],
            
             'isLoggedIn' => true, 
         ];

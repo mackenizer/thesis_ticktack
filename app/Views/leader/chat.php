@@ -1,5 +1,10 @@
 
 <div class="container-fluid">
+
+<?php $uri = service('uri'); 
+
+
+?>
   <!-- Sidebar -->
   <div class="sidebar">
     <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic')?>" data-holder-rendered="true" id="img">
@@ -95,7 +100,9 @@
         <?php endif; ?>
       </header>
       <?php if(!$display == null) :?>
+      
       <?php foreach($display as $disp): ?>
+      <?php if($disp['studentID'] != session()->get('studentID')) :?>
      
       <div class="users-list">
         <a href="<?=base_url()?>/userschat/<?= $disp['studentID']?>">
@@ -110,9 +117,10 @@
         </a>
         
       </div>
-    
+    <?php endif; ?>
       <?php endforeach; ?>
       <?php endif; ?>
+       
 
 
     </section>

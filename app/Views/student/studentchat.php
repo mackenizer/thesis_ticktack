@@ -96,7 +96,7 @@
       </header>
       <?php if(!$display == null) :?>
       <?php foreach($display as $disp): ?>
-      <?php if($disp['studentID'] != session()->get('outgoing_msg_id') ) :?>
+      <?php if($disp['studentID'] != session()->get('studentID')) :?>
       <div class="users-list">
         <a href="<?=base_url()?>/userstudentchat/<?= $disp['studentID']?>">
           <div class="content">

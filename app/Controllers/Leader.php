@@ -255,10 +255,10 @@ class Leader extends BaseController
 		$data['leader'] = 'Chat';
 
 		$users = new ModuleViewModel();
-		$message = new ViewMessages();
+		// $message = new ViewMessages();
 		$message = new MessageModel();
 
-		$data['mess'] = $message->findall();
+		$data['mess22'] = $message->findall();
 
 		$data['user'] = $users->where('projectID', session()->get('projectID'))
 				->first();
@@ -266,8 +266,11 @@ class Leader extends BaseController
 		$data['display'] = $users->where('projectID', session()->get('projectID'))
 				->findall();
 
-		$data['mess'] = $message->where('incoming_msg_id', session()->get('incoming_msg_id'))
-				->findall();
+		
+		// print_r($data['mess']);
+		// // exit();
+		// $data['mess1'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
+		// 		->findall();
 		// $data['pics'] = $users->where('projectID', session()->get('projectID'))
 		// 		->first();
 
@@ -324,7 +327,10 @@ class Leader extends BaseController
 			$data['chatuser'] = $chat->where('studentID', $id)
 				->first();
 
-			$data['mess'] = $message->findall();
+			// $data['mess'] = $message->findall();
+
+			$data['mess'] = $message
+				->findall();
 
 			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
 			// 	->findall();

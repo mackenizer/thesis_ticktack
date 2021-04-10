@@ -100,27 +100,34 @@
      
        
       <div class="chat-box">
+      
+       <?php if(!$mess == null): ?>
+       
         <?php foreach($mess as $mes): ?>
-            <?php if($mes['incoming_msg_id'] == session()->get('incoming_msg_id')): ?>
-          <div class="chat outgoing">
+  
+             <?php if($mes['incoming_msg_id'] == session()->get('studentID') && $mes['outgoing_msg_id'] == $uri->getSegment(2) ):?>
+            <div class="chat outgoing">
               <div class="details">
                   <p><?= $mes['msg']?></p>
               </div>
               
           </div>
-
-          <?php elseif($mes['outgoing_msg_id'] == session()->get('studentID')  ):?>
-          
-           
-           <div class="chat incoming">
-               <img src="/assets/images/nancy.jpg" alt="">
+          <?php endif;?>
+                 <?php if($mes['incoming_msg_id'] == $uri->getSegment(2) && $mes['outgoing_msg_id'] == session()->get('studentID') ):?>
+              <div class="chat incoming">
+               <img src="<?=base_url()?>/uploads/addPic/<?=$chatuser['pic']?>" alt="">
               <div class="details">
                   <p><?= $mes['msg']?></p>
               </div>
+              
           </div>
-          <?php endif; ?>
+          <?php endif;?>
+        <?php endforeach;?>
+        
+       <?php else:?>
+       
           
-          <?php endforeach; ?>
+      <?php endif; ?>
       </div>
       
      

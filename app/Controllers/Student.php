@@ -169,11 +169,13 @@ class Student extends BaseController
 			$data['chatuser'] = $chat->where('studentID', $id)
 				->first();
 
-			$data['mess1'] = $message->where('incoming_msg_id', $data['chatuser']['studentID'])
+			$data['mess1'] = $message->where('incoming_msg_id',$id)
 				->findall();
 			
-			$data['mess'] = $message->where('outgoing_msg_id', $id)
+			$data['mess2'] = $message
 				->findall();
+			// $data['mess1'] = $message->where('outgoing_msg_id', $id)
+			// 	->findall();
 
 			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
 			// 	->findall();

@@ -100,33 +100,39 @@
       
        
       <div class="chat-box">
-        <?php foreach($mess1 as $mes): ?>
-            <?php if($mes['outgoing_msg_id'] == session()->get('incoming_msg_id')  ): ?>
-          <div class="chat outgoing">
+        <?php if(!$mess2 == null): ?>
+       
+        <?php foreach($mess2 as $mes): ?>
+  
+             <?php if($mes['incoming_msg_id'] == session()->get('studentID') && $mes['outgoing_msg_id'] == $uri->getSegment(2) ):?>
+            <div class="chat outgoing">
               <div class="details">
                   <p><?= $mes['msg']?></p>
               </div>
               
           </div>
-
-          <?php elseif($mes['incoming_msg_id'] == $mes['incoming_msg_id']  )  :?>
-          
-           
-           <div class="chat incoming">
-               <img src="/assets/images/nancy.jpg" alt="">
+          <?php endif;?>
+                 <?php if($mes['incoming_msg_id'] == $uri->getSegment(2) && $mes['outgoing_msg_id'] == session()->get('studentID') ):?>
+              <div class="chat incoming">
+               <img src="<?=base_url()?>/uploads/addPic/<?=$chatuser['pic']?>" alt="">
               <div class="details">
                   <p><?= $mes['msg']?></p>
               </div>
+              
           </div>
-          <?php endif; ?>
+          <?php endif;?>
+        <?php endforeach;?>
+        
+       <?php else:?>
+       
           
-          <?php endforeach; ?>
+      <?php endif; ?>
       </div>
       
      
       
       <form method="post" action="<?= base_url()?>/userstudentchat/<?= $uri->getSegment(2) ?>" class="typing-area" autocomplete="off">
-         <input type="text" name="outgoing_msg_id" value="<?= $chatuser['studentID'] ?>" hidden>
+         <input type="text" name="outgoing_msg_id" value="<?= $chatuser['studentID'] ?>"  hidden>
           <input type="text" name="incoming_msg_id" value="<?php echo session()->get('studentID') ?>" hidden>
           <input type="text" name="msg" class="input-field" id="" placeholder="Send a message...">
           <button type="submit"><i class="fab fa-telegram-plane"></i></button>

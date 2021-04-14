@@ -1,0 +1,239 @@
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
+
+import java.awt.event.*;
+import java.io.*;
+import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class JFileChooserDemo implements ActionListener{
+    JMenu fileMenu,editMenu,viewMenu;  
+    JMenu subNew;
+    JMenuItem iOpen,iSave,iSaveAs,iExit;  
+    JMenuItem iFile,iSearch; 
+    JFrame f;
+    JMenuBar mb=new JMenuBar();  
+    JFileChooser fc = new JFileChooser();
+    
+    JTextArea ta;
+    
+    String filePath="";
+      
+    public JFileChooserDemo(){  
+          
+          f= new JFrame("Menu and MenuItem Example");
+          ta = new JTextArea();
+          JScrollPane sp = new JScrollPane (ta, JScrollPane. VERTICAL_SCROLLBAR_ALWAYS, JScrollPane. HORIZONTAL_SCROLLBAR_ALWAYS);
+          
+           //construct Menu  
+       fileMenu=new JMenu("File");  
+       editMenu=new JMenu("Edit");  
+       viewMenu=new JMenu ("View");
+       
+       subNew=new JMenu("New");
+       subNew.setMnemonic(KeyEvent.VK_N);
+       
+       //construct itemMenu  
+       iOpen=new JMenuItem("Open");  
+       iSave=new JMenuItem("Save");
+       iSaveAs=new JMenuItem("Save As..."); 
+       iSaveAs.setEnabled(false);	
+       iExit=new JMenuItem("Exit");   
+       iFile= new JMenuItem("File");
+       iSearch = new JMenuItem("Search");
+
+           
+           //add itemMenu to Menu
+       subNew.add(iFile);
+       
+       fileMenu.add(subNew); 
+       fileMenu.add(iOpen); 
+       fileMenu.add(iSave);
+       fileMenu.add(iSaveAs);
+       fileMenu.add(iSearch);  
+       fileMenu.addSeparator();
+       fileMenu.add(iExit);
+       
+       //add menu to menuBar
+       mb.add(fileMenu);
+       mb.add(editMenu);
+       mb.add(viewMenu);
+             
+       f.setJMenuBar(mb);
+       f.getContentPane().add(sp);
+           
+       // Add Action Listener for event handling  
+       iOpen.addActionListener(this);  
+       iSave.addActionListener(this);   
+       iSaveAs.addActionListener(this);   	
+       iFile.addActionListener(this);
+       iExit.addActionListener(this); 
+       iSearch.addActionListener(this);     
+       
+       //define Frame
+       f.setSize(800,600);  
+       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	 
+       f.setVisible(true);  
+ }  
+     
+     //defines the action from the event specified in Action Listener
+ public void actionPerformed(ActionEvent e){
+
+
+         //******************** Click EDIT  **********************//
+
+         if (e.getSource()==iSearch){
+
+            String str = JOptionPane.showInputDialog(f,"Search Word");
+            String taText = ta.getText();
+
+             Highlighter hl = ta.getHighlighter();
+             hl.removeAllHighlights();
+             HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+             
+             Pattern p = Pattern.compile(str);
+             try {
+                 Matcher matcher = p.matcher(taText);
+                 int position = 0;
+                 while (matcher.find(position)) {
+                     int start = matcher.start();
+                     int end = matcher.end();
+                     hl.addHighlight(start, end, painter);
+                     position = end;
+                 }
+     
+             } catch (BadLocationException ex) {
+                 ex.printStackTrace();
+             }
+
+         }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      //******************** Click NEW  **********************//
+                 
+      if (e.getSource()==iFile){
+          iSaveAs.setEnabled(true);
+          filePath="";
+          ta.setEnabled(true);
+         ta.setText("");
+         f.setTitle("");
+      }			   	
+                 
+    //******************** Click OPEN  **********************//		   	
+  
+      if (e.getSource()==iOpen){
+            f.setTitle("");	
+         int status = fc.showOpenDialog(f);
+             if (status == JFileChooser.APPROVE_OPTION) {
+                 filePath = fc.getSelectedFile(). getAbsolutePath();
+                 iSaveAs.setEnabled(true);
+                     
+                 this.OpenFile(filePath);
+             }
+      }
+                  
+   //******************** Click Save **********************//	
+
+          if (e.getSource()==iSave){
+              
+              if (filePath==""){
+                  int stat = fc.showSaveDialog(f);
+                      if (stat == JFileChooser.APPROVE_OPTION) {
+                          filePath = fc.getSelectedFile().getAbsolutePath();		
+                           this.SaveFile(filePath);
+                      }
+              }
+              
+              else {
+                  this.SaveFile(filePath);
+                       
+               }
+          }		
+   //******************** Click SAVE AS **********************//	 	
+          
+      if (e.getSource()==iSaveAs){
+              fc.showSaveDialog(f);   //opens a Save file selection dialog
+                 int stat = fc.showSaveDialog(f);
+                     if (stat == JFileChooser.APPROVE_OPTION) {
+                         filePath = fc.getSelectedFile().getAbsolutePath();      
+                         this.SaveFile(filePath);
+                     }
+          
+          }//end of iFile Event
+              
+         
+     
+ //******************** Click EXIT **********************//	 	
+          
+      if (e.getSource()==iExit){
+             f.dispose();
+             System.exit(0);
+      }
+     
+ } 	
+     
+
+ //******************* Opening/Reading a File METHOD ********************//
+
+    public void OpenFile(String filePath){
+
+         try{
+                 f.setTitle (filePath);
+
+                 FileInputStream in = new FileInputStream (filePath);    
+                     byte data[] = new byte [in.available()];
+                     in.read(data);
+
+                     ta.setText (new String(data));
+                     in.close();
+                     
+             }
+
+             catch(Exception ex){
+                 ex.printStackTrace();
+             }
+     } 
+
+
+
+ //******************* Saving/Writing a File METHOD********************// 
+
+ public void SaveFile(String filePath){
+     
+             try{
+                     f.setTitle(filePath);
+                     FileOutputStream writeFile = new FileOutputStream(filePath);  
+
+
+                     String dat = ta.getText().toString();  //ta --get all the text 
+                     byte data[]=dat.getBytes(); //convert the string ta into array of bytes? FileOutputStream write/read bytes
+                     writeFile.write(data);  
+                     writeFile.close();          
+                 }
+                 catch(Exception ex){
+                     ex.printStackTrace();
+                 }
+
+ }
+  
+
+ public static void main(String args[])  {  
+     new JFileChooserDemo ();  
+ }
+}

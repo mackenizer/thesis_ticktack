@@ -4,7 +4,8 @@ use CodeIgniter\Model;
 
 class AdviserModel extends Model{
     protected $table = 'adviser';
-    protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'updated_at', 'status', 'projectID'];
+    protected $primaryKey = 'adviserID';
+    protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'updated_at', 'status', 'projectID', 'pic_a'];
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
 

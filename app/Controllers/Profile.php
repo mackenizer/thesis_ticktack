@@ -45,6 +45,8 @@ class Profile extends BaseController
 					'pic' => $stud['pic'],
 					
 				];
+
+				
 				
 
        			 session()->set($data);

@@ -36,9 +36,11 @@ $routes->get('/', 'Users::index', ['filter' => 'noauth']);
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('addteam', 'Adviser::addteam', ['filter' => 'auth']);
 $routes->get('viewteam/(:any)', 'Adviser::viewteam/$1', ['filter' => 'auth']);
-$routes->get('viewmodule/(:any)', 'Adviser::viewmodule/$1', ['filter' => 'auth']);
+$routes->match(['get', 'post'], 'viewmodule/(:any)', 'Adviser::viewmodule/$1', ['filter' => 'auth']);
 $routes->post('addproject', 'AddProject::index');
 $routes->post('AddMembers', 'AddMembers::index');
+$routes->get('chatt', 'Adviser::chatt', ['filter' => 'auth']);
+$routes->match(['get', 'post'],'chatuser/(:any)', 'Adviser::chatuser/$1', ['filter' => 'auth']);
 $routes->post('profile', 'Profile::index');
 
 
@@ -48,6 +50,7 @@ $routes->get('moduleview', 'Leader::moduleview', ['filter' => 'auth']);
 $routes->get('chat', 'Leader::chat', ['filter' => 'auth']);
 
 $routes->match(['get', 'post'],'userschat/(:any)', 'Leader::userschat/$1', ['filter' => 'auth']);
+$routes->match(['get', 'post'],'adviserchat/(:any)', 'Leader::adviserchat/$1', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'resultmodule/(:any)', 'Leader::resultmodule/$1');
 
 
@@ -58,7 +61,7 @@ $routes->match(['get', 'post'], 'profile', 'Users::profile', ['filter' => 'auth'
 $routes->get('student', 'Student::index', ['filter' => 'auth']);
 $routes->get('moduleteam', 'Student::moduleteam', ['filter' => 'auth']);
 $routes->get('studentmodule', 'Student::studentmodule', ['filter' => 'auth']);
-$routes->get('studentresult/(:any)', 'Student::studentresult/$1');
+$routes->match(['get', 'post'],'studentresult/(:any)', 'Student::studentresult/$1');
 $routes->get('studentchat', 'Student::studentchat', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'userstudentchat/(:any)', 'Student::userstudentchat/$1', ['filter' => 'auth']);
 

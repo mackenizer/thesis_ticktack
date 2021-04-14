@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
 
 class ModuleViewModel extends Model{
-    protected $table = 'viewmodule';
+    protected $table = 'modulee';
     
     
 

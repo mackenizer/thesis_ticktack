@@ -78,7 +78,7 @@
   <!-- Main body -->
   <div class="main">
   <?php if(!$project == null) :?>
-    <div class="card text-center mt-5">
+    <div class="card text-center mt-4">
       <a class="text-info text-decoration-none" href="<?=base_url()?>/studentresult/<?= $project['studentID']?>"><h2><?= $project['moduleName']?></h2></a>
       <p>Project Leader</p>
       <p>Assigned member: <?= $project['fullname']?></p>

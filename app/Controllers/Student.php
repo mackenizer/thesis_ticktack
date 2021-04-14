@@ -8,6 +8,7 @@ use App\Models\ProjectModel;
 use App\Models\ProjectViewModel;
 use App\Models\MessageModel;
 use App\Models\ViewMessages;
+use App\Models\FileUpload;
 
 class Student extends BaseController
 {
@@ -83,6 +84,7 @@ class Student extends BaseController
 		$data['student'] = 'Project Details';
 
 		$module = new ModuleViewModel();
+		$fileUpload = new FileUpload();
 
 		if($id!=null){
 			
@@ -90,6 +92,45 @@ class Student extends BaseController
 			
 			$data['module'] = $module->where('studentID', $id)
 				->first();
+				
+			$data['files'] = $fileUpload->where('studentID', $id)
+				->findall();
+		}
+
+		// echo $data['module']['moduleID'];
+		// exit();
+
+		if($this->request->getMethod() == 'post'){
+			$rules = [
+				'fileUpload' => 'uploaded[fileUpload]',
+				'description' => 'required',
+			];
+			if(!$this->validate($rules)){
+				session()->setFlashdata('error', $this->validator);
+			}else{
+				$file = $this->request->getFile('fileUpload');
+				// print_r($file);
+				// exit();
+				if($file->isValid() && !$file->hasMoved()){
+					$file->move('./uploads/fileUpload', $file->getName());
+					
+					
+				}
+				
+				$Data = [
+					'moduleID' => $data['module']['moduleID'],
+					'studentID' => session()->get('studentID'),
+					'file' => $file->getName(),
+					'description' => $this->request->getVar('description'),
+				];
+				$fileUpload->insert($Data);
+				return redirect()->to(base_url().'/studentresult'.'/'.$id);
+			}
+
+			// $this->load->helper('download');
+
+			
+			// force_download('./uploads/fileUpload', null);
 		}
 
         echo view('templates/studentheader', $data);

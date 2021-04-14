@@ -1,6 +1,5 @@
 
 <div class="container-fluid">
-
 <?php $uri = service('uri'); 
 
 
@@ -84,50 +83,63 @@
   <div class="main">
  
     <div class="wrapper mt-4">
-    <section class="users">
-      
+    <section class="chat-area">
       <header>
-        
-        <div class="content">
-         <?php if(!$user == null) :?>
-          <img src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic')?>" alt="">
+      <?php if(!$chat == null) :?>
+          <a href="<?=base_url()?>/chat" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+          <img src="<?=base_url()?>/uploads/addPic/<?=$chat['pic_a']?>" alt="">
+          
+          
+          
           <div class="details">
-            
-            <span><?= $user['fullname']?></span>
-            <p><?= $user['status']?></p>
+            <span><?= $chat['adviser_name']?></span>
+           
+            <p><?= $chat['status']?></p>
           </div>
-        </div>
-        <?php endif; ?>
+          <?php endif; ?>
       </header>
-      <?php if(!$display == null) :?>
-      
-      <?php foreach($display as $disp): ?>
-      <?php if($disp['studentID'] != session()->get('studentID')) :?>
      
-      <div class="users-list">
-        <a href="<?=base_url()?>/userschat/<?= $disp['studentID']?>">
-          <div class="content">
-            <img src="<?=base_url()?>/uploads/addPic/<?=$disp['pic']?>" alt="">
-             <div class="details">
-               <span><?= $disp['fullname']?></span>
-                <p>Test Message</p>
-            </div>
-          </div>
-          <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-        
-      </div>
-    <?php endif; ?>
-      <?php endforeach; ?>
-     
-      <?php endif; ?>
        
-      <p>Adviser:</p>
-      <a class="text-decoration-none text-dark" href="<?=base_url()?>/adviserchat/<?= $disp['adviserID']?>">
-      <img src="<?=base_url()?>/uploads/addPic/<?=$disp['pic_a']?>" width="10%" alt="">
-      <span class="p-3"><?= $disp['adviser_name']?></span>
-      </a>
-
+      <div class="chat-box">
+      
+       <?php if(!$mess == null): ?>
+       
+        <?php foreach($mess as $mes): ?>
+  
+             <?php if($mes['incoming_msg_id'] == $uri->getSegment(2) && $mes['outgoing_msg_id'] == session()->get('studentID') ):?>
+            <div class="chat outgoing">
+              <div class="details">
+                  <p><?= $mes['msg']?></p>
+              </div>
+              
+          </div>
+          <?php endif;?>
+                 <?php if($mes['incoming_msg_id'] == session()->get('studentID') && $mes['outgoing_msg_id'] == $uri->getSegment(2)   ):?>
+              <div class="chat incoming">
+               <img src="<?=base_url()?>/uploads/addPic/<?=$chat['pic_a']?>" alt="">
+              <div class="details">
+                  <p><?= $mes['msg']?></p>
+              </div>
+              
+          </div>
+          <?php endif;?>
+        <?php endforeach;?>
+        
+       <?php else:?>
+       
+          
+      <?php endif; ?>
+      </div>
+      
+     
+      
+      <form method="post" action="<?= base_url()?>/adviserchat/<?= $uri->getSegment(2) ?>" class="typing-area" autocomplete="off">
+         <input type="text" name="outgoing_msg_id"  hidden>
+          <input type="text" name="incoming_msg_id"  hidden>
+          <input type="text" name="msg" class="input-field" id="" placeholder="Send a message...">
+          <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+      </form>
+    
     </section>
     </div>
  

@@ -133,8 +133,8 @@
      
       
       <form method="post" action="<?= base_url()?>/userschat/<?= $uri->getSegment(2) ?>" class="typing-area" autocomplete="off">
-         <input type="text" name="outgoing_msg_id" value="<?= $chatuser['studentID'] ?>" hidden>
-          <input type="text" name="incoming_msg_id" value="<?php echo session()->get('studentID') ?>" hidden>
+         <input type="text" name="outgoing_msg_id"  hidden>
+          <input type="text" name="incoming_msg_id"  hidden>
           <input type="text" name="msg" class="input-field" id="" placeholder="Send a message...">
           <button type="submit"><i class="fab fa-telegram-plane"></i></button>
       </form>
@@ -145,7 +145,6 @@
   </div>
 </div>
 
- 
 
 
   

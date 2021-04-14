@@ -1,15 +1,24 @@
 
 <div class="container-fluid">
+<?php $uri = service('uri'); 
+
+
+?>
   <!-- Sidebar -->
   <div class="sidebar">
-    <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic_a')?>" data-holder-rendered="true" id="img">
+    <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic')?>" data-holder-rendered="true" id="img">
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
-      <a class="nav-link" aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
+      
+      <a class="nav-link " aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
+      
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>/addteam"><i class="fas fa-tasks"></i> Add Project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="<?=base_url()?>/chatt"><i class="far fa-user-md-chat"></i> Chat</a>
       </li>
       
     </ul>
@@ -37,8 +46,7 @@
         </li>
     </ul>
   </div>
-
-  <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -70,74 +78,73 @@
     </div>
   <!-- Main body -->
   <div class="main">
-
-    <?php if(!$project == null) :?>
-    
-    <div class="ms-5 px-3 mt-5">
-        
-        <h3>Project Name: <?= $project['projectTitle']?></h3>
-        <p>Project Leader: <?= $project['Fulllname']?></p>
-        <a class="text-info text-decoration-none" href="#exampleModal" data-bs-toggle="modal"><p>Gantt Chart</p></a>
-    <div class="p-5">
-     <p>Team Members:</p>
-    <table class="table table-striped table-hover">
-          <thead>
-            <tr class="table-dark">
-              <th>Project ID</th>
-              <th>Full Name</th>
-              <th>Module Name</th>
-              <th>Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-          <?php if(!$members == null) :?>
-          <?php foreach($members as $mem): ?>
-            <tr>
-              <td><?= $mem['projectID']?></th>
-              <td><?= $mem['fullname']?></td>
-              <td><?= $mem['moduleName']?></td>
-              <td><button class="btn btn-primary">Rate</button></td>
-              
-              
-            </tr>
-             <?php endforeach; ?>
-          </tbody>
-        </table>
-        <?php endif; ?>
-
-    </div>
-    </div>
-    <?php endif; ?>
-   
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Gantt Chart</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            ...
-        </div>
-        
+ 
+    <div class="wrapper mt-4">
+    <section class="chat-area">
+      <header>
+      <?php if(!$chat == null) :?>
+          <a href="<?=base_url()?>/chatt" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+          <img src="<?=base_url()?>/uploads/addPic/<?=$chat['pic']?>" alt="">
+          
+          
+          
+          <div class="details">
+            <span><?= $chat['fullname']?></span>
            
-            
+            <p><?= $chat['status']?></p>
+          </div>
+          <?php endif; ?>
+      </header>
+     
+       
+      <div class="chat-box">
+      
+       <?php if(!$mess == null): ?>
+       
+        <?php foreach($mess as $mes): ?>
+  
+             <?php if($mes['incoming_msg_id'] == $uri->getSegment(2) && $mes['outgoing_msg_id'] == session()->get('adviserID') ):?>
+            <div class="chat outgoing">
+              <div class="details">
+                  <p><?= $mes['msg']?></p>
+              </div>
+              
+          </div>
+          <?php endif;?>
+                 <?php if($mes['incoming_msg_id'] == session()->get('adviserID') && $mes['outgoing_msg_id'] == $uri->getSegment(2)   ):?>
+              <div class="chat incoming">
+               <img src="<?=base_url()?>/uploads/addPic/<?=$chat['pic']?>" alt="">
+              <div class="details">
+                  <p><?= $mes['msg']?></p>
+              </div>
+              
+          </div>
+          <?php endif;?>
+        <?php endforeach;?>
         
-        </div>
-    </div>
-    </div>
-    <?php if(!$members == null) :?>
-    <?php foreach($members as $memb): ?>
-    <div class="card-view text-center mt-5">
-      <div class="d-flex justify-content-around mt-3">
-          <a class="text-info text-decoration-none" href="<?=base_url()?>/viewmodule/<?= $memb['studentID']?>"><p><?= $memb['moduleName']?></p></a>
-          <p><?= $memb['fullname']?></p>
-          <p>Status</p>
+       <?php else:?>
+       
+          
+      <?php endif; ?>
       </div>
+      
+     
+      
+      <form method="post" action="<?= base_url()?>/chatuser/<?= $uri->getSegment(2) ?>" class="typing-area" autocomplete="off">
+         <input type="text" name="outgoing_msg_id"  hidden>
+          <input type="text" name="incoming_msg_id"  hidden>
+          <input type="text" name="msg" class="input-field" id="" placeholder="Send a message...">
+          <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+      </form>
+    
+    </section>
     </div>
-   <?php endforeach; ?>
-    <?php endif; ?>
-
+ 
   </div>
 </div>
+
+
+
+  
+
+ 

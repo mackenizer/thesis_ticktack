@@ -8,7 +8,7 @@
     
     <!-- <link rel="stylesheet" href="/assets/css/chat/chat.css"> -->
     <link rel="stylesheet" href="/assets/css/leader.css">
-    <!-- <script src="/assets/js/chat.js"></script> -->
+    <script src="/assets/js/test.js"></script>
     
     <!-- <link rel="stylesheet" href="/assets/css/style2.css"> -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">

@@ -103,7 +103,7 @@
             <img src="<?=base_url()?>/uploads/addPic/<?=$disp['pic']?>" alt="">
              <div class="details">
                <span><?= $disp['fullname']?></span>
-                <p>Test Message</p>
+                <p>Send a message...</p>
             </div>
           </div>
           <div class="status-dot"><i class="fas fa-circle"></i></div>
@@ -113,7 +113,12 @@
       <?php endif; ?>
       <?php endforeach; ?>
       <?php endif; ?>
-
+      <p>Adviser:</p>
+      <a class="text-decoration-none text-dark" href="<?=base_url()?>/chatadviser/<?= $disp['adviserID']?>">
+      <img src="<?=base_url()?>/uploads/addPic/<?=$disp['pic_a']?>" width="10%" alt="">
+      <span class="p-3"><?= $disp['adviser_name']?></span>
+      
+      </a>
     </section>
     </div>
  

@@ -478,7 +478,7 @@ class Leader extends BaseController
 				
 				
 				
-				session()->set($data2);	
+				// session()->set($data2);	
 				$message->insert($data2);
 
 

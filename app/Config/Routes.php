@@ -64,7 +64,7 @@ $routes->get('studentmodule', 'Student::studentmodule', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'studentresult/(:any)', 'Student::studentresult/$1');
 $routes->get('studentchat', 'Student::studentchat', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'userstudentchat/(:any)', 'Student::userstudentchat/$1', ['filter' => 'auth']);
-
+$routes->match(['get', 'post'],'chatadviser/(:any)', 'Student::chatadviser/$1', ['filter' => 'auth']);
 $routes->get('admin', 'Admin::index', ['filter' => 'auth']);
 
 /*

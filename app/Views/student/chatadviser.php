@@ -1,25 +1,27 @@
 
 <div class="container-fluid">
-
 <?php $uri = service('uri'); 
 
 
 ?>
   <!-- Sidebar -->
   <div class="sidebar">
-    <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic_a')?>" data-holder-rendered="true" id="img">
+    <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic')?>" data-holder-rendered="true" id="img">
     <ul class="nav flex-column nav-pills">
       
       <li class="nav-item">
       
-      <a class="nav-link " aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
+      <a class="nav-link" aria-current="page" href="<?=base_url()?>/student"><i class="fas fa-home"></i> Dashboard</a>
       
       </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>/studentmodule"><i class="fas fa-tasks"></i> View Task</a>
+      </li> -->
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addteam"><i class="fas fa-tasks"></i> Add Project</a>
+        <a class="nav-link" href="<?=base_url()?>/moduleteam"><i class="fas fa-user-friends"></i> My Team</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="<?=base_url()?>/chatt"><i class="far fa-user-md-chat"></i> Chat</a>
+        <a class="nav-link active" href="<?=base_url()?>/studentchat"><i class="far fa-user-md-chat"></i> Chat</a>
       </li>
       
     </ul>
@@ -57,7 +59,7 @@
         <div class="modal-body">
            
         </div>
-          <form class="p-5 pt-0" method="post" action="<?=base_url()?>/adviser" enctype="multipart/form-data">
+          <form class="p-5 pt-0" method="post" action="<?=base_url()?>/leader" enctype="multipart/form-data">
             <div class="mb-3">
               <div class="row">
               <div class="mb-3">
@@ -81,46 +83,63 @@
   <div class="main">
  
     <div class="wrapper mt-4">
-    <section class="users">
-      
+    <section class="chat-area">
       <header>
-        
-        <div class="content">
-         <?php if(!$user == null) :?>
-          <img src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic_a')?>" alt="">
+      <?php if(!$chat == null) :?>
+          <a href="<?=base_url()?>/studentchat" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+          <img src="<?=base_url()?>/uploads/addPic/<?=$chat['pic_a']?>" alt="">
+          
+          
+          
           <div class="details">
-            
-            <span><?= $user['adviser_name']?></span>
-            <p><?= $user['status_a']?></p>
+            <span><?= $chat['adviser_name']?></span>
+           
+            <p><?= $chat['status_a']?></p>
           </div>
-        </div>
-        <?php endif; ?>
+          <?php endif; ?>
       </header>
-      <?php if(!$display == null) :?>
-      
-      <?php foreach($display as $disp): ?>
-      <?php if($disp['studentID'] != session()->get('studentID')) :?>
      
-      <div class="users-list">
-        <a href="<?=base_url()?>/chatuser/<?= $disp['studentID']?>">
-          <div class="content">
-            <img src="<?=base_url()?>/uploads/addPic/<?=$disp['pic']?>" alt="">
-             <div class="details">
-               <span><?= $disp['fullname']?></span>
-                <p>Send a message...</p>
-            </div>
-          </div>
-          <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-        
-      </div>
-    <?php endif; ?>
-      <?php endforeach; ?>
-     
-      <?php endif; ?>
        
+      <div class="chat-box">
+      
+       <?php if(!$mess == null): ?>
+       
+        <?php foreach($mess as $mes): ?>
+  
+             <?php if($mes['incoming_msg_id'] == $uri->getSegment(2) && $mes['outgoing_msg_id'] == session()->get('studentID') ):?>
+            <div class="chat outgoing">
+              <div class="details">
+                  <p><?= $mes['msg']?></p>
+              </div>
+              
+          </div>
+          <?php endif;?>
+                 <?php if($mes['incoming_msg_id'] == session()->get('studentID') && $mes['outgoing_msg_id'] == $uri->getSegment(2)   ):?>
+              <div class="chat incoming">
+               <img src="<?=base_url()?>/uploads/addPic/<?=$chat['pic_a']?>" alt="">
+              <div class="details">
+                  <p><?= $mes['msg']?></p>
+              </div>
+              
+          </div>
+          <?php endif;?>
+        <?php endforeach;?>
+        
+       <?php else:?>
+       
+          
+      <?php endif; ?>
+      </div>
+      
      
-
+      
+      <form method="post" action="<?= base_url()?>/chatadviser/<?= $uri->getSegment(2) ?>" class="typing-area" autocomplete="off">
+         <input type="text" name="outgoing_msg_id"  hidden>
+          <input type="text" name="incoming_msg_id"  hidden>
+          <input type="text" name="msg" class="input-field" id="" placeholder="Send a message...">
+          <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+      </form>
+    
     </section>
     </div>
  

@@ -289,4 +289,104 @@ class Student extends BaseController
 
 
 	}
+
+	public function chatadviser($id = null){
+		$data = [];
+		helper(['form']);
+		$data['leader'] = 'Chat';
+		$chat2 = new ModuleViewModel();
+		
+		$message = new MessageModel();
+		
+		
+		
+		
+				// echo $data['mess']['msg'];
+				// exit();
+	
+
+		if($id!=null){
+			
+
+			
+			$data['chat'] = $chat2->where('adviserID', $id)
+				->first();
+
+			// $data['mess'] = $message->findall();
+			// echo $data['chat']['adviserID'];
+			// exit();
+
+			$data['mess'] = $message
+				->findall();
+
+			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
+			// 	->findall();
+			
+
+				
+			 
+
+			
+				
+
+				
+			// echo $data['chat']['adviserID'];
+			// echo session()->get('studentID');
+			// exit();
+			
+
+			// $data['users'] = $chatmsg->where('studentID', $id)
+			// 	->first();
+			
+		}
+
+		if($this->request->getMethod() == 'post'){
+			$rules = [
+                'msg' => 'required',
+                
+            ];
+			if(!$this->validate($rules)){
+                $data['validation'] = $this->validator;
+
+				
+            }else{ 
+
+				
+				
+
+				
+                $data2 = [
+                    'incoming_msg_id' => $data['chat']['adviserID'] ,
+                    'outgoing_msg_id' => session()->get('studentID'),
+                    'msg' => $this->request->getVar('msg'),
+
+                   
+                    
+  
+                ];
+				
+				
+				
+				// session()->set($data2);	
+				$message->insert($data2);
+
+
+				 
+				
+				
+
+				
+
+				return redirect()->to(base_url().'/chatadviser'.'/'.$id);
+
+
+				
+			}
+
+		}
+
+		echo view('templates/newheader', $data);
+        echo view('student/chatadviser');
+        echo view('templates/footer');
+	}
 }

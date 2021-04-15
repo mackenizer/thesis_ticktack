@@ -111,6 +111,7 @@
           </thead>
           <tbody>
           <?php if(!$member == null) :?>
+          <?php if($member['studentID'] != session()->get('studentID')) :?>
           <?php foreach($member as $mem): ?>
             <tr>
               <td><?= $mem['projectID']?></th>
@@ -123,6 +124,7 @@
              <?php endforeach; ?>
           </tbody>
         </table>
+        <?php endif; ?>
         <?php endif; ?>
 
     </div>

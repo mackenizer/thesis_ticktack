@@ -1,49 +1,52 @@
 
-<div class="container-fluid">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic_a')?>" data-holder-rendered="true" id="img">
-    <ul class="nav flex-column nav-pills">
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <img class="rounded-circle text-center mx-auto d-block mt-3 mb-5" width="100" alt="" src="<?=base_url()?>/uploads/addPic/<?=session()->get('pic_a')?>" data-holder-rendered="true" id="img">
+      <div class="list-group list-group-flush">
+        <a class="nav-link active" href="<?=base_url()?>/adviser" class="list-group-item list-group-item-action bg-light"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="<?=base_url()?>/addteam" class="nav-link" class="list-group-item list-group-item-action bg-light"><i class="fas fa-tasks"></i> Add Project</a>
+        <a class="nav-link" href="<?=base_url()?>/chatt" class="list-group-item list-group-item-action bg-light"><i class="far fa-user-md-chat"></i> Chat</a>
       
-      <li class="nav-item">
-      
-      <a class="nav-link active" aria-current="page" href="<?=base_url()?>/adviser"><i class="fas fa-home"></i> Dashboard</a>
-      
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/addteam"><i class="fas fa-tasks"></i> Add Project</a>
-      </li>
-        <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>/chatt"><i class="far fa-user-md-chat"></i> Chat</a>
-      </li>
-      
-      
-    </ul>
-  </div>
-  <!-- Top bar -->
-  <div class="topbar">
-    <ul class="nav justify-content-end">
-     
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-        <span style="font-size: 1em; color: Black;">
-            <i class="fas fa-bell"></i>
-        </span>
-        </a>
-      </li>
-       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><?php echo session()->get('firstname').' '. session()->get('lastname') ?></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#profile" data-bs-toggle="modal">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Change Password</a></li>
-            
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <button class="btn btn-dark" id="menu-toggle"><i class="far fa-bars"></i></button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <!-- <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li> -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <?php echo session()->get('firstname').' '. session()->get('lastname') ?>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#profile" data-bs-toggle="modal">Profile</a>
+                <!-- <a class="dropdown-item" href="#">Another action</a> -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/logout">Logout</a>
+              </div>
+            </li>
           </ul>
-        </li>
-    </ul>
-  </div>
-  <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        </div>
+      </nav>
+      <div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -60,12 +63,7 @@
                 <label for="formFile" class="form-label"></label>
                 <input class="form-control" type="file" id="formFile" name="addPic">
               </div>
-                <!-- <div class="col">
-                  <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-                </div>
-                <div class="col">
-                  <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-                </div> -->
+             
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -73,32 +71,49 @@
         </div>
     </div>
     </div>
-  <!-- Main body -->
-  <div class="main">
-   <?php if(session()->get('error')): ?>
-                    <div class="alert alert-danger text-center mt-2" role="alert">
-                        <?= session()->get('error') ?>
-                    </div>
-               
-                <?php endif; ?>
-                <?php if(session()->get('success')): ?>
-                    <div class="alert alert-success text-center mt-2" role="alert">
-                        <?= session()->get('success') ?>
-                    </div>
-               
-                <?php endif; ?>
-                <?php if(!$project == null) :?>
-                <?php foreach($project as $proj): ?>
+    
+      <?php if(session()->get('error')): ?>
+                        <div class="alert alert-danger text-center mt-2" role="alert">
+                            <?= session()->get('error') ?>
+                        </div>
+                  
+                    <?php endif; ?>
+                    <?php if(session()->get('success')): ?>
+                        <div class="alert alert-success text-center mt-2" role="alert">
+                            <?= session()->get('success') ?>
+                        </div>
+                  
+                    <?php endif; ?>
+                    <?php if(!$project == null) :?>
+                    <?php foreach($project as $proj): ?>
 
-                  <div class="card text-center mt-5">
-                    <!-- <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a> -->
-                    <a class="text-info text-decoration-none" href="<?=base_url()?>/viewteam/<?= $proj['projectID']?>"><h2><?= $proj['projectTitle']?></h2></a>
-                    <p>Project Leader: <?= $proj['Fulllname']?></p>
-                    
-                   
-                  </div>
-                  <?php endforeach; ?>
-                  <?php endif; ?>
+                      <div class="card text-center mt-5">
+                        <!-- <a href="<?=base_url()?>/viewteam"><h2>Team Name</h2></a> -->
+                        <a class="text-info text-decoration-none" href="<?=base_url()?>/viewteam/<?= $proj['projectID']?>"><h2><?= $proj['projectTitle']?></h2></a>
+                        <p>Project Leader: <?= $proj['Fulllname']?></p>
+                        
+                      
+                      </div>
+                      <?php endforeach; ?>
+                      <?php endif; ?>
+
+     
+    </div>
+    <!-- /#page-content-wrapper -->
 
   </div>
-</div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+

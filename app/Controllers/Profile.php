@@ -51,7 +51,7 @@ class Profile extends BaseController
 
        			 session()->set($data);
 
-				return redirect()->to('student');
+				return redirect()->to(session()->get('_ci_previous_url'));
 			}
 		}
 

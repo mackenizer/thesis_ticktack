@@ -15,7 +15,7 @@ class Student extends BaseController
 	public function index($id = null)
 	{
 		$data = [];
-		$data['student'] = 'Dashboard';
+		$data['leader'] = 'Dashboard';
 
 		$module = new ModuleViewModel();
 		$project = new ProjectViewModel();
@@ -24,8 +24,6 @@ class Student extends BaseController
 		$data['project'] = $module->where('studentID', session()->get('studentID'))
 			->first();
 
-		// $data['module'] = $module->where('projectID', session()->get('projectID'))
-		// 		->findall();
 
 		if($id!=null){
 			
@@ -39,7 +37,7 @@ class Student extends BaseController
 
 		
 
-        echo view('templates/studentheader', $data);
+        echo view('templates/leaderheader', $data);
         echo view('student/dashboard');
         echo view('templates/footer');
 	}
@@ -47,7 +45,7 @@ class Student extends BaseController
 	public function moduleteam()
 	{
 		$data = [];
-		$data['student'] = 'Project Details';
+		$data['leader'] = 'Project Details';
 
 		$module = new ModuleViewModel();
 		$project = new ProjectViewModel();
@@ -60,7 +58,7 @@ class Student extends BaseController
 
 		
 
-        echo view('templates/studentheader', $data);
+        echo view('templates/leaderheader', $data);
         echo view('student/moduleteam');
         echo view('templates/footer');
 	}
@@ -81,7 +79,7 @@ class Student extends BaseController
 	public function studentresult($id = null)
 	{
 		$data = [];
-		$data['student'] = 'Project Details';
+		$data['leader'] = 'Project Details';
 
 		$module = new ModuleViewModel();
 		$fileUpload = new FileUpload();
@@ -97,8 +95,7 @@ class Student extends BaseController
 				->findall();
 		}
 
-		// echo $data['module']['moduleID'];
-		// exit();
+
 
 		if($this->request->getMethod() == 'post'){
 			$rules = [
@@ -109,8 +106,7 @@ class Student extends BaseController
 				session()->setFlashdata('error', $this->validator);
 			}else{
 				$file = $this->request->getFile('fileUpload');
-				// print_r($file);
-				// exit();
+	
 				if($file->isValid() && !$file->hasMoved()){
 					$file->move('./uploads/fileUpload', $file->getName());
 					
@@ -127,13 +123,9 @@ class Student extends BaseController
 				return redirect()->to(base_url().'/studentresult'.'/'.$id);
 			}
 
-			// $this->load->helper('download');
-
-			
-			// force_download('./uploads/fileUpload', null);
 		}
 
-        echo view('templates/studentheader', $data);
+        echo view('templates/leaderheader', $data);
         echo view('student/studentresult');
         echo view('templates/footer');
 	}
@@ -141,7 +133,7 @@ class Student extends BaseController
 	public function studentchat($id = null){
 
 		$data = [];
-		$data['student'] = 'Chat';
+		$data['leader'] = 'Chat';
 
 		$users = new ModuleViewModel();
 		$message = new MessageModel();
@@ -154,23 +146,12 @@ class Student extends BaseController
 
 		$data['mess'] = $message->where('incoming_msg_id', session()->get('incoming_msg_id'))
 				->findall();
-		// $data['pics'] = $users->where('projectID', session()->get('projectID'))
-		// 		->first();
 
-
-
-		// echo $data['display']['pic'];
-		// exit();
-
-		// $data['display'] = $users->where('studentID', session()->get('projectID'))
-		// 		->first();
 		
 
 		if($id!=null){
 			
-			
-			// $data['users'] = $project->where('projectID', $id)
-			// 	->first();
+
 
 			
 			$data['pics'] = $users->where('studentID', $id)
@@ -180,7 +161,7 @@ class Student extends BaseController
 			
 		}
 
-		echo view('templates/studentheader', $data);
+		echo view('templates/leaderheader', $data);
         echo view('student/studentchat');
         echo view('templates/footer');
 
@@ -191,17 +172,14 @@ class Student extends BaseController
 
 		$data = [];
 		helper(['form']);
-		$data['student'] = 'Chat';
+		$data['leader'] = 'Chat';
 		$chat = new ModuleViewModel();
 		
 		$message = new MessageModel();
 		
 		
 		
-		
-				// echo $data['mess']['msg'];
-				// exit();
-	
+
 
 		if($id!=null){
 			
@@ -215,27 +193,10 @@ class Student extends BaseController
 			
 			$data['mess2'] = $message
 				->findall();
-			// $data['mess1'] = $message->where('outgoing_msg_id', $id)
-			// 	->findall();
 
-			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-			// 	->findall();
-
-			// echo $data['chatuser']['studentID'];
-			// exit();
-			
 				
 			 
 
-			
-				
-
-				
-			
-			
-
-			// $data['users'] = $chatmsg->where('studentID', $id)
-			// 	->first();
 			
 		}
 
@@ -265,15 +226,11 @@ class Student extends BaseController
                 ];
 				
 				
-				// session()->set($data2);	
+	
 				$message->insert($data2);
 
 
-				 
-				
-				
-
-				
+	
 
 				return redirect()->to(base_url().'/userstudentchat'.'/'.$id);
 
@@ -283,7 +240,7 @@ class Student extends BaseController
 
 		}
 
-		echo view('templates/studentheader', $data);
+		echo view('templates/leaderheader', $data);
         echo view('student/userstudentchat');
         echo view('templates/footer');
 
@@ -299,11 +256,7 @@ class Student extends BaseController
 		$message = new MessageModel();
 		
 		
-		
-		
-				// echo $data['mess']['msg'];
-				// exit();
-	
+
 
 		if($id!=null){
 			
@@ -312,31 +265,13 @@ class Student extends BaseController
 			$data['chat'] = $chat2->where('adviserID', $id)
 				->first();
 
-			// $data['mess'] = $message->findall();
-			// echo $data['chat']['adviserID'];
-			// exit();
+	
 
 			$data['mess'] = $message
 				->findall();
 
-			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-			// 	->findall();
-			
+	
 
-				
-			 
-
-			
-				
-
-				
-			// echo $data['chat']['adviserID'];
-			// echo session()->get('studentID');
-			// exit();
-			
-
-			// $data['users'] = $chatmsg->where('studentID', $id)
-			// 	->first();
 			
 		}
 
@@ -365,9 +300,7 @@ class Student extends BaseController
   
                 ];
 				
-				
-				
-				// session()->set($data2);	
+		
 				$message->insert($data2);
 
 
@@ -385,7 +318,7 @@ class Student extends BaseController
 
 		}
 
-		echo view('templates/newheader', $data);
+		echo view('templates/leaderheader', $data);
         echo view('student/chatadviser');
         echo view('templates/footer');
 	}

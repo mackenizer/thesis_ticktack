@@ -24,8 +24,7 @@ class Leader extends BaseController
 		$data['module'] = $module->where('studentID', session()->get('studentID'))
 			->first();
 
-		// $data['module'] = $module->where('projectID', session()->get('projectID'))
-		// 		->findall();
+		
 
 		if($id!=null){
 			
@@ -34,47 +33,7 @@ class Leader extends BaseController
 				->first();
 		}
 
-		if($this->request->getMethod() == 'post'){
-			$rules = [
-				'addPic' => 'uploaded[addPic]|is_image[addPic]',
-				
-			];
-			if(!$this->validate($rules)){
-				session()->setFlashdata('error', $this->validator);
-			}else{
-				$student = $this->request->getFile('addPic');
-				// print_r($file);
-				// exit();
-				if($student->isValid() && !$student->hasMoved()){
-					$student->move('./uploads/addPic', session()->get('studentID').'_'. $student->getName());
-					
-					
-				}
-				
-				$Data = [
-		
-					'studentID' => session()->get('studentID'),
-					'pic' => $student->getName(),
-				];
-				
-				$studentModel->save($Data);
-
-				$stud = $studentModel->where('studentID', session()->get('studentID'))
-				->first();
-
-				
-
-				 $data = [
-					'pic' => $stud['pic'],
-					
-				];
-				
-
-       			 session()->set($data);
-
-				return redirect()->to('leader');
-			}
-		}
+	
 
 		
 
@@ -152,6 +111,10 @@ class Leader extends BaseController
 		$data['member'] = $student->where('projectID', session()->get('projectID'))
 				->findall();
 
+		$data['member1'] = $student->where('projectID', session()->get('projectID'))
+				->first();
+		
+		
 		$data['project'] = $project->where('projectID', session()->get('projectID'))
 				->first();
 		
@@ -267,27 +230,12 @@ class Leader extends BaseController
 				->findall();
 
 		
-		// print_r($data['mess']);
-		// // exit();
-		// $data['mess1'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-		// 		->findall();
-		// $data['pics'] = $users->where('projectID', session()->get('projectID'))
-		// 		->first();
-
-
-
-		// echo $data['display']['pic'];
-		// exit();
-
-		// $data['display'] = $users->where('studentID', session()->get('projectID'))
-		// 		->first();
 		
 
 		if($id!=null){
 			
 			
-			// $data['users'] = $project->where('projectID', $id)
-			// 	->first();
+		
 
 			
 			$data['pics'] = $users->where('studentID', $id)
@@ -314,10 +262,6 @@ class Leader extends BaseController
 		$message = new MessageModel();
 		
 		
-		
-		
-				// echo $data['mess']['msg'];
-				// exit();
 	
 
 		if($id!=null){
@@ -327,26 +271,14 @@ class Leader extends BaseController
 			$data['chatuser'] = $chat->where('studentID', $id)
 				->first();
 
-			// $data['mess'] = $message->findall();
+		
 
 			$data['mess'] = $message
 				->findall();
 
-			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-			// 	->findall();
-			
-				
-			 
-
-			
-				
-
-				
-			
+		
 			
 
-			// $data['users'] = $chatmsg->where('studentID', $id)
-			// 	->first();
 			
 		}
 
@@ -394,7 +326,7 @@ class Leader extends BaseController
 
 		}
 
-		echo view('templates/newheader', $data);
+		echo view('templates/leaderheader', $data);
         echo view('leader/userschat');
         echo view('templates/footer');
 
@@ -410,11 +342,7 @@ class Leader extends BaseController
 		$message = new MessageModel();
 		
 		
-		
-		
-				// echo $data['mess']['msg'];
-				// exit();
-	
+
 
 		if($id!=null){
 			
@@ -423,31 +351,12 @@ class Leader extends BaseController
 			$data['chat'] = $chat2->where('adviserID', $id)
 				->first();
 
-			// $data['mess'] = $message->findall();
-			// echo $data['chat']['adviserID'];
-			// exit();
 
 			$data['mess'] = $message
 				->findall();
 
-			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-			// 	->findall();
-			
 
-				
-			 
 
-			
-				
-
-				
-			// echo $data['chat']['adviserID'];
-			// echo session()->get('studentID');
-			// exit();
-			
-
-			// $data['users'] = $chatmsg->where('studentID', $id)
-			// 	->first();
 			
 		}
 
@@ -476,9 +385,7 @@ class Leader extends BaseController
   
                 ];
 				
-				
-				
-				// session()->set($data2);	
+
 				$message->insert($data2);
 
 
@@ -496,7 +403,7 @@ class Leader extends BaseController
 
 		}
 
-		echo view('templates/newheader', $data);
+		echo view('templates/leaderheader', $data);
         echo view('leader/adviserchat');
         echo view('templates/footer');
 	}

@@ -35,7 +35,7 @@ class File extends BaseController
 					'description' => $this->request->getVar('description'),
 				];
 				$fileUpload->insert($Data);
-				// return redirect()->to(base_url().'/resultmodule'.'/'.$id);
+				
 			}
 
 			$this->load->helper('download');

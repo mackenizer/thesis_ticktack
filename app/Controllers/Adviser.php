@@ -35,8 +35,7 @@ class Adviser extends BaseController
 				session()->setFlashdata('error', $this->validator);
 			}else{
 				$adviserr = $this->request->getFile('addPic');
-				// print_r($file);
-				// exit();
+		
 				if($adviserr->isValid() && !$adviserr->hasMoved()){
 					$adviserr->move('./uploads/addPic', session()->get('adviserID').'_'. $adviserr->getName());
 					
@@ -49,9 +48,7 @@ class Adviser extends BaseController
 					'pic_a' => $adviserr->getName(),
 				];	
 
-				
-				// print_r($Data);
-				// exit();
+		
 				
 				$adviser->save($Data);
 
@@ -138,9 +135,7 @@ class Adviser extends BaseController
 			$data['files'] = $fileUpload->where('studentID', $id)
 				->findall();
 		}
-		// echo $data['module']['studentID'];
-		// echo $data['module']['moduleID'];
-		// exit();
+
 
 		if($this->request->getMethod() == 'post'){
 			$rules = [
@@ -151,8 +146,7 @@ class Adviser extends BaseController
 				session()->setFlashdata('error', $this->validator);
 			}else{
 				$file = $this->request->getFile('fileUpload');
-				// print_r($file);
-				// exit();
+	
 				if($file->isValid() && !$file->hasMoved()){
 					$file->move('./uploads/fileUpload', $file->getName());
 					
@@ -169,10 +163,7 @@ class Adviser extends BaseController
 				return redirect()->to(base_url().'/viewmodule'.'/'.$id);
 			}
 
-			// $this->load->helper('download');
 
-			
-			// force_download('./uploads/fileUpload', null);
 		}
 
 		
@@ -184,10 +175,10 @@ class Adviser extends BaseController
 
 	public function chatt($id = null){
 		$data = [];
-		$data['leader'] = 'Chat';
+		$data['title'] = 'Chat';
 
 		$users = new ModuleViewModel();
-		// $message = new ViewMessages();
+
 		$message = new MessageModel();
 
 		$data['mess22'] = $message->findall();
@@ -198,28 +189,12 @@ class Adviser extends BaseController
 		$data['display'] = $users->where('adviserID', session()->get('adviserID'))
 				->findall();
 
-		
-		// print_r($data['mess']);
-		// // exit();
-		// $data['mess1'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-		// 		->findall();
-		// $data['pics'] = $users->where('projectID', session()->get('projectID'))
-		// 		->first();
 
-
-
-		// echo $data['display']['pic'];
-		// exit();
-
-		// $data['display'] = $users->where('studentID', session()->get('projectID'))
-		// 		->first();
 		
 
 		if($id!=null){
 			
 			
-			// $data['users'] = $project->where('projectID', $id)
-			// 	->first();
 
 			
 			$data['pics'] = $users->where('studentID', $id)
@@ -229,7 +204,7 @@ class Adviser extends BaseController
 			
 		}
 
-		echo view('templates/newheader', $data);
+		echo view('templates/adminheader', $data);
         echo view('adviser/chatt');
         echo view('templates/footer');
 	}
@@ -238,16 +213,14 @@ class Adviser extends BaseController
 
 		$data = [];
 		helper(['form']);
-		$data['leader'] = 'Chat';
+		$data['title'] = 'Chat';
 		$chat2 = new ModuleViewModel();
 		
 		$message = new MessageModel();
 		
 		
 		
-		
-				// echo $data['mess']['msg'];
-				// exit();
+
 	
 
 		if($id!=null){
@@ -257,28 +230,10 @@ class Adviser extends BaseController
 			$data['chat'] = $chat2->where('studentID', $id)
 				->first();
 
-			// $data['mess'] = $message->findall();
-			// echo $data['chat']['adviserID'];
-			// exit();
-
 			$data['mess'] = $message
 				->findall();
 
-			// $data['mess2'] = $message->where('outgoing_msg_id', $data['chatuser']['studentID'])
-			// 	->findall();
-			
 
-				
-			 
-
-			
-
-				
-			
-			
-
-			// $data['users'] = $chatmsg->where('studentID', $id)
-			// 	->first();
 			
 		}
 
@@ -326,7 +281,7 @@ class Adviser extends BaseController
 
 		}
 
-		echo view('templates/newheader', $data);
+		echo view('templates/adminheader', $data);
         echo view('adviser/chatuser');
         echo view('templates/footer');
 

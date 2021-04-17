@@ -11,9 +11,18 @@
     overflow-x: hidden;
  }
 
+ 
+
  .main {
     position: absolute;
     overflow: auto;
+  }
+
+  #count{
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    left: -10px;
   }
 
 #sidebar-wrapper {

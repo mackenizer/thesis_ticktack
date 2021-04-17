@@ -32,8 +32,9 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Users::index', ['filter' => 'noauth']);
+$routes->get('/', 'Users::index');
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
+$routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 $routes->get('addteam', 'Adviser::addteam', ['filter' => 'auth']);
 $routes->get('viewteam/(:any)', 'Adviser::viewteam/$1', ['filter' => 'auth']);
 $routes->match(['get', 'post'], 'viewmodule/(:any)', 'Adviser::viewmodule/$1', ['filter' => 'auth']);

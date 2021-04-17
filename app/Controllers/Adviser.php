@@ -7,76 +7,94 @@ use App\Models\ModuleViewModel;
 use App\Models\AdviserModel;
 use App\Models\FileUpload;
 use App\Models\MessageModel;
+use App\Models\CountFiles;
+use App\Models\FileDisplay;
 
 
 class Adviser extends BaseController
 {
-	public function index()
+	public function index($id = null)
 	{
 		$data = [];
 		$data['title'] = 'Dashboard';
 
-		$model = new ProjectViewModel();
-		$model1 = new ModuleViewModel();
-		$adviser = new AdviserModel();
+		// $model = new ProjectViewModel();
+		// $model1 = new ModuleViewModel();
+		// $adviser = new AdviserModel();
+		// $files = new CountFiles();
+		// $test = new FileDisplay();
 
-		$data['project'] = $model->where('adviserID', session()->get('adviserID'))->findall();
-		$data['members'] = $model1->where('projectID', session()->get('projectID'))
-				->findall();
+		// $data['project'] = $model->where('adviserID', session()->get('adviserID'))->findall();
+		// $data['members'] = $model1->where('projectID', session()->get('projectID'))
+		// 		->findall();
 
-				
+		// $data['count'] = $files->first();
+		// $data['try'] = $test->findall();
+	
 
-		if($this->request->getMethod() == 'post'){
-			$rules = [
-				'addPic' => 'uploaded[addPic]|is_image[addPic]',
-				
-			];
-			if(!$this->validate($rules)){
-				session()->setFlashdata('error', $this->validator);
-			}else{
-				$adviserr = $this->request->getFile('addPic');
-		
-				if($adviserr->isValid() && !$adviserr->hasMoved()){
-					$adviserr->move('./uploads/addPic', session()->get('adviserID').'_'. $adviserr->getName());
-					
-					
-				}
-				
-				$Data = [
-		
-					'adviserID' => session()->get('adviserID'),
-					'pic_a' => $adviserr->getName(),
-				];	
+		// if($id!=null){
+		// 	$data['members'] = $model1->where('studentID', $id)
+		// 		->first();
+			
+		// }
 
 		
+
+		
+		// // print_r($data['try']);
+		// // exit();
+
+		// if($this->request->getMethod() == 'post'){
+		// 	$rules = [
+		// 		'addPic' => 'uploaded[addPic]|is_image[addPic]',
 				
-				$adviser->save($Data);
-
-
-				$adv = $adviser->where('adviserID', session()->get('adviserID'))
-				->first();
-
-				
-
-				 $data = [
-					'pic_a' => $adv['pic_a'],
+		// 	];
+		// 	if(!$this->validate($rules)){
+		// 		session()->setFlashdata('error', $this->validator);
+		// 	}else{
+		// 		$adviserr = $this->request->getFile('addPic');
+		
+		// 		if($adviserr->isValid() && !$adviserr->hasMoved()){
+		// 			$adviserr->move('./uploads/addPic', session()->get('adviserID').'_'. $adviserr->getName());
 					
-				];
+					
+		// 		}
+				
+		// 		$Data = [
+		
+		// 			'adviserID' => session()->get('adviserID'),
+		// 			'pic_a' => $adviserr->getName(),
+		// 		];	
+
+		
+				
+		// 		$adviser->save($Data);
+
+
+		// 		$adv = $adviser->where('adviserID', session()->get('adviserID'))
+		// 		->first();
+
+				
+
+		// 		 $data = [
+		// 			'pic_a' => $adv['pic_a'],
+					
+		// 		];
 
 				
 
 				
 				
 				
-       			 session()->set($data);
+       	// 		 session()->set($data);
 
-				return redirect()->to('adviser');
-			}
-		}
+		// 		return redirect()->to('adviser');
+		// 	}
+		// }
 		
 
         echo view('templates/adminheader', $data);
-        echo view('adviser/dashboardd');
+        echo view('adviser/dashboard');
         echo view('templates/footer');
 	}
 
@@ -86,6 +104,13 @@ class Adviser extends BaseController
 	public function addteam(){
 		$data = [];
 		$data['title'] = 'Add Team';
+		$files = new CountFiles();
+		$test = new FileDisplay();
+
+
+		$data['count'] = $files->first();
+		$data['try'] = $test->findall();
+		
 
 		
 
@@ -102,6 +127,12 @@ class Adviser extends BaseController
 
 		$student = new ModuleViewModel();
 		$project = new ProjectViewModel();
+		$files = new CountFiles();
+		$test = new FileDisplay();
+
+
+		$data['count'] = $files->first();
+		$data['try'] = $test->findall();
 		
 		if($id!=null){
 			$data['members'] = $student->where('projectID', $id)
@@ -125,6 +156,8 @@ class Adviser extends BaseController
 
 		$module = new ModuleViewModel();
 		$fileUpload = new FileUpload();
+		$files = new CountFiles();
+		$test = new FileDisplay();
 
 		if($id!=null){
 			
@@ -134,8 +167,16 @@ class Adviser extends BaseController
 
 			$data['files'] = $fileUpload->where('studentID', $id)
 				->findall();
+
+			$data['count'] = $files->first();
+			$data['try'] = $test->findall();
 		}
 
+		// echo $data['module']['projectID'];
+		// exit();
+
+		 
+		
 
 		if($this->request->getMethod() == 'post'){
 			$rules = [
@@ -158,6 +199,7 @@ class Adviser extends BaseController
 					'studentID' => $data['module']['studentID'],
 					'file' => $file->getName(),
 					'description' => $this->request->getVar('description'),
+					'projectID' => $data['module']['projectID'],
 				];
 				$fileUpload->insert($Data);
 				return redirect()->to(base_url().'/viewmodule'.'/'.$id);
@@ -180,6 +222,13 @@ class Adviser extends BaseController
 		$users = new ModuleViewModel();
 
 		$message = new MessageModel();
+
+		$files = new CountFiles();
+		$test = new FileDisplay();
+
+
+		$data['count'] = $files->first();
+		$data['try'] = $test->findall();
 
 		$data['mess22'] = $message->findall();
 
@@ -217,6 +266,13 @@ class Adviser extends BaseController
 		$chat2 = new ModuleViewModel();
 		
 		$message = new MessageModel();
+
+		$files = new CountFiles();
+		$test = new FileDisplay();
+
+
+		$data['count'] = $files->first();
+		$data['try'] = $test->findall();
 		
 		
 		

@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class FileUpload extends Model{
     protected $table = 'files';
     protected $primaryKey = 'fileID';
-    protected $allowedFields = ['moduleID', 'studentID', 'file', 'description', 'date'];
+    protected $allowedFields = ['moduleID', 'studentID', 'file', 'description', 'date', 'projectID'];
     
 
 

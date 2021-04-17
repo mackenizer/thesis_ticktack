@@ -41,7 +41,7 @@
             
           
 
-            <a href="" class="forgot text-decoration-none">Forgot Password?</a>
+            <!-- <a href="" class="forgot text-decoration-none">Forgot Password?</a> -->
             <?php if(isset($validation)): ?>
                         <div class="col-12">
                             <div class="alert alert-danger" role="alert">
@@ -55,12 +55,12 @@
                     </div>
                
                 <?php endif; ?>
-            <select class="form-select mt-3" aria-label=".form-select-sm example" name="role">
+            <!-- <select class="form-select mt-3" aria-label=".form-select-sm example" name="role">
                 <option selected>Login As</option>
                 <option value="student">Student</option>
                 <option value="adviser">Adviser</option>
                 
-            </select>
+            </select> -->
             
             <input type="submit" class="btn" value="Login">
             

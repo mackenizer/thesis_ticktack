@@ -3,27 +3,29 @@
 use CodeIgniter\Model;
 
 class StudentModel extends Model{
+    // protected $table = 'students';
+    // protected $primaryKey = 'studentID';
+    // protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'leader', 'projectID', 'status', 'pic', 'updated_at'];
+    // protected $beforeInsert = ['beforeInsert'];
+    // protected $beforeUpdate = ['beforeUpdate'];
+
     protected $table = 'students';
     protected $primaryKey = 'studentID';
-    protected $allowedFields = ['firstname', 'lastname', 'email', 'password', 'leader', 'projectID', 'status', 'pic', 'updated_at'];
-    protected $beforeInsert = ['beforeInsert'];
-    protected $beforeUpdate = ['beforeUpdate'];
+    protected $allowedFields = ['userID', 'firstname', 'lastname', 'student_pic'];
+    // protected function beforeInsert(array $data){
+    //     $data = $this->passwordHash($data);
 
+    //     return $data;
+    // }
 
-    protected function beforeInsert(array $data){
-        $data = $this->passwordHash($data);
+    // protected function beforeUpdate(array $data){
+    //     $data = $this->passwordHash($data);
+    //     return $data;
+    // }
 
-        return $data;
-    }
-
-    protected function beforeUpdate(array $data){
-        $data = $this->passwordHash($data);
-        return $data;
-    }
-
-    protected function passwordHash(array $data){
-         if(isset($data['data']['password']))
-            $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-        return $data;
-    }
+    // protected function passwordHash(array $data){
+    //      if(isset($data['data']['password']))
+    //         $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+    //     return $data;
+    // }
 }

@@ -1,10 +1,13 @@
+
+
+
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand " style="background-color: #32be8f">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
             <li class="nav-item">
-        <a class="nav-link text-dark" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link text-white" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
       </li>
           
     </ul>
@@ -52,7 +55,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item dropdown">
             <a href="<?=base_url()?>/dashboard" class="nav-link nav-home">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Dashboard
               </p>
@@ -157,6 +160,12 @@
 
         </div><!-- /.row -->
             <hr class="border-primary">
+            <?php if(session()->get('success')): ?>
+                    <div class="alert alert-success text-center" role="alert">
+                        <?= session()->get('success') ?>
+                    </div>
+               
+                <?php endif; ?>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -169,7 +178,7 @@
           
       <div class="row">
         <div class="col-md-8">
-        <div class="card card-outline card-success">
+        <div class="card card-outline">
           
           <div class="card-body p-0">
             <div class="table-responsive">
@@ -189,7 +198,59 @@
                   <th></th>
                 </thead>
                 <tbody>
-                                </tbody>  
+                
+                <?php if($project != null) : ?>
+                  <?php foreach ($project as $proj) :?>
+                <tr>
+                      <td>
+                        <p><b><?= $proj['id']?><p>
+                      </td>
+                      <td>
+                          <a>
+                           <?= $proj['name']?>
+                          </a>
+                          <br>
+                          <small>
+                              Due: <?= $proj['end_date']?>
+                          </small>
+                      </td>
+                      <td class="project_progress">
+                          <div class="progress progress-sm">
+                          <?php if(isset($progress)) : ?>
+                              <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: <?=$progress[$proj['id']]?>%">
+                              </div>
+                          </div>
+                          <small>
+
+                          <?=$progress[$proj['id']]?>% Complete
+                          </small>
+                          <?php endif; ?>
+                      </td>
+                      
+                      <td class="project-state">
+                      <?php
+                            if($proj['status'] =='on-going'){
+                              echo "<span class='badge badge-secondary'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='stop'){
+                              echo "<span class='badge badge-danger'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='on-hold'){
+                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='complete'){
+                              echo "<span class='badge badge-success'>{$proj['status']}</span>";
+                            }
+                          ?>
+                      </td>
+  
+                      <td>
+                        <a class="" href="<?=base_url()?>/viewproject/<?=$proj['id'] ?>">
+                        <i class="fas fa-eye"></i>
+                              View
+                        </a>
+                      </td>
+                  </tr>
+                </tbody>  
+                <?php endforeach;?>
+                  <?php endif; ?>
               </table>
             </div>
           </div>
@@ -197,29 +258,30 @@
         </div>
         <div class="col-md-4">
           <div class="row">
-          <div class="col-12 col-sm-6 col-md-12">
+          <div class="text-center col-12 col-sm-6 col-md-12">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3>0</h3>
-
+                <h3><?= $project_count?></h3>
                 <p>Total Projects</p>
               </div>
               <div class="icon">
-                <i class="fa fa-layer-group"></i>
+                <!-- <i class="fa fa-layer-group"></i> -->
               </div>
             </div>
           </div>
-           <div class="col-12 col-sm-6 col-md-12">
+          <?php if(session()->get('adviserID') == null) :?>
+           <div class="text-center col-12 col-sm-6 col-md-12">
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= $count?></h3>
                 <p>Total Tasks</p>
               </div>
               <div class="icon">
-                <i class="fa fa-tasks"></i>
+                <!-- <i class="fa fa-tasks"></i> -->
               </div>
             </div>
           </div>
+          <?php endif; ?>
       </div>
         </div>
       </div>

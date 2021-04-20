@@ -35,10 +35,45 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Users::index');
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
+
+$routes->match(['get', 'post'],'viewproject/(:any)', 'ViewProject::index/$1', ['filter' => 'auth']);
+$routes->post('addtask/(:any)', 'AddTask::index/$1');
+$routes->match(['get', 'post'],'edittask/(:any)', 'EditTask::index/$1');
+$routes->post('addproductivity/(:any)', 'AddProductivity::index/$1');
+$routes->match(['get', 'post'],'newproject/(:any)', 'NewProject::index/$1', ['filter' => 'auth']);
+$routes->match(['get', 'post'],'editproject/(:any)', 'EditProject::index/$1', ['filter' => 'auth']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $routes->get('addteam', 'Adviser::addteam', ['filter' => 'auth']);
 $routes->get('viewteam/(:any)', 'Adviser::viewteam/$1', ['filter' => 'auth']);
 $routes->match(['get', 'post'], 'viewmodule/(:any)', 'Adviser::viewmodule/$1', ['filter' => 'auth']);
-$routes->post('addproject', 'AddProject::index');
+$routes->match(['get', 'post'],'newproject', 'NewProject::index');
 $routes->post('AddMembers', 'AddMembers::index');
 $routes->get('chatt', 'Adviser::chatt', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'chatuser/(:any)', 'Adviser::chatuser/$1', ['filter' => 'auth']);

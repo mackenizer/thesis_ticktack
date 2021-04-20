@@ -3,8 +3,9 @@
 use CodeIgniter\Model;
 
 class ProjectModel extends Model{
-    protected $table = 'project';
-    protected $allowedFields = ['projectTitle', 'leaderID', 'adviserID', 'created_at'];
+    protected $table = 'project_list';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['name', 'description', 'status', 'start_date', 'end_date', 'leader_id', 'adviserID', 'user_ids', 'date_created'];
     
 
 

@@ -300,7 +300,7 @@ class Users extends BaseController
             'studentID' => $display['studentID'],
             'email' => $user['email'],
             'firstname' => $display['firstname'],
-            'flastname' => $display['lastname'],
+            'lastname' => $display['lastname'],
             'student_pic' => $display['student_pic'],
             // 'password' => $users['password'],
             'role' => $user['role'],

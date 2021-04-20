@@ -1,6 +1,9 @@
+<?php $uri = service('uri'); 
+
+?>
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand  " style="background-color: #32be8f">
+  <nav class="main-header navbar navbar-expand " style="background-color: #32be8f"> 
     <!-- Left navbar links -->
     <ul class="navbar-nav">
             <li class="nav-item">
@@ -17,12 +20,12 @@
         </a>
       </li>
      <li class="nav-item dropdown">
-            <a class="nav-link"  data-toggle="dropdown" aria-expanded="true" href="javascript:void(0)">
+            <a class="nav-link text-white"  data-toggle="dropdown" aria-expanded="true" href="javascript:void(0)">
               <span>
-                <div class="d-felx badge-pill">
+                <div class="text-white d-felx badge-pill">
                   <span class="text-white fa fa-user mr-2"></span>
-                  <span class="text-white"><b><?php echo session()->get('firstname').' '. session()->get('lastname') ?></b></span>
-                  <span class="text-white fa fa-angle-down ml-2"></span>
+                  <span><b><?php echo session()->get('firstname').' '. session()->get('lastname') ?></b></span>
+                  <span class="fa fa-angle-down ml-2"></span>
                 </div>
               </span>
             </a>
@@ -39,7 +42,7 @@
         uni_modal('Manage Account','manage_user.php?id=1')
       })
   </script>
-    <aside class="main-sidebar elevation-4">
+    <aside class="main-sidebar  elevation-4">
     <div class="dropdown">
    	<a href="./" class="brand-link">
        <img src="<?=base_url()?>/assets/images/loggo.jpg" alt="" width="100%" height="200px">
@@ -82,18 +85,18 @@
             </ul>
           </li> 
           <li class="nav-item">
-                <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
+                <a href="./index.php?page=task_list" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>
                   <p>Task</p>
                 </a>
           </li>
                      <li class="nav-item">
-                <a href="<?=base_url()?>/report" class="nav-link nav-reports">
+                <a href="./index.php?page=reports" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>
                   <p>Report</p>
                 </a>
           </li>
-                              <!-- <li class="nav-item">
+            <!-- <li class="nav-item">
             <a href="#" class="nav-link nav-edit_user">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -122,7 +125,7 @@
   </aside>
   <script>
   	$(document).ready(function(){
-      var page = 'task_list';
+      var page = 'new_project';
   		var s = '';
       if(s!='')
         page = page+'_'+s;
@@ -152,11 +155,27 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-        
+          
           </div><!-- /.col -->
 
         </div><!-- /.row -->
-            <hr class="border-primary">
+            <hr class="border-primary"> 
+            <?php if(isset($validation)): ?>
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                            
+                                
+                                <?= $validation->listErrors() ?>
+                           
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                <?php if(session()->get('success')): ?>
+                    <div class="alert alert-success text-center" role="alert">
+                        <?= session()->get('success') ?>
+                    </div>
+               
+                <?php endif; ?>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -164,141 +183,97 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-         <div class="col-lg-12">
+         
+<div class="col-lg-12">
 	<div class="card card-outline">
-		<div class="card-header">
-			<div class="card-tools">
-				<a class="btn btn-primary btn-sm btn-default btn-flat border-primary" href="<?=base_url()?>/newproject"><i class="fa fa-plus"></i> Add New project</a>
+		<div class="card-body">
+		<form action="<?=base_url()?>/edittask/<?= $uri->getSegment(2) ?>" method="post" >
+       
+        <input type="hidden" name="id" value="<?= $task['id']?>">
+        <input type="hidden" name="id" value="<?= $task['project_id']?>">
+       
+		<div class="row">
+			<div class="col-md-6">
+           
+				<div class="form-group">
+					<label for="" class="control-label">Task Name</label>
+					<input type="text" class="form-control form-control-sm" name="task" value="<?= $task['task']?>">
+				</div>
+			</div>
+          	<div class="col-md-6">
+				<div class="form-group">
+					<label for="">Status</label>
+					<select name="task_status" id="status" class="custom-select custom-select-sm">
+                        <option value="on-going" <?php if($task['task_status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
+                        <option value="on-hold" <?php if($task['task_status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
+                        <option value="stop" <?php if($task['task_status'] == "stop") { echo "SELECTED"; } ?>>stop</option>
+                        <option value="complete" <?php if($task['task_status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
+					</select>
+				</div>
 			</div>
 		</div>
-		<div class="card-body">
-			<table  id="example" class="table table-striped table-bordered" style="width:100%">
-				<colgroup>
-					<col width="5%">
-					<col width="15%">
-					<col width="20%">
-					<col width="15%">
-					<col width="15%">
-					<col width="10%">
-					<col width="10%">
-					<col width="10%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th class="text-center">#</th>
-						<th>Project</th>
-						<th>Task</th>
-						<th>Project Started</th>
-						<th>Project Due Date</th>
-						<th>Project Status</th>
-						<th>Task Status</th>
-            <?php if(session()->get('adviserID') == null) :?>	<th>Action</th>  <?php endif;?>
-					</tr>
-				</thead>
-				<tbody>
-        <?php if($viewall != null) :?>
-        <?php foreach($viewall as $view) :?>
-        <tr>
-						<td class="text-center"><?= $view['id']?></td>
-						<td>
-							<p><b><?= $view['name']?></b></p>
-						</td>
-						<td>
-							<p><b><?= $view['task']?></b></p>
-							<p class="truncate"><?= $view['description']?></p>
-						</td>
-						<td><b><?=  date("M d, Y",strtotime($view['start_date'])) ?></b></td>
-						<td><b><?=  date("M d, Y",strtotime($view['end_date'])) ?></b></td>
-						<td class="text-center">
-            <?php
-                            if($view['status'] =='on-going'){
-                              echo "<span class='badge badge-secondary'>{$view['status']}</span>";
-                            }elseif($view['status'] =='stop'){
-                              echo "<span class='badge badge-info'>{$view['status']}</span>";
-                            }elseif($view['status'] =='on-hold'){
-                              echo "<span class='badge badge-warning'>{$view['status']}</span>";
-                            }elseif($view['status'] =='complete'){
-                              echo "<span class='badge badge-success'>{$view['status']}</span>";
-                            }
-                          ?>
-             </td>
-						<td> 
-            <?php
-                            if($view['task_status'] =='on-going'){
-                              echo "<span class='badge badge-secondary'>{$view['task_status']}</span>";
-                            }elseif($view['task_status'] =='stop'){
-                              echo "<span class='badge badge-info'>{$view['task_status']}</span>";
-                            }elseif($view['task_status'] =='on-hold'){
-                              echo "<span class='badge badge-warning'>{$view['task_status']}</span>";
-                            }elseif($view['task_status'] =='complete'){
-                              echo "<span class='badge badge-success'>{$view['task_status']}</span>";
-                            }
-                          ?>
-            </td>
-            <?php if(session()->get('adviserID') == null) :?>
-            <td class="text-center">
-							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-		                      Action
-		                    </button>
-			                    <div class="dropdown-menu" style="">
-			                      <a class="dropdown-item new_productivity" data-pid = '' data-tid = ''  data-task = ''  href="javascript:void(0)">Add Productivity</a>
-								</div>
-						</td>
-            <?php endif;?>
-					</tr>
-          <?php endforeach;?>
-        <?php endif; ?>	
-				</tbody>
-			</table>
+		<div class="row">
+			<div class="col-md-6">
+            <div class="form-group">
+              <label for="" class="control-label">Start Date</label>
+              <input type="date" class="form-control form-control-sm" autocomplete="off" name="start_date" value="<?= $task['start_date']?>">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="" class="control-label">End Date</label>
+              <input type="date" class="form-control form-control-sm" autocomplete="off" name="end_date" value="<?= $task['end_date']?>">
+            </div>
+          </div>
 		</div>
+
+        
+        	           
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="" class="control-label">Description</label>
+					<textarea name="description" id="" cols="30" rows="10" value="<?= $task['description']?>" class="summernote form-control"><?= $task['description']?></textarea>
+				</div>
+			</div>
+		</div>
+
+        <div class="card-footer border-top border-info">
+    		<div class="d-flex w-100 justify-content-center align-items-center">
+    			<button class="btn btn-flat  bg-gradient-primary mx-2" type="submit" >Update</button>
+    			<!-- <button class="btn btn-flat bg-gradient-secondary mx-2" type="button" href="index.php?page=project_list">Cancel</button> -->
+    		</div>
+            
+    	</div>
+            
+        </form>
+    	</div>
+    	
 	</div>
 </div>
-<style>
-	table p{
-		margin: unset !important;
-	}
-	table td{
-		vertical-align: middle !important
-	}
-</style>
-
 <script>
-      $(document).ready(function() {
-    $('#example').DataTable();
-} );
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
-
-
-<!-- <script>
-	$(document).ready(function(){
-		$('#list').dataTable()
-	$('.new_productivity').click(function(){
-		uni_modal("<i class='fa fa-plus'></i> New Progress for: "+$(this).attr('data-task'),"manage_progress.php?pid="+$(this).attr('data-pid')+"&tid="+$(this).attr('data-tid'),'large')
-	})
-	})
-	function delete_project($id){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=delete_project',
-			method:'POST',
-			data:{id:$id},
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully deleted",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-
-				}
-			}
-		})
-	}
-</script>       -->
-</div><!--/. container-fluid -->
+	// $('#manage-project').submit(function(e){
+	// 	e.preventDefault()
+	// 	start_load()
+	// 	$.ajax({
+	// 		url:'ajax.php?action=save_project',
+	// 		data: new FormData($(this)[0]),
+	// 	    cache: false,
+	// 	    contentType: false,
+	// 	    processData: false,
+	// 	    method: 'POST',
+	// 	    type: 'POST',
+	// 		success:function(resp){
+	// 			if(resp == 1){
+	// 				alert_toast('Data successfully saved',"success");
+	// 				setTimeout(function(){
+	// 					location.href = 'index.php?page=project_list'
+	// 				},2000)
+	// 			}
+	// 		}
+	// 	})
+	// })
+</script>      </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
     <div class="modal fade" id="confirm_modal" role='dialog'>
@@ -363,7 +338,7 @@
   </aside>
   <!-- /.control-sidebar -->
 
- 
+
 </div>
 <!-- ./wrapper -->
 
@@ -371,24 +346,24 @@
 <!-- jQuery -->
 <!-- Bootstrap -->
 <!-- SweetAlert2 -->
-<!-- <script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
-<!-- <script src="assets/plugins/toastr/toastr.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/toastr/toastr.min.js"></script>
 <!-- Switch Toggle -->
-<!-- <script src="assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script>
 <!-- Select2 -->
-<!-- <script src="assets/plugins/select2/js/select2.full.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/select2/js/select2.full.min.js"></script>
 <!-- Summernote -->
-<!-- <script src="assets/plugins/summernote/summernote-bs4.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- dropzonejs -->
-<!-- <script src="assets/plugins/dropzone/min/dropzone.min.js"></script> -->
-<!-- <script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/dropzone/min/dropzone.min.js"></script>
+<script src="<?=base_url()?>/project/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- DateTimePicker -->
-  <!-- <script src="assets/dist/js/jquery.datetimepicker.full.min.js"></script> -->
+  <script src="<?=base_url()?>/project/dist/js/jquery.datetimepicker.full.min.js"></script>
   <!-- Bootstrap Switch -->
-<!-- <script src="assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script> -->
+<script src="<?=base_url()?>/project/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
  <!-- MOMENT -->
-<!-- <script src="assets/plugins/moment/moment.min.js"></script>
+<script src="<?=base_url()?>/project/plugins/moment/moment.min.js"></script>
 <script>
 	$(document).ready(function(){
 	  $('.select2').select2({
@@ -469,38 +444,38 @@
 	        title: $msg
 	      })
 	  }
-$(function () {
-  bsCustomFileInput.init();
+// $(function () {
+//   bsCustomFileInput.init();
 
-    $('.summernote').summernote({
-        height: 300,
-        toolbar: [
-            [ 'style', [ 'style' ] ],
-            [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
-            [ 'fontname', [ 'fontname' ] ],
-            [ 'fontsize', [ 'fontsize' ] ],
-            [ 'color', [ 'color' ] ],
-            [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
-            [ 'table', [ 'table' ] ],
-            [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
-        ]
-    })
+//     $('.summernote').summernote({
+//         height: 300,
+//         toolbar: [
+//             [ 'style', [ 'style' ] ],
+//             [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+//             [ 'fontname', [ 'fontname' ] ],
+//             [ 'fontsize', [ 'fontsize' ] ],
+//             [ 'color', [ 'color' ] ],
+//             [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+//             [ 'table', [ 'table' ] ],
+//             [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+//         ]
+//     })
 
-     $('.datetimepicker').datetimepicker({
-		  format:'Y/m/d H:i',
-		})
+//      $('.datetimepicker').datetimepicker({
+// 		  format:'Y/m/d H:i',
+// 		})
     
 
-  })
- $(".switch-toggle").bootstrapToggle();
-$('.number').on('input keyup keypress',function(){
-        var val = $(this).val()
-        val = val.replace(/[^0-9]/, '');
-        val = val.replace(/,/g, '');
-        val = val > 0 ? parseFloat(val).toLocaleString("en-US") : 0;
-        $(this).val(val)
-    })
-</script> -->
+//   })
+//  $(".switch-toggle").bootstrapToggle();
+// $('.number').on('input keyup keypress',function(){
+//         var val = $(this).val()
+//         val = val.replace(/[^0-9]/, '');
+//         val = val.replace(/,/g, '');
+//         val = val > 0 ? parseFloat(val).toLocaleString("en-US") : 0;
+//         $(this).val(val)
+//     })
+</script>
 <script src="<?=base_url()?>/project/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="<?=base_url()?>/project/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>

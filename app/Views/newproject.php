@@ -4,7 +4,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
             <li class="nav-item">
-        <a class="nav-link text-dark" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link text-white" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
       </li>
          
     </ul>
@@ -52,7 +52,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item dropdown">
             <a href="<?=base_url()?>/dashboard" class="nav-link nav-home">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Dashboard
               </p>
@@ -82,13 +82,13 @@
             </ul>
           </li> 
           <li class="nav-item">
-                <a href="./index.php?page=task_list" class="nav-link nav-task_list">
+                <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>
                   <p>Task</p>
                 </a>
           </li>
                      <li class="nav-item">
-                <a href="./index.php?page=reports" class="nav-link nav-reports">
+                <a href="<?=base_url()?>/report" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>
                   <p>Report</p>
                 </a>
@@ -156,7 +156,18 @@
           </div><!-- /.col -->
 
         </div><!-- /.row -->
-            <hr class="border-primary">
+            <hr class="border-primary"> <?php if(isset($validation)): ?>
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                            
+                                <?php if (strcasecmp($validation->listErrors(),  'The name field must contain a unique value.')): ?>
+                                  <p class="text-center">The project name already exist!</p>
+                                  <?php else:?>
+                                <?= $validation->listErrors() ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -166,9 +177,9 @@
       <div class="container-fluid">
          
 <div class="col-lg-12">
-	<div class="card card-outline card-primary">
+	<div class="card card-outline">
 		<div class="card-body">
-		<form action="<?=base_url()?>/addproject" method="post" >
+		<form action="<?=base_url()?>/newproject" method="post" >
 
         <input type="hidden" name="id" value="">
 		<div class="row">
@@ -178,16 +189,16 @@
 					<input type="text" class="form-control form-control-sm" name="name" value="">
 				</div>
 			</div>
-          	<div class="col-md-6">
+          	<!-- <div class="col-md-6">
 				<div class="form-group">
 					<label for="">Status</label>
 					<select name="status" id="status" class="custom-select custom-select-sm">
-						<option value="0" >Pending</option>
-						<option value="3" >On-Hold</option>
-						<option value="5" >Done</option>
+						<option value="pending" >Pending</option>
+						<option value="on-hold" >On-Hold</option>
+						<option value="done" >Done</option>
 					</select>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -204,30 +215,55 @@
           </div>
 		</div>
         <div class="row">
-        	           <div class="col-md-6">
+        <?php if(session()->get('adviserID') != null) :?>
+        	<div class="col-md-6">
             <div class="form-group">
-              <label for="" class="control-label">Project Manager</label>
-              <select class="form-control form-control-sm select2" name="manager_id">
+              <label for="" class="control-label">Project Leader</label>
+              <select class="form-control form-control-sm select2" name="leader_id">
               	<option></option>
-              	              	<option value="2" >John Smith</option>
-              	              	<option value="6" >Mark Achacoso</option>
+                  <?php if($students != null) : ?>
+                    <?php foreach ($students as $stud) :?>
+              	              	<option value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
+              	              	
+                                    <?php endforeach;?>
+                                    <?php endif ;?>
               	              </select>
             </div>
           </div>
+          <?php endif; ?>
+          <?php if(session()->get('adviserID') == null) :?>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="" class="control-label">Adviser</label>
+              <select class="form-control form-control-sm select2" name="adviser_id">
+              	<option></option>
+                  <?php if($adviser != null) : ?>
+                    <?php foreach ($adviser as $adv) :?>
+              	              	<option value="<?=$adv['adviserID']?>" ><?=$adv['firstname'],' ',$adv['lastname']?></option>
+              	              	
+                                    <?php endforeach;?>
+                                    <?php endif ;?>
+              	              </select>
+            </div>
+          </div>
+          <?php endif; ?>
                 <div class="col-md-6">
             <div class="form-group">
-              <label for="" class="control-label">Project Team Members</label>
+              <label for="" class="control-label">Team Members</label>
               <select class="form-control form-control-sm select2" multiple="multiple" name="user_ids[]">
               	<option></option>
-              	              	<option value="3" >Claire Blake</option>
-              	              	<option value="4" >George Wilson</option>
-              	              	<option value="5" >Mike Williams</option>
+                  <?php if($students != null) : ?>
+                    <?php foreach ($students as $stud) :?>
+              	              	<option value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
+              	              	<?php endforeach;?>
+                                    <?php endif ;?>
               	              </select>
+
             </div>
           </div>
         </div>
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<div class="form-group">
 					<label for="" class="control-label">Description</label>
 					<textarea name="description" id="" cols="30" rows="10" class="summernote form-control">
@@ -238,7 +274,7 @@
         <div class="card-footer border-top border-info">
     		<div class="d-flex w-100 justify-content-center align-items-center">
     			<button class="btn btn-flat  bg-gradient-primary mx-2" type="submit" >Save</button>
-    			<button class="btn btn-flat bg-gradient-secondary mx-2" type="button" onclick="location.href='index.php?page=project_list'">Cancel</button>
+    			<!-- <button class="btn btn-flat bg-gradient-secondary mx-2" type="button" href="index.php?page=project_list">Cancel</button> -->
     		</div>
     	</div>
         </form>
@@ -439,37 +475,37 @@
 	        title: $msg
 	      })
 	  }
-$(function () {
-  bsCustomFileInput.init();
+// $(function () {
+//   bsCustomFileInput.init();
 
-    $('.summernote').summernote({
-        height: 300,
-        toolbar: [
-            [ 'style', [ 'style' ] ],
-            [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
-            [ 'fontname', [ 'fontname' ] ],
-            [ 'fontsize', [ 'fontsize' ] ],
-            [ 'color', [ 'color' ] ],
-            [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
-            [ 'table', [ 'table' ] ],
-            [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
-        ]
-    })
+//     $('.summernote').summernote({
+//         height: 300,
+//         toolbar: [
+//             [ 'style', [ 'style' ] ],
+//             [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+//             [ 'fontname', [ 'fontname' ] ],
+//             [ 'fontsize', [ 'fontsize' ] ],
+//             [ 'color', [ 'color' ] ],
+//             [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+//             [ 'table', [ 'table' ] ],
+//             [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+//         ]
+//     })
 
-     $('.datetimepicker').datetimepicker({
-		  format:'Y/m/d H:i',
-		})
+//      $('.datetimepicker').datetimepicker({
+// 		  format:'Y/m/d H:i',
+// 		})
     
 
-  })
- $(".switch-toggle").bootstrapToggle();
-$('.number').on('input keyup keypress',function(){
-        var val = $(this).val()
-        val = val.replace(/[^0-9]/, '');
-        val = val.replace(/,/g, '');
-        val = val > 0 ? parseFloat(val).toLocaleString("en-US") : 0;
-        $(this).val(val)
-    })
+//   })
+//  $(".switch-toggle").bootstrapToggle();
+// $('.number').on('input keyup keypress',function(){
+//         var val = $(this).val()
+//         val = val.replace(/[^0-9]/, '');
+//         val = val.replace(/,/g, '');
+//         val = val > 0 ? parseFloat(val).toLocaleString("en-US") : 0;
+//         $(this).val(val)
+//     })
 </script>
 <script src="<?=base_url()?>/project/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
@@ -489,7 +525,7 @@ $('.number').on('input keyup keypress',function(){
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>/project/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script>
+<!-- <script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script> -->
 <!-- DataTables  & Plugins -->
 <script src="<?=base_url()?>/project/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>/project/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

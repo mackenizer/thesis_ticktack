@@ -4,7 +4,7 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
             <li class="nav-item">
-        <a class="nav-link text-dark" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link text-white" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
       </li>
          
     </ul>
@@ -52,7 +52,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item dropdown">
             <a href="<?=base_url()?>/dashboard" class="nav-link nav-home">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Dashboard
               </p>
@@ -165,7 +165,7 @@
     <section class="content">
       <div class="container-fluid">
           <div class="col-md-12">
-        <div class="card card-outline card-success">
+        <div class="card card-outline">
           <div class="card-header">
             <b>Project Progress</b>
             <div class="card-tools">

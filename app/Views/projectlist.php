@@ -1,10 +1,13 @@
+<?php $uri = service('uri'); 
+
+?>
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand  " style="background-color: #32be8f">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
             <li class="nav-item">
-        <a class="nav-link text-dark" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link text-white" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
       </li>
          
     </ul>
@@ -52,7 +55,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item dropdown">
             <a href="<?=base_url()?>/dashboard" class="nav-link nav-home">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
                 Dashboard
               </p>
@@ -152,7 +155,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Project List</h1>
+            <!-- <h1 class="m-0">Project List</h1> -->
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -165,24 +168,16 @@
     <section class="content">
       <div class="container-fluid">
          <div class="col-lg-12">
-	<div class="card card-outline card-success">
+	<div class="card card-outline">
 		<div class="card-header">
             			<div class="card-tools">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_project"><i class="fa fa-plus"></i> Add New project</a>
+				<a class="btn btn-primary btn-sm btn-default btn-flat border-primary" href="<?=base_url()?>/newproject"><i class="fas fa-plus-square"></i> Add New project</a>
 			</div>
             		</div>
 		<div class="card-body">
-			<table class="table tabe-hover table-condensed" id="list">
-				<colgroup>
-					<col width="5%">
-					<col width="35%">
-					<col width="15%">
-					<col width="15%">
-					<col width="20%">
-					<col width="10%">
-				</colgroup>
-				<thead>
-					<tr>
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+        <tr>
 						<th class="text-center">#</th>
 						<th>Project</th>
 						<th>Date Started</th>
@@ -190,33 +185,52 @@
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
-				</thead>
-				<tbody>
-										<tr>
-						<th class="text-center">1</th>
-						<td>
-							<p><b>New Project</b></p>
-							<p class="truncate">Wew</p>
-						</td>
-						<td><b>Apr 17, 2021</b></td>
-						<td><b>Apr 24, 2021</b></td>
-						<td class="text-center">
-							<span class='badge badge-primary'>Started</span>						</td>
-						<td class="text-center">
-							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        </thead>
+        <tbody>
+        <?php if($project != null):?>
+          <?php foreach($project as $proj) :?>
+            <tr>
+                <td><?= $proj['id']?></td>
+                <td><?= $proj['name']?></td>
+                <td><?= date("M d, Y",strtotime($proj['start_date']))?></td>
+                <td><?= date("M d, Y",strtotime($proj['end_date']))?></td>
+                <td>
+                        <?php
+                            if($proj['status'] =='on-going'){
+                              echo "<span class='badge badge-secondary'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='stop'){
+                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='on-hold'){
+                              echo "<span class='badge badge-warning'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='complete'){
+                              echo "<span class='badge badge-success'>{$proj['status']}</span>";
+                            }
+                          ?>
+                </td>
+                <td>
+                <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
 		                    </button>
 		                    <div class="dropdown-menu" style="">
-		                      <a class="dropdown-item view_project" href="./index.php?page=view_project&id=6" data-id="6">View</a>
+                     
+		                      <a class="dropdown-item view_project" href="<?=base_url()?>/viewproject/<?= $proj['id'] ?>" data-id="">View</a>
+                          <?php if($proj['user_ids'] != session()->get('studentID')) :?>
 		                      <div class="dropdown-divider"></div>
-		                      		                      <a class="dropdown-item" href="./index.php?page=edit_project&id=6">Edit</a>
+                          
+		                      <a class="dropdown-item" href="<?=base_url()?>/editproject/<?= $proj['id'] ?>">Edit</a>
 		                      <div class="dropdown-divider"></div>
-		                      <a class="dropdown-item delete_project" href="javascript:void(0)" data-id="6">Delete</a>
-		                  		                    </div>
-						</td>
-					</tr>	
-								</tbody>
-			</table>
+		                      <a class="dropdown-item delete_project" href="javascript:void(0)" data-id="">Delete</a>
+                          <?php endif; ?>
+		                    </div>
+
+                
+                </td>
+            </tr>
+           <?php endforeach;?>
+          <?php endif;?>
+        </tbody>
+        
+    </table>
 		</div>
 	</div>
 </div>
@@ -228,7 +242,23 @@
 		vertical-align: middle !important
 	}
 </style>
+
+
 <script>
+      $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+<!-- <script>
+
+
+
 	$(document).ready(function(){
 		$('#list').dataTable()
 	
@@ -253,7 +283,7 @@
 			}
 		})
 	}
-</script>      </div><!--/. container-fluid -->
+</script>      </div>/. container-fluid -->
     </section>
     <!-- /.content -->
     <div class="modal fade" id="confirm_modal" role='dialog'>
@@ -327,25 +357,25 @@
 <!-- jQuery -->
 <!-- Bootstrap -->
 <!-- SweetAlert2 -->
-<script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- <script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script> -->
 <!-- Toastr -->
-<script src="assets/plugins/toastr/toastr.min.js"></script>
+<!-- <script src="assets/plugins/toastr/toastr.min.js"></script> -->
 <!-- Switch Toggle -->
-<script src="assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script>
+<!-- <script src="assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script> -->
 <!-- Select2 -->
-<script src="assets/plugins/select2/js/select2.full.min.js"></script>
+<!-- <script src="assets/plugins/select2/js/select2.full.min.js"></script> -->
 <!-- Summernote -->
-<script src="assets/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- <script src="assets/plugins/summernote/summernote-bs4.min.js"></script> -->
 <!-- dropzonejs -->
-<script src="assets/plugins/dropzone/min/dropzone.min.js"></script>
-<script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- <script src="assets/plugins/dropzone/min/dropzone.min.js"></script> -->
+<!-- <script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script> -->
 <!-- DateTimePicker -->
-  <script src="assets/dist/js/jquery.datetimepicker.full.min.js"></script>
+  <!-- <script src="assets/dist/js/jquery.datetimepicker.full.min.js"></script> -->
   <!-- Bootstrap Switch -->
-<script src="assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
- <!-- MOMENT -->
-<script src="assets/plugins/moment/moment.min.js"></script>
-<script>
+<!-- <script src="assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script> -->
+
+<!-- <script src="assets/plugins/moment/moment.min.js"></script> -->
+<!-- <script>
 	$(document).ready(function(){
 	  $('.select2').select2({
 	    placeholder:"Please select here",
@@ -456,7 +486,7 @@ $('.number').on('input keyup keypress',function(){
         val = val > 0 ? parseFloat(val).toLocaleString("en-US") : 0;
         $(this).val(val)
     })
-</script>
+</script> -->
 <script src="<?=base_url()?>/project/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="<?=base_url()?>/project/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
@@ -475,7 +505,7 @@ $('.number').on('input keyup keypress',function(){
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>/project/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script>
+<!-- <script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script> -->
 <!-- DataTables  & Plugins -->
 <script src="<?=base_url()?>/project/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>/project/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

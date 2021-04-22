@@ -375,7 +375,7 @@ class Users extends BaseController
                 'firstname' => 'required|min_length[3]|max_length[20]',
                 'lastname' => 'required|min_length[3]|max_length[20]',
                 'email' => 'required|min_length[6]|max_length[50]|valid_email',
-                'password' => 'required|min_length[8]|max_length[255]',
+                'password' => 'required|min_length[5]|max_length[255]',
                 'repass' => 'matches[password]',
                 'role' => 'required',
                 

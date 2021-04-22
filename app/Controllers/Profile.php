@@ -31,7 +31,7 @@ class Profile extends BaseController
 				$Data = [
 		
 					'studentID' => session()->get('studentID'),
-					'pic' => $student->getName(),
+					'student_pic' => $student->getName(),
 				];
 				
 				$studentModel->save($Data);
@@ -42,7 +42,7 @@ class Profile extends BaseController
 				
 
 				 $data = [
-					'pic' => $stud['pic'],
+					'student_pic' => $stud['student_pic'],
 					
 				];
 

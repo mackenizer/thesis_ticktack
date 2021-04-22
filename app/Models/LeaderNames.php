@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
 
 class LeaderNames extends Model{
-    protected $table = 'proj_leader';
+    protected $table = 'projects';
     
     
 

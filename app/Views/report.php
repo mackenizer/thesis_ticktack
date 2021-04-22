@@ -57,7 +57,8 @@
                 Dashboard
               </p>
             </a>
-          </li>  
+          </li> 
+          <?php if(session()->get('adviserID') == null):?> 
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_project nav-view_project">
               <i class="nav-icon fas fa-layer-group"></i>
@@ -66,6 +67,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <?php endif;?>
             <ul class="nav nav-treeview">
                           <li class="nav-item">
                 <a href="<?=base_url()?>/newproject" class="nav-link nav-new_project tree-item">
@@ -81,18 +83,20 @@
               </li>
             </ul>
           </li> 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>
                   <p>Task</p>
                 </a>
-          </li>
+          </li> -->
+         
                      <li class="nav-item">
                 <a href="<?=base_url()?>/report" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>
                   <p>Reports</p>
                 </a>
           </li>
+        
                               <!-- <li class="nav-item">
             <a href="#" class="nav-link nav-edit_user">
               <i class="nav-icon fas fa-users"></i>
@@ -169,7 +173,7 @@
           <div class="card-header">
             <b>Project Progress</b>
             <div class="card-tools">
-            	<!-- <button class="btn btn-flat btn-sm bg-gradient-success btn-success" id="print"><i class="fa fa-print"></i> Print</button> -->
+            	<button class="btn btn-flat btn-sm bg-gradient-success btn-success" id="print"><i class="fa fa-print"></i> Print</button>
             </div>
           </div>
           <div class="card-body p-0">
@@ -183,44 +187,49 @@
                   <col width="15%">
                 </colgroup> -->
                 <thead>
-                  <th>#</th>
                   <th>Project</th>
                   <th>Task</th>
                   <th>Completed Task</th>
-                  <th>Work Duration</th>
                   <th>Progress</th>
                   <th>Status</th>
                 </thead>
                 <tbody>
-                                  <tr>
-                      <td>
-                         1                      </td>
-                      <td>
-                          <a>
-                              New Project                          </a>
-                          <br>
-                          <small>
-                              Due: 2021-04-24                          </small>
+                <?php if($project != null) : ?>
+                  <?php foreach ($project as $proj) :?>
+                    <tr>
+
+                      <td><a><?=$proj['name']?></a>
+                      <br>
+                      <small>Due: <?= date("F d, Y",strtotime($proj['end_date']))?></small>
                       </td>
-                      <td class="text-center">
-                      	0                      </td>
-                      <td class="text-center">
-                      	0                      </td>
-                      <td class="text-center">
-                      	0 Hr/s.                      </td>
+                      <td class="text-center"><?=$total_task[$proj['id']]?></td>
+                      <td class="text-center"><?=$completed_task[$proj['id']]?></td>
                       <td class="project_progress">
                           <div class="progress progress-sm">
-                              <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                              <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: <?=$progress[$proj['id']]?>%">
                               </div>
                           </div>
                           <small>
-                              0% Complete
+                          <?=$progress[$proj['id']]?>% Complete
                           </small>
                       </td>
                       <td class="project-state">
-                          <span class='badge badge-primary'>Started</span>                      </td>
+                      <?php
+                            if($proj['status'] =='on-going'){
+                              echo "<span class='badge badge-secondary'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='stop'){
+                              echo "<span class='badge badge-danger'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='on-hold'){
+                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
+                            }elseif($proj['status'] =='complete'){
+                              echo "<span class='badge badge-success'>{$proj['status']}</span>";
+                            }
+                          ?>
+                      </td>
                   </tr>
-                                </tbody>  
+                </tbody>  
+                <?php endforeach;?>
+                  <?php endif; ?>
               </table>
             </div>
           </div>

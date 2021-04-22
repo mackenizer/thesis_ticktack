@@ -18,7 +18,7 @@ class AddProductivity extends BaseController
                     'date' => 'required',
                     'start_time' => 'required',
                     'end_time' => 'required',
-                    'file' => 'uploaded[file]',
+                    
               
                    
                     
@@ -55,11 +55,13 @@ class AddProductivity extends BaseController
                        
 
                     ];
-                    
+                    // print_r($newData);
+                    // exit();
                     
                    
     
                     $model->insert($newData);
+                    
 
                     $session = session();
                     $session->setFlashdata('success', 'Progress Successfully Added!');

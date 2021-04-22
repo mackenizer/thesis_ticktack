@@ -81,12 +81,12 @@
               </li>
             </ul>
           </li> 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>
                   <p>Task</p>
                 </a>
-          </li>
+          </li> -->
                      <li class="nav-item">
                 <a href="<?=base_url()?>/report" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>
@@ -192,7 +192,7 @@
 						<th>Project Due Date</th>
 						<th>Project Status</th>
 						<th>Task Status</th>
-            <?php if(session()->get('adviserID') == null) :?>	<th>Action</th>  <?php endif;?>
+            <!-- <th>Action</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -235,16 +235,14 @@
                             }
                           ?>
             </td>
-            <?php if(session()->get('adviserID') == null) :?>
-            <td class="text-center">
+            <!-- <td class="text-center">
 							<button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
 		                    </button>
 			                    <div class="dropdown-menu" style="">
 			                      <a class="dropdown-item new_productivity" data-pid = '' data-tid = ''  data-task = ''  href="javascript:void(0)">Add Productivity</a>
 								</div>
-						</td>
-            <?php endif;?>
+						</td> -->
 					</tr>
           <?php endforeach;?>
         <?php endif; ?>	

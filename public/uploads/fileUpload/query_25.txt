@@ -1,0 +1,6 @@
+create view upload_file AS
+select files.fileID, files.moduleID, files.studentID, files.file, files.description, files.date, files.status, files.projectID, concat(students.firstname,' ',students.lastname) as fullname from files
+
+join students on students.studentID=files.studentID
+
+

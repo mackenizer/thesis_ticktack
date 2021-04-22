@@ -16,11 +16,13 @@ class AddTask extends BaseController
                     'description' => 'required',
                     'start_date' => 'required',
                     'end_date' => 'required',
+                    'members' => 'required',
                     
                 ];
     
                 if(!$this->validate($rules)){
                     $data['validation'] = $this->validator;
+                    echo 'he';
       
                 }else{
                     $task = new TaskModel();
@@ -34,6 +36,7 @@ class AddTask extends BaseController
                         'project_id' => $this->request->getVar('id'),
                         'start_date' => $this->request->getVar('start_date'),
                         'end_date' => $this->request->getVar('end_date'),
+                        'member_id' => $this->request->getVar('members'),
 
                     ];
                     // print_r($newData);

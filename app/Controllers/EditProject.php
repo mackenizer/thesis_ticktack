@@ -32,6 +32,8 @@ class EditProject extends BaseController
         $datas = $this->request->getVar('id');
        
         // echo $id;
+
+        
        
        
         
@@ -100,6 +102,8 @@ class EditProject extends BaseController
 
                 // print_r($newData);
                 // exit();
+
+              
 
 
                

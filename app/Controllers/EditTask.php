@@ -10,21 +10,16 @@ class EditTask extends BaseController
 {
 	public function index($id = null)
 	{
-         
         $data = [];
-        $data['title'] = 'Edit Task';
+        $data['title'] = 'Progress Section';
 
-        $task = new TaskModel();
+        
+      
+            
+      
+        
 
-        $view = $task->where('id', $id)->first();
 
-        $data['task'] = $view;
-
-
-        // print_r($data['task']);
-        // exit();
-
-       
         if($this->request->getMethod() == 'post'){
                 $rules = [
                     'task' => 'required',
@@ -32,26 +27,31 @@ class EditTask extends BaseController
                     'task_status' => 'required',
                     'start_date' => 'required',
                     'end_date' => 'required',
+                    'members' => 'required',
                     
                 ];
     
                 if(!$this->validate($rules)){
                     $data['validation'] = $this->validator;
-                    echo 'stop';
+                    echo $data['validation']->listErrors();
+                   
                 }else{
+                    $task = new TaskModel();
                    
 
                     
                     $x = $id;
        
                     $newData = [
-                        'id' => $x,
+                        'id' => $this->request->getVar('task_id'),
                         'task' => $this->request->getVar('task'),
                         'description' => $this->request->getVar('description'),
                         'project_id' => $this->request->getVar('id'),
                         'start_date' => $this->request->getVar('start_date'),
                         'end_date' => $this->request->getVar('end_date'),
                         'task_status' => $this->request->getVar('task_status'),
+                        'member_id' => $this->request->getVar('members'),
+
 
                     ];
                     // print_r($newData);
@@ -62,15 +62,17 @@ class EditTask extends BaseController
 
                     $session = session();
                     $session->setFlashdata('success', 'Task successfully updated');
-                    return redirect()->to(base_url().'/edittask'.'/'.$id);
+                    return redirect()->to(base_url().'/viewproject'.'/'.$id);
           
                 }
             }
 
-             
-        echo view('templates/adminheader', $data);
-        echo view('edittask');
-        echo view('templates/footer');
+            
+          
+            echo view('templates/adminheader', $data);
+            echo view('edittask');
+            echo view('templates/footer');
+   
         
     }
 }

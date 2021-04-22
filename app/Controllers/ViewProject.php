@@ -7,6 +7,10 @@ use App\Models\LeaderNames;
 use App\Models\TaskModel;
 use App\Models\ProductivityModel;
 use App\Models\DisplayModel;
+use App\Models\TasklistAll;
+use App\Models\DisplayProd;
+use App\Models\CommentModel;
+
 
 class ViewProject extends BaseController
 {
@@ -21,44 +25,50 @@ class ViewProject extends BaseController
         $names = new LeaderNames();
         $task = new TaskModel();
         $prod = new DisplayModel();
-
-
-
+        $all = new TaskListAll();
+        $myprod = new DisplayProd();
+        $comment = new CommentModel();
+  
         
         if($id!=null){
             $user = $model->where('id', $id)->first();
             
             $data['leader'] = $names->where('id', $id)->first();
             $data['project'] = $user;
-           
-            
-
-        //    echo $data['leader']['leader_id'] == session()->get('studentID');
-        //     exit();
-
 
 
             $arr = $data['project']['user_ids'];
             $ex = explode(",", $arr);
             foreach ($ex as $e){
                 $data['mem'][$e]  = $students->where('studentID', $e)->first();
+                
             }
 
-            // print_r ($data['mem'][$e]);
-            // exit();
-            
-           
-
             $view = $task->where('project_id', $id)->findall();
-            $view2 = $task->where('project_id', $id)->findall();
+            $view = $task->where('project_id', $id)->findall();
             $view3 = $prod->where('project_id', $id)->findall();
+            $model2 = $all->where('project_id', $id)->findall();
+            $model3 = $myprod->where('project_id', $id)->findall();
+            $view4 = $prod->where('project_id', $id)->where('member_id', session()->get('studentID'))->findall();
+            $view5 = $comment->where('project_id', $id)->findall();
           
             $data['task'] = $view;
-            $data['task2'] = $view2;
             $data['prod'] = $view3;
-            
-            // print_r($data['prod']);
+            $data['alltask'] = $model2;
+            $data['produc'] = $model3;
+            $data['mytask'] = $view4;
+            $data['comment'] = $view5;
+
+
+            // print_r($data['comment']);
             // exit();
+
+
+
+    
+            
+      
+     
          
             $data['members'] = $user;
     }

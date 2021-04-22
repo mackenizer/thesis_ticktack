@@ -3,7 +3,7 @@
 use CodeIgniter\Model;
 
 class DisplayModel extends Model{
-    protected $table = 'display_user';
+    protected $table = 'task_total_rendered';
     
     
 

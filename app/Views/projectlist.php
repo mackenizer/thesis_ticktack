@@ -2,41 +2,7 @@
 
 ?>
 <div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand  " style="background-color: #32be8f">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-            <li class="nav-item">
-        <a class="nav-link text-white" data-widget="pushmenu" href="" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-         
-    </ul>
-
-    <ul class="navbar-nav ml-auto">
-     
-      <li class="nav-item">
-        <a class="nav-link text-white" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-     <li class="nav-item dropdown">
-            <a class="nav-link"  data-toggle="dropdown" aria-expanded="true" href="javascript:void(0)">
-              <span>
-                <div class="text-white d-felx badge-pill">
-                  <span class="text-white fa fa-user mr-2"></span>
-                  <span><b><?php echo session()->get('firstname').' '. session()->get('lastname') ?></b></span>
-                  <span class="text-white fa fa-angle-down ml-2"></span>
-                </div>
-              </span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="account_settings" style="left: -2.5em;">
-              <a class="dropdown-item" href="javascript:void(0)" id="manage_account"><i class="fa fa-cog"></i> Manage Account</a>
-              <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
+<?php include('templates/nav.php');?>
   <script>
      $('#manage_account').click(function(){
         uni_modal('Manage Account','manage_user.php?id=1')
@@ -60,7 +26,8 @@
                 Dashboard
               </p>
             </a>
-          </li>  
+          </li> 
+           
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_project nav-view_project">
               <i class="nav-icon fas fa-layer-group"></i>
@@ -84,12 +51,12 @@
               </li>
             </ul>
           </li> 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
                 <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>
                   <p>Task</p>
                 </a>
-          </li>
+          </li> -->
                      <li class="nav-item">
                 <a href="<?=base_url()?>/report" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>
@@ -123,26 +90,7 @@
       </nav>
     </div>
   </aside>
-  <script>
-  	$(document).ready(function(){
-      var page = 'project_list';
-  		var s = '';
-      if(s!='')
-        page = page+'_'+s;
-  		if($('.nav-link.nav-'+page).length > 0){
-             $('.nav-link.nav-'+page).addClass('active')
-  			if($('.nav-link.nav-'+page).hasClass('tree-item') == true){
-            $('.nav-link.nav-'+page).closest('.nav-treeview').siblings('a').addClass('active')
-  				$('.nav-link.nav-'+page).closest('.nav-treeview').parent().addClass('menu-open')
-  			}
-        if($('.nav-link.nav-'+page).hasClass('nav-is-tree') == true){
-          $('.nav-link.nav-'+page).parent().addClass('menu-open')
-        }
-
-  		}
-     
-  	})
-  </script>
+ 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
   	 <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -183,7 +131,7 @@
 						<th>Date Started</th>
 						<th>Due Date</th>
 						<th>Status</th>
-						<th>Action</th>
+					<?php if(session()->get('adviserID') == null) :?><th>Action</th><?php endif;?>
 					</tr>
         </thead>
         <tbody>
@@ -199,7 +147,7 @@
                             if($proj['status'] =='on-going'){
                               echo "<span class='badge badge-secondary'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='stop'){
-                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
+                              echo "<span class='badge badge-danger'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='on-hold'){
                               echo "<span class='badge badge-warning'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='complete'){
@@ -208,13 +156,15 @@
                           ?>
                 </td>
                 <td>
+                <?php if(session()->get('adviserID') == null) :?>
                 <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 		                      Action
-		                    </button>
+		             </button>
+                 <?php endif;?>
 		                    <div class="dropdown-menu" style="">
                      
 		                      <a class="dropdown-item view_project" href="<?=base_url()?>/viewproject/<?= $proj['id'] ?>" data-id="">View</a>
-                          <?php if($proj['user_ids'] != session()->get('studentID')) :?>
+                          <?php if($proj['user_ids'] != session()->get('studentID') && $proj['leader_id'] == session()->get('studentID') || $proj['adviserID'] == session()->get('adviserID') ) :?>
 		                      <div class="dropdown-divider"></div>
                           
 		                      <a class="dropdown-item" href="<?=base_url()?>/editproject/<?= $proj['id'] ?>">Edit</a>
@@ -353,169 +303,4 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
-<!-- Bootstrap -->
-<!-- SweetAlert2 -->
-<!-- <script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script> -->
-<!-- Toastr -->
-<!-- <script src="assets/plugins/toastr/toastr.min.js"></script> -->
-<!-- Switch Toggle -->
-<!-- <script src="assets/plugins/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script> -->
-<!-- Select2 -->
-<!-- <script src="assets/plugins/select2/js/select2.full.min.js"></script> -->
-<!-- Summernote -->
-<!-- <script src="assets/plugins/summernote/summernote-bs4.min.js"></script> -->
-<!-- dropzonejs -->
-<!-- <script src="assets/plugins/dropzone/min/dropzone.min.js"></script> -->
-<!-- <script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script> -->
-<!-- DateTimePicker -->
-  <!-- <script src="assets/dist/js/jquery.datetimepicker.full.min.js"></script> -->
-  <!-- Bootstrap Switch -->
-<!-- <script src="assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script> -->
-
-<!-- <script src="assets/plugins/moment/moment.min.js"></script> -->
-<!-- <script>
-	$(document).ready(function(){
-	  $('.select2').select2({
-	    placeholder:"Please select here",
-	    width: "100%"
-	  });
-  })
-	 window.start_load = function(){
-	    $('body').prepend('<div id="preloader2"></div>')
-	  }
-	  window.end_load = function(){
-	    $('#preloader2').fadeOut('fast', function() {
-	        $(this).remove();
-	      })
-	  }
-	 window.viewer_modal = function($src = ''){
-	    start_load()
-	    var t = $src.split('.')
-	    t = t[1]
-	    if(t =='mp4'){
-	      var view = $("<video src='"+$src+"' controls autoplay></video>")
-	    }else{
-	      var view = $("<img src='"+$src+"' />")
-	    }
-	    $('#viewer_modal .modal-content video,#viewer_modal .modal-content img').remove()
-	    $('#viewer_modal .modal-content').append(view)
-	    $('#viewer_modal').modal({
-	            show:true,
-	            backdrop:'static',
-	            keyboard:false,
-	            focus:true
-	          })
-	          end_load()  
-
-	}
-	  window.uni_modal = function($title = '' , $url='',$size=""){
-	      start_load()
-	      $.ajax({
-	          url:$url,
-	          error:err=>{
-	              console.log()
-	              alert("An error occured")
-	          },
-	          success:function(resp){
-	              if(resp){
-	                  $('#uni_modal .modal-title').html($title)
-	                  $('#uni_modal .modal-body').html(resp)
-	                  if($size != ''){
-	                      $('#uni_modal .modal-dialog').addClass($size)
-	                  }else{
-	                      $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md")
-	                  }
-	                  $('#uni_modal').modal({
-	                    show:true,
-	                    backdrop:'static',
-	                    keyboard:false,
-	                    focus:true
-	                  })
-	                  end_load()
-	              }
-	          }
-	      })
-	  }
-	  window._conf = function($msg='',$func='',$params = []){
-	     $('#confirm_modal #confirm').attr('onclick',$func+"("+$params.join(',')+")")
-	     $('#confirm_modal .modal-body').html($msg)
-	     $('#confirm_modal').modal('show')
-	  }
-	   window.alert_toast= function($msg = 'TEST',$bg = 'success' ,$pos=''){
-	   	 var Toast = Swal.mixin({
-	      toast: true,
-	      position: $pos || 'top-end',
-	      showConfirmButton: false,
-	      timer: 5000
-	    });
-	      Toast.fire({
-	        icon: $bg,
-	        title: $msg
-	      })
-	  }
-$(function () {
-  bsCustomFileInput.init();
-
-    $('.summernote').summernote({
-        height: 300,
-        toolbar: [
-            [ 'style', [ 'style' ] ],
-            [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
-            [ 'fontname', [ 'fontname' ] ],
-            [ 'fontsize', [ 'fontsize' ] ],
-            [ 'color', [ 'color' ] ],
-            [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
-            [ 'table', [ 'table' ] ],
-            [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
-        ]
-    })
-
-     $('.datetimepicker').datetimepicker({
-		  format:'Y/m/d H:i',
-		})
-    
-
-  })
- $(".switch-toggle").bootstrapToggle();
-$('.number').on('input keyup keypress',function(){
-        var val = $(this).val()
-        val = val.replace(/[^0-9]/, '');
-        val = val.replace(/,/g, '');
-        val = val > 0 ? parseFloat(val).toLocaleString("en-US") : 0;
-        $(this).val(val)
-    })
-</script> -->
-<script src="<?=base_url()?>/project/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="<?=base_url()?>/project/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?=base_url()?>/project/dist/js/adminlte.js"></script>
-
-<!-- PAGE assets/plugins -->
-<!-- jQuery Mapael -->
-<script src="<?=base_url()?>/project/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="<?=base_url()?>/project/plugins/raphael/raphael.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="<?=base_url()?>/project/plugins/chart.js/Chart.min.js"></script>
-
-<!-- AdminLTE for demo purposes -->
-<script src="<?=base_url()?>/project/dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!-- <script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script> -->
-<!-- DataTables  & Plugins -->
-<script src="<?=base_url()?>/project/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/jszip/jszip.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/pdfmake/pdfmake.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/pdfmake/vfs_fonts.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="<?=base_url()?>/project/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<?php include_once('templates/scripts.php'); ?>

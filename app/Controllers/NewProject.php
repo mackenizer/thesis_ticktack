@@ -58,21 +58,7 @@ class NewProject extends BaseController
                 $wew = implode(",", $array);
 
 
-                if(session()->get('adviserID') != null){
                 
-           
-                $newData = [
-                    'name' => $this->request->getVar('name'),
-                    'description' => $this->request->getVar('description'),
-                    'start_date' => $this->request->getVar('start_date'),
-                    'end_date' => $this->request->getVar('end_date'),
-                    'leader_id' => $this->request->getVar('leader_id'),
-                    'adviserID' => session()->get('adviserID'),
-                    'user_ids' => $wew,
-
-
-                ];
-             }else{
                     $newData = [
                         'name' => $this->request->getVar('name'),
                         'description' => $this->request->getVar('description'),
@@ -82,7 +68,7 @@ class NewProject extends BaseController
                         'adviserID' => $this->request->getVar('adviser_id'),
                         'user_ids' => $wew,
                     ];
-                }
+                
                
 
                 $model->insert($newData);

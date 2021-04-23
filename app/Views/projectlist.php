@@ -57,12 +57,14 @@
                   <p>Task</p>
                 </a>
           </li> -->
+          <?php if(session()->get('studentID') == null):?>
                      <li class="nav-item">
                 <a href="<?=base_url()?>/report" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>
                   <p>Report</p>
                 </a>
           </li>
+          <?php endif;?>
                               <!-- <li class="nav-item">
             <a href="#" class="nav-link nav-edit_user">
               <i class="nav-icon fas fa-users"></i>
@@ -149,7 +151,7 @@
                             }elseif($proj['status'] =='stop'){
                               echo "<span class='badge badge-danger'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='on-hold'){
-                              echo "<span class='badge badge-warning'>{$proj['status']}</span>";
+                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='complete'){
                               echo "<span class='badge badge-success'>{$proj['status']}</span>";
                             }

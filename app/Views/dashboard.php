@@ -116,15 +116,17 @@
                       <td class="project-state">
                       <?php
                             if($proj['status'] =='on-going'){
-                              echo "<span class='badge badge-secondary'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-secondary'>{$proj['status']}</span></a>":"<span class='badge badge-secondary'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='stop'){
-                              echo "<span class='badge badge-danger'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-danger'>{$proj['status']}</span></a>":"<span class='badge badge-danger'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='on-hold'){
-                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-info'>{$proj['status']}</span></a>":"<span class='badge badge-info'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='complete'){
-                              echo "<span class='badge badge-success'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-success'>{$proj['status']}</span></a>":"<span class='badge badge-success'>{$proj['status']}</span>";
+                              echo "<p><i>Grade: ".$proj['grade']."</i></p>";
                             }
                           ?>
+                        
                       </td>
                  
   
@@ -137,6 +139,51 @@
                   
                   </tr>
                 </tbody>  
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="<?=base_url()?>/updateproject" method="post">
+                            <div class="form-group">
+                              <input type="text" name="id" class="form-control" id="recipient-name" hidden>
+                            </div>
+                            <div class="col-mb-3 mt-2">
+                            <div class="form-group">
+                            <label for="">Status</label>
+
+                            <select name="status" id="status" class="custom-select custom-select-sm">
+                              
+                                          <option value="on-going" <?php if($proj['status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
+                                          <option value="on-hold" <?php if($proj['status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
+                                          <option value="stop" <?php if($proj['status'] == "stop") { echo "SELECTED"; } ?>>stop</option>
+                                          <option value="complete" <?php if($proj['status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
+
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                  </div>
+                          </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>       
+
+
+
+
+
+
                 <?php endforeach;?>
                   <?php endif; ?>
               </table>
@@ -158,6 +205,21 @@
 </div>
 <!-- ./wrapper -->
 
+
+
+<script>
+
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var recipient = button.data('whatever') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.modal-title').text('Update Project ' + recipient)
+      modal.find('.modal-body input').val(recipient)
+    })
+
+</script>
 
 
 <?php include_once('templates/scripts.php')?>

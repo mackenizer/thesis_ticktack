@@ -38,6 +38,7 @@ class Comment extends BaseController
 
                 $newData = [
                     'project_id' => $this->request->getVar('id'),
+                    'userID' => $this->request->getVar('user_id'),
                     'file' => $file->getName(),
                     'comment' => $this->request->getVar('comment'),
                     'name' => $this->request->getVar('name'),

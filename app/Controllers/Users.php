@@ -301,7 +301,6 @@ class Users extends BaseController
             'email' => $user['email'],
             'firstname' => $display['firstname'],
             'lastname' => $display['lastname'],
-            'student_pic' => $display['student_pic'],
             // 'password' => $users['password'],
             'role' => $user['role'],
          
@@ -334,7 +333,6 @@ class Users extends BaseController
             'email' => $user['email'],
             'firstname' => $display['firstname'],
             'lastname' => $display['lastname'],
-            'pic_a' => $display['pic_a'],
             // 'password' => $users['password'],
             'role' => $user['role'],
      

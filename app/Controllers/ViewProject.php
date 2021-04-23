@@ -10,6 +10,7 @@ use App\Models\DisplayModel;
 use App\Models\TasklistAll;
 use App\Models\DisplayProd;
 use App\Models\CommentModel;
+use App\Models\Notification;
 
 
 class ViewProject extends BaseController
@@ -28,13 +29,18 @@ class ViewProject extends BaseController
         $all = new TaskListAll();
         $myprod = new DisplayProd();
         $comment = new CommentModel();
+        $notify = new Notification();
   
         
         if($id!=null){
             $user = $model->where('id', $id)->first();
+            $p = $names->where('id', $id)->first();
             
             $data['leader'] = $names->where('id', $id)->first();
             $data['project'] = $user;
+            $not = $notify->first();
+            $x = $comment->findall();
+           
 
 
             $arr = $data['project']['user_ids'];
@@ -60,15 +66,16 @@ class ViewProject extends BaseController
             $data['comment'] = $view5;
 
 
-            // print_r($data['comment']);
+            // print_r($data['alltask']);
             // exit();
 
 
 
-    
             
+            $data['comme'] = $x;
       
-     
+            $data['noti'] = $not;
+            $data['pro'] = $p;
          
             $data['members'] = $user;
     }

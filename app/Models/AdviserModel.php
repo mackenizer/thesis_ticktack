@@ -11,7 +11,7 @@ class AdviserModel extends Model{
 
     protected $table = 'adviser';
     protected $primaryKey = 'adviserID';
-    protected $allowedFields = ['userID', 'firstname',  'lastname', 'status_a', 'pic_a'];
+    protected $allowedFields = ['userID', 'firstname',  'lastname'];
 
 
     // protected function beforeInsert(array $data){

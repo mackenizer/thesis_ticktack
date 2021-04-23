@@ -37,8 +37,11 @@ class Report extends BaseController
                                 
                         }else{
                                 $data['progress'][$us['id']] = 0;
+                                $data['total_task'][$us['id']] = 0;
+                                $data['completed_task'][$us['id']] = 0;
                         }
 
+                        
                        
                         
                 }

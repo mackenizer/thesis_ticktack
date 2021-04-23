@@ -5,6 +5,8 @@ use App\Models\ProjectModel;
 use App\Models\TaskModel;
 use App\Models\LeaderNames;
 use App\Models\StudentModel;
+use App\Models\Notification;
+use App\Models\CommentModel;
 
 class Dashboard extends BaseController
 {
@@ -18,13 +20,20 @@ class Dashboard extends BaseController
         $model2 = new TaskModel();
         $model3 = new LeaderNames();
         $student = new StudentModel();
+        $notify = new Notification();
+        $com = new CommentModel();
         
         
         if(session()->get('adviserID') != null){
                 $user = $model3->where('adviserID', session()->get('adviserID'))->findAll();
                 $disp = $model->where('leader_id', session()->get('adviserID'))->first();
-                
-                
+                // $not = $notify->first();
+                // $x = $com->findall();
+                // $p = $model3->where('adviserID', session()->get('adviserID'))->first();
+             
+               
+          
+              
                
          
                
@@ -66,6 +75,9 @@ class Dashboard extends BaseController
         }
         else {
                 $disp = $model->where('leader_id', session()->get('studentID'))->first();
+                // $not = $notify->first();
+                // $x = $com->findall();
+                // $disp = $model->where('leader_id', session()->get('adviserID'))->first();
 
                 $stud = $student->where('studentID', session()->get('studentID'))->first();
                  $user['leader'] = $model3->where('leader_id', session()->get('studentID'))->findAll();
@@ -115,6 +127,9 @@ class Dashboard extends BaseController
                
                 $data['count'] = $count;
                 $data['lead'] = $disp;
+                // $data['noti'] = $not;
+                // $data['comme'] = $x;
+         
 
                
                 
@@ -126,12 +141,19 @@ class Dashboard extends BaseController
        
 
        
-        
+    
 
         $data['lead'] = $disp;
         $data['project'] = $user;
+        // $data['noti'] = $not;
+        // // $data['comme'] = $x;
+        // // $data['pro'] = $p;
+      
+       
+
     
-        
+        // print_r($data['comment']);
+        // exit();
         
       
 

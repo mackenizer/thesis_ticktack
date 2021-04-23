@@ -11,7 +11,7 @@ class StudentModel extends Model{
 
     protected $table = 'students';
     protected $primaryKey = 'studentID';
-    protected $allowedFields = ['userID', 'firstname', 'lastname', 'student_pic'];
+    protected $allowedFields = ['userID', 'firstname', 'lastname'];
     // protected function beforeInsert(array $data){
     //     $data = $this->passwordHash($data);
 

@@ -19,24 +19,14 @@
      
         <?php endif; ?>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
             <?php if($edit != null) :?>
 				<div class="form-group">
 					<label for="" class="control-label">Project Name</label>
 					<input type="text" class="form-control form-control-sm" name="name" value="<?=$edit['name']?>">
 				</div>
 			</div>
-          	<div class="col-md-6">
-				<div class="form-group">
-					<label for="">Status</label>
-					<select name="status" id="status" class="custom-select custom-select-sm">
-                        <option value="on-going" <?php if($edit['status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
-                        <option value="on-hold" <?php if($edit['status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
-                        <option value="stop" <?php if($edit['status'] == "stop") { echo "SELECTED"; } ?>>stop</option>
-                        <option value="complete" <?php if($edit['status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
-					</select>
-				</div>
-			</div>
+          
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -60,53 +50,17 @@
         <div class="row">
        
         <div class="col-md-6">
-            <div class="form-group">
-           
-              <label for="" class="control-label">Adviser</label>
-              <select class="form-control form-control-sm select2" name="adviser_id">
-              	<option></option>
-                  <?php if($adviser != null) : ?>
-                    <?php foreach ($adviser as $ad) :?>
-              	              	<option value="<?=$ad['adviserID']?>" ><?=$ad['firstname'],' ',$ad['lastname']?></option>
-              	              	
-                                    <?php endforeach;?>
-                                    <?php endif ;?>
-              	              </select>
-                                 
-            </div>
+            
             
           </div>
-        	           <div class="col-md-6">
-            <div class="form-group">
-            <?php if($edit['leader_id'] != session()->get('studentID')) : ?>
-              <label for="" class="control-label">Project Leader</label>
-              <select class="form-control form-control-sm select2" name="leader_id">
-              	<option></option>
-                  <?php if($students != null) : ?>
-                    <?php foreach ($students as $stud) :?>
-              	              	<option selected value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
-                      
-                                    <?php endforeach;?>
-                                    <?php endif ;?>
-              	              </select>
-                              <?php endif;?>      
-            </div>
+        <div class="col-md-6">
+            
             
           </div>
           
          
-                <div class="col-md-6">
-            <div class="form-group">
-              <label for="" class="control-label">Team Members</label>
-              <select class="form-control form-control-sm select2" multiple="multiple" name="user_ids[]" value="<?=$edit['user_ids'] ?>">
-                  <?php if($students != null) : ?>
-                    <?php foreach ($students as $stud) :?>
-              	              	<option value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
-              	              	<?php endforeach;?>
-                                    <?php endif ;?>
-              	              </select>
-
-            </div>
+        <div class="col-md-6">
+            
           </div>
         </div>
 		<div class="row">

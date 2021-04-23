@@ -54,7 +54,7 @@
                   <p>Task</p>
                 </a>
           </li> -->
-          <?php if(session()->get('studentID') == null):?>
+          <?php if(session()->get('role') != 'student'):?>
               <li class="nav-item">
                 <a href="<?=base_url()?>/report" class="nav-link nav-reports">
                   <i class="fas fa-th-list nav-icon"></i>

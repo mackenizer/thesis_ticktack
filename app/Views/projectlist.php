@@ -165,13 +165,13 @@
                  <?php endif;?>
 		                    <div class="dropdown-menu" style="">
                      
-		                      <a class="dropdown-item view_project" href="<?=base_url()?>/viewproject/<?= $proj['id'] ?>" data-id="">View</a>
+		                      <a class="dropdown-item view_project" href="<?=base_url()?>/viewproject/<?= $proj['id'] ?>" data-id="">View Team</a>
                           <?php if($proj['user_ids'] != session()->get('studentID') && $proj['leader_id'] == session()->get('studentID') || $proj['adviserID'] == session()->get('adviserID') ) :?>
 		                      <div class="dropdown-divider"></div>
                           
-		                      <a class="dropdown-item" href="<?=base_url()?>/editproject/<?= $proj['id'] ?>">Edit</a>
+		                      <a class="dropdown-item" href="<?=base_url()?>/editproject/<?= $proj['id'] ?>">Edit Project</a>
 		                      <div class="dropdown-divider"></div>
-		                      <a class="dropdown-item delete_project" href="javascript:void(0)" data-id="">Delete</a>
+		                      <a class="dropdown-item delete_project" href="<?=base_url()?>/manageteam/<?= $proj['id'] ?>" data-id="">Manage Team</a>
                           <?php endif; ?>
 		                    </div>
 

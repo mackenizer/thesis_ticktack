@@ -13,30 +13,26 @@ class EditProject extends BaseController
         $data = [];
 
         $data['title'] = 'Edit Project';
+        
+        // $students = new StudentModel();
+        // $model2 = new AdviserModel();
         $projects = new ProjectModel();
-        $students = new StudentModel();
-        $model2 = new AdviserModel();
 
-        $user2 = $model2->findall();
-        $data['adviser'] = $user2;
+        // $user2 = $model2->findall();
+        // $data['adviser'] = $user2;
 
 
         
         $user = $projects->where('id', $id)->first();
-        $stat = $projects->where('id', $id)->findall();
-        $user2 = $students->findall();
-        $data['students'] = $user2;
+        // $stat = $projects->where('id', $id)->findall();
+        // $user2 = $students->findall();
+        // $data['students'] = $user2;
         $data['edit'] = $user;
-        $data['editt'] = $stat;
+        // $data['editt'] = $stat;
 
         $datas = $this->request->getVar('id');
        
-        // echo $id;
 
-        
-       
-       
-        
         
         if($this->request->getMethod() == 'post'){
             $rules = [
@@ -53,61 +49,32 @@ class EditProject extends BaseController
                 
                
             }else{
-             
-              
+                
+                
 
-
-                $array = $this->request->getVar('user_ids');
+                // $array = $this->request->getVar('user_ids');
             
  
-                $wew = implode(",", $array);
+                // $wew = implode(",", $array);
                 $new = $id;
 
 
-                if(session()->get('adviserID') != null){
-                
-           
-                $newData = [
-                    'id' => $new,
-                    'name' => $this->request->getVar('name'),
-                    'description' => $this->request->getVar('description'),
-                    'start_date' => $this->request->getVar('start_date'),
-                    'end_date' => $this->request->getVar('end_date'),
-                    'status' => $this->request->getVar('status'),
-                    'leader_id' => $this->request->getVar('leader_id'),
-                    'adviserID' => session()->get('adviserID'),
-                    'user_ids' => $wew,
-
-
-                ];
-             } else{
+            
                     $newData = [
                         'id' => $new,
                         'name' => $this->request->getVar('name'),
                         'description' => $this->request->getVar('description'),
                         'start_date' => $this->request->getVar('start_date'),
                         'end_date' => $this->request->getVar('end_date'),
-                        'status' => $this->request->getVar('status'),
-                        'leader_id' => session()->get('studentID'),
-                        'adviserID' => $this->request->getVar('adviser_id'),
-                        'user_ids' => $wew,
+         
 
                     ];
-                
-                }
-             
-               
 
                 $projects->save($newData);
 
                 // print_r($newData);
                 // exit();
-
-              
-
-
-               
-                
+    
                 $session = session();
                 $session->setFlashdata('success', 'Successfully Updated!');
                 return redirect()->to(base_url().'/editproject'.'/'.$id);

@@ -61,7 +61,7 @@
 									<?php
 										if($pro['task_status'] =='on-going'){
 										echo "<span class='badge badge-secondary'>{$pro['task_status']}</span>";
-										}elseif($pro['task_status'] =='stop'){
+										}elseif($pro['task_status'] =='revision'){
 										echo "<span class='badge badge-info'>{$pro['task_status']}</span>";
 										}elseif($pro['task_status'] =='on-hold'){
 										echo "<span class='badge badge-warning'>{$pro['task_status']}</span>";
@@ -77,95 +77,124 @@
 									</td>
 
 									<td>
-									<?php if(session()->get('role') == 'adviser' ) :?>
+									<?php if(session()->get('role') == 'adviser'  ) :?>
 									<?php if($pro['task_status'] == 'complete'):?>
 										
 										<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" data-bs-whatever="<?=$pro['id']?>">Evaluate</button>
 										
 									<?php endif;?>
 									<?php else :?>
+									<?php if(session()->get('studentID') == $leader['leader_id'] ):?>
 										<div class="dropdown">
 											<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 												Action
 											</a>
 
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-												<!-- <li><a class="dropdown-item" href="#">View</a></li> -->
-												<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?=$pro['id']?>" data-bs-what="<?=$pro['task']?>" data-bs-w="<?=$pro['start_date']?>" data-bs-wh="<?=$pro['end_date']?>" data-bs-wha="<?=$pro['description']?>" data-bs-projid="<?=$pro['project_id']?>">Edit</a></li>
+												<li><a href="" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="<?=$pro['id']?>">Edit</a></li>
+												<li><a href="" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?=$pro['id']?>" data-bs-what="<?=$pro['task']?>" data-bs-w="<?=$pro['start_date']?>" data-bs-wh="<?=$pro['end_date']?>" data-bs-wha="<?=$pro['description']?>" data-bs-projid="<?=$pro['project_id']?>">Reassign member</a></li>
 											</ul>
 											</div>
 									<?php endif;?>
+									<?php endif;?>
 					
 									
-							`<?php include_once('templates/modal2.php');?>
-`
+							<?php include_once('templates/modal2.php');?>
+
 									</td>
 								
 									
                                     
-		                    	</tr>
-<!-- edittask modal -->
+		                </tr>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="<?=base_url()?>/edittask/<?= $uri->getSegment(2) ?>" method="post">
-          <div class="mb-3">
-            <input type="text" class="form-control" id="recipient-name" name="task_id" hidden>
-            <input type="text" class="form-control" id="proj" name="id" hidden>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Task Name</label>
-                        <input type="text" name="task" class="form-control" id="title" aria-describedby="emailHelp">
-						<label for="exampleInputEmail1" class="form-label mt-2">Reassign Member</label>
-						<select class="form-control form-control-sm select2"  name="members">
-						<option value="<?=session()->get('studentID')?>"><?= $leader['firstname'].' '.$leader['lastname']?></option>
-						<?php if($mem != null) : ?>
-							<?php foreach ($mem as $stud) :?>
-										<option value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
-										<?php endforeach;?>
-											<?php endif ;?>
-									</select>
-                <div class="col-mb-3 mt-2">
-				<div class="form-group">
-					<label for="">Status</label>
+							<!-- edittask modal -->
 
-					<select name="task_status" id="status" class="custom-select custom-select-sm">
-             
-                        <option value="on-going" <?php if($pro['task_status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
-                        <option value="on-hold" <?php if($pro['task_status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
-                        <option value="stop" <?php if($pro['task_status'] == "stop") { echo "SELECTED"; } ?>>stop</option>
-                        <option value="complete" <?php if($pro['task_status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form action="<?=base_url()?>/edittask/<?= $uri->getSegment(2) ?>" method="post">
+									<div class="mb-3">
+										<input type="text" class="form-control" id="recipient-name" name="task_id" hidden>
+										<input type="text" class="form-control" id="proj" name="id" hidden>
+									</div>
+									<div class="mb-3">
+										<label for="exampleInputEmail1" class="form-label">Task Name</label>
+													<input type="text" name="task" class="form-control" id="title" aria-describedby="emailHelp">
+													<label for="exampleInputEmail1" class="form-label mt-2">Reassign Member</label>
+													<select class="form-control form-control-sm select2"  name="members">
+													<option value="<?=session()->get('studentID')?>"><?= $leader['firstname'].' '.$leader['lastname']?></option>
+													<?php if($mem != null) : ?>
+														<?php foreach ($mem as $stud) :?>
+																	<option value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
+																	<?php endforeach;?>
+																		<?php endif ;?>
+																</select>
+											
+													<label for="exampleInputEmail1" class="form-label" >Start Date</label>
+													<input type="date" name="start_date" class="form-control" id="start" aria-describedby="emailHelp">
+													<label for="exampleInputEmail1" class="form-label">End Date</label>
+													<input type="date" name="end_date" class="form-control" id="end" aria-describedby="emailHelp">
+												
+													</div>
+													<div class="mb-3">
+														<label for="exampleInputPassword1" class="form-label">Description</label>
+														<textarea name="description" id="desc" cols="30" rows="10" class="summernote form-control"></textarea>
+													</div>
+													<div class="modal-footer">
+													<button type="submit" class="btn btn-primary">Update</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												</div>
+									</div>
+									</form>
+								</div>
+								
+								</div>
+							</div>
+							</div>
+								<!-- edittask modal -->
 
-                        </select>
-                    </div>
-                </div>
-                        <label for="exampleInputEmail1" class="form-label" >Start Date</label>
-                        <input type="date" name="start_date" class="form-control" id="start" aria-describedby="emailHelp">
-						<label for="exampleInputEmail1" class="form-label">End Date</label>
-                        <input type="date" name="end_date" class="form-control" id="end" aria-describedby="emailHelp">
-                      
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Description</label>
-                            <textarea name="description" id="desc" cols="30" rows="10" class="summernote form-control"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-          </div>
-        </form>
-      </div>
-     
-    </div>
-  </div>
-</div>
+
+
+
+				<!-- EDIT PROGRESS -->
+						<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel"></h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form action="<?=base_url()?>/updatetaskstatus/<?= $uri->getSegment(2) ?>" method="post">
+									<div class="mb-3">
+										<input type="text" class="form-control" id="recipient-name" name="id" hidden>
+									</div>
+									<div class="mb-3">
+									<label for="">Status</label>
+									<select name="task_status" id="status" class="custom-select custom-select-sm">
+										<option value="on-going" <?php if($pro['task_status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
+										<option value="on-hold" <?php if($pro['task_status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
+										<option value="revision" <?php if($pro['task_status'] == "revision") { echo "SELECTED"; } ?>>revision</option>
+										<option value="complete" <?php if($pro['task_status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
+
+										</select>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Update</button>
+									</div>
+									</div>
+								</form>
+							</div>
+							</div>
+						</div>
+						</div>
+
+					<!-- EDIT PROGRESS -->
 
 
 								
@@ -295,7 +324,7 @@
 									<?php
 										if($pro['task_status'] =='on-going'){
 										echo "<span class='badge badge-secondary'>{$pro['task_status']}</span>";
-										}elseif($pro['task_status'] =='stop'){
+										}elseif($pro['task_status'] =='revision'){
 										echo "<span class='badge badge-info'>{$pro['task_status']}</span>";
 										}elseif($pro['task_status'] =='on-hold'){
 										echo "<span class='badge badge-warning'>{$pro['task_status']}</span>";
@@ -314,111 +343,110 @@
 		                    	</tr>
 								
 							<!-- Get Task Modal -->
-<div class="modal fade" id="gettask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-					
-					
-					
-					
-                        <h5 class="modal-title" id="exampleModalLabel">Task Progress</h5>
-						
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							
-					
-					</div>
-                  
-                    
-                        <div class="modal-body">
-                    <form action="<?=base_url()?>/addproductivity/<?= $uri->getSegment(2) ?>" method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
-					
-					
-                        <input type="text" name="project_id" id="" value="<?= $project['id']?>" hidden>
-                        <label for="exampleInputEmail1" class="form-label">Select Task</label>
-                        <select class="form-control form-control-sm select2" name="task_id">
-			
-                    		<?php foreach ($mytask as $tas) :?>
-              	              	<option value="<?=$tas['id']?>" ><?=$tas['task']?></option>
-              	              	
-                                    <?php endforeach;?>
-                                   
-              	              </select>
-							
-                      
-                        </div>
+							<div class="modal fade" id="gettask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+												<div class="modal-header">
+												
+												
+												
+												
+													<h5 class="modal-title" id="exampleModalLabel">Task Progress</h5>
+													
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+														
+												
+												</div>
+											
+												
+													<div class="modal-body">
+												<form action="<?=base_url()?>/addproductivity/<?= $uri->getSegment(2) ?>" method="post" enctype="multipart/form-data">
+												<div class="mb-3">
+												
+												
+													<input type="text" name="project_id" id="" value="<?= $project['id']?>" hidden>
+													<label for="exampleInputEmail1" class="form-label">Select Task</label>
+													<select class="form-control form-control-sm select2" name="task_id">
+										
+														<?php foreach ($mytask as $tas) :?>
+															<option value="<?=$tas['id']?>" ><?=$tas['task']?></option>
+															
+																<?php endforeach;?>
+															
+														</select>
+														
+												
+													</div>
 
-						<div class="col-mb-3">
-							<div class="form-group">
-							<label for="" class="control-label">Date</label>
-							<input type="date" class="form-control form-control-sm" autocomplete="off" name="date" value="">
-							</div>
-						</div>
+													<div class="col-mb-3">
+														<div class="form-group">
+														<label for="" class="control-label">Date</label>
+														<input type="date" class="form-control form-control-sm" autocomplete="off" name="date" value="">
+														</div>
+													</div>
 
-						<div class="col-mb-3">
-							<div class="form-group">
-							<label for="" class="control-label">Start Time</label>
-							<input type="time" class="form-control form-control-sm" autocomplete="off" name="start_time" value="">
-							</div>
-						</div>
+													<div class="col-mb-3">
+														<div class="form-group">
+														<label for="" class="control-label">Start Time</label>
+														<input type="time" class="form-control form-control-sm" autocomplete="off" name="start_time" value="">
+														</div>
+													</div>
 
-						<div class="col-mb-3">
-							<div class="form-group">
-							<label for="" class="control-label">End Time</label>
-							<input type="time" class="form-control form-control-sm" autocomplete="off" name="end_time" value="">
-							</div>
-						</div>
+													<div class="col-mb-3">
+														<div class="form-group">
+														<label for="" class="control-label">End Time</label>
+														<input type="time" class="form-control form-control-sm" autocomplete="off" name="end_time" value="">
+														</div>
+													</div>
 
-						<div class="col-mb-3">
-							<div class="form-group">
-								<label for="exampleFormControlFile1">Add File</label>
-								<input name = "file" type="file" class="form-control" id="exampleFormControlFile1">
-							</div>
-						</div>
-					
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Progress Description</label>
-                            <textarea name="comment" id="" cols="10" rows="10" class="summernote form-control">
-											</textarea>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                        
-                        
-                    </form>
-                    </div>
-                   
-                    </div>
-             
-                </div>
-            	</div>
-				<script>
-					var exampleModal = document.getElementById('exampleModal')
-						exampleModal.addEventListener('show.bs.modal', function (event) {
-						// Button that triggered the modal
-						var button = event.relatedTarget
-						// Extract info from data-bs-* attributes
-						var recipient = button.getAttribute('data-bs-whatever')
-						// If necessary, you could initiate an AJAX request here
-						// and then do the updating in a callback.
-						//
-						// Update the modal's content.
-						var modalTitle = exampleModal.querySelector('.modal-title')
-						var modalBodyInput = exampleModal.querySelector('.modal-body input')
+													<div class="col-mb-3">
+														<div class="form-group">
+															<label for="exampleFormControlFile1">Add File</label>
+															<input name = "file" type="file" class="form-control" id="exampleFormControlFile1">
+														</div>
+													</div>
+												
+													<div class="mb-3">
+														<label for="exampleInputPassword1" class="form-label">Progress Description</label>
+														<textarea name="comment" id="" cols="10" rows="10" class="summernote form-control"></textarea>
+													</div>
+													<div class="modal-footer">
+													<button type="submit" class="btn btn-primary">Save</button>
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												</div>
+													
+													
+												</form>
+												</div>
+											
+												</div>
+										
+											</div>
+											</div>
+											<script>
+												var exampleModal = document.getElementById('exampleModal')
+													exampleModal.addEventListener('show.bs.modal', function (event) {
+													// Button that triggered the modal
+													var button = event.relatedTarget
+													// Extract info from data-bs-* attributes
+													var recipient = button.getAttribute('data-bs-whatever')
+													// If necessary, you could initiate an AJAX request here
+													// and then do the updating in a callback.
+													//
+													// Update the modal's content.
+													var modalTitle = exampleModal.querySelector('.modal-title')
+													var modalBodyInput = exampleModal.querySelector('.modal-body input')
 
-						modalTitle.textContent = 'New message to ' + recipient
-						modalBodyInput.value = recipient
-						})
-				</script>
+													modalTitle.textContent = 'New message to ' + recipient
+													modalBodyInput.value = recipient
+													})
+											</script>
 
-				<!-- end modal -->
+											<!-- end modal -->
 
 								
-                                <?php endforeach;?>
-                                    <?php endif;?>
+                            <?php endforeach;?>
+                    	<?php endif;?>
 
 									<!-- evaluation -->
 
@@ -474,6 +502,11 @@
         chart.draw(dataTable);
       }
     </script>
+
+
+
+
+
 
 <?php include('templates/scripts.php')?>
 

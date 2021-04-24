@@ -78,9 +78,9 @@
 
 						<div class="col-mb-3">
 							<div class="form-group">
-							<input type="text" name="user_id" value="<?=session()->get('userID')?>" >
+							<input type="text" name="user_id" value="<?=session()->get('userID')?>" hidden>
               <input type="text" name="name" id="" value="<?= session()->get('firstname').' '.session()->get('lastname')?>" hidden>
-             <?php if($prod != null) :?> <input type="text" name="id" id="" value="<?=$prod['project_id']?>"> <?php endif;?>
+             <?php if($prod != null) :?> <input type="text" name="id" id="" value="<?=$prod['project_id']?>" hidden> <?php endif;?>
 								<label for="exampleFormControlFile1">Add File</label>
 								<input name ="file" type="file" class="form-control" id="exampleFormControlFile1">
 							</div>
@@ -88,8 +88,7 @@
 					
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Add Comment</label>
-                            <textarea name="comment" id="" cols="10" rows="2" height="100" class="summernote form-control">
-											</textarea>
+                            <textarea name="comment" id="" cols="10" rows="2" height="100" class="summernote form-control"></textarea>
                         </div>
                         <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save</button>

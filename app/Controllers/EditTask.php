@@ -24,7 +24,6 @@ class EditTask extends BaseController
                 $rules = [
                     'task' => 'required',
                     'description' => 'required',
-                    'task_status' => 'required',
                     'start_date' => 'required',
                     'end_date' => 'required',
                     'members' => 'required',
@@ -49,7 +48,7 @@ class EditTask extends BaseController
                         'project_id' => $this->request->getVar('id'),
                         'start_date' => $this->request->getVar('start_date'),
                         'end_date' => $this->request->getVar('end_date'),
-                        'task_status' => $this->request->getVar('task_status'),
+                        // 'task_status' => $this->request->getVar('task_status'),
                         'member_id' => $this->request->getVar('members'),
 
 

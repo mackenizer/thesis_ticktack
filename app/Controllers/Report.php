@@ -41,12 +41,13 @@ class Report extends BaseController
                                 $data['completed_task'][$us['id']] = 0;
                         }
 
+                $data['total_task'][$us['id']];
+                $data['completed_task'][$us['id']];
                         
                        
                         
                 }
-                $data['total_task'][$us['id']];
-                $data['completed_task'][$us['id']];
+                
 
         //        echo count($data['total1']);
         //         exit();

@@ -1,5 +1,8 @@
+<?php $uri = service('uri'); 
 
+?>
 <!-- start wrapper -->
+
 <div class="wrapper">
 <?php include('templates/nav.php')?>
 <?php include('templates/sidenav.php')?>

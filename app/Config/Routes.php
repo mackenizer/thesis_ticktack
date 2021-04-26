@@ -35,14 +35,17 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Users::index');
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('chat', 'Chat::index', ['filter' => 'auth']);
 
 $routes->match(['get', 'post'],'viewproject/(:any)', 'ViewProject::index/$1', ['filter' => 'auth']);
+
 $routes->post('addtask/(:any)', 'AddTask::index/$1');
 $routes->match(['get', 'post'],'edittask/(:any)', 'EditTask::index/$1');
 $routes->match(['get', 'post'],'evaluate/(:any)', 'Evaluate::index/$1');
 $routes->match(['get', 'post'],'updatetaskstatus/(:any)', 'UpdateTaskStatus::index/$1');
 $routes->post('updateproject', 'UpdateProject::index');
 $routes->match(['get', 'post'],'comment/(:any)', 'Comment::index/$1');
+$routes->match(['get', 'post'],'sendmail/(:any)', 'SendMail::index/$1');
 $routes->post('addproductivity/(:any)', 'AddProductivity::index/$1');
 $routes->match(['get', 'post'],'newproject/(:any)', 'NewProject::index/$1', ['filter' => 'auth']);
 $routes->match(['get', 'post'],'editproject/(:any)', 'EditProject::index/$1', ['filter' => 'auth']);

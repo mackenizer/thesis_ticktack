@@ -15,19 +15,24 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li> -->
-
-      <!-- <li class="nav-item dropdown">
-      
-              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell text-white"></i><span class="badge bg-danger" id="count" style="border-radius: 50% ; position: relative; top: -10px ; left: -10px"></span></a>
+     <?php if($uri->getSegment(1) == 'dashboard') :?>
+      <li class="nav-item dropdown">
+       
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell text-white"></i><span class="badge bg-danger" id="count" style="border-radius: 50% ; position: relative; top: -10px ; left: -10px"><?=(isset($due))?count($due): null?></span></a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
              
-              
+              <?php if(isset($due)) :?>
+              <?php foreach ($due as $com) :?>
               <a class="dropdown-item" href="" >
-                <small></i></small><br>
-                <span>just comment</span></a>
+                <small><b><i><?= $com?></b></i></small><br>
+              </a>
+                <?php endforeach;?>
+                <?php endif;?>
                
                 </div>
-        </li> -->
+        </li>
+        <?php endif; ?>
+        
      
      
      <li class="nav-item dropdown">
@@ -41,7 +46,7 @@
               </span>
             </a>
             <div class="dropdown-menu" aria-labelledby="account_settings" style="left: -2.5em;">
-              <a class="dropdown-item" href="" id="manage_account"><i class="fa fa-cog"></i> Manage Account</a>
+              <!-- <a class="dropdown-item" href="" id="manage_account"><i class="fa fa-cog"></i> Manage Account</a> -->
               <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
       </li>

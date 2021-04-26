@@ -65,6 +65,13 @@
           </li>
           <?php endif; ?>
 
+          <!-- <li class="nav-item">
+                <a href="<?=base_url()?>/chat" class="nav-link nav-reports">
+                  <i class="far fa-video"></i> <p>Video Chat</p>
+                  
+                </a>
+          </li> -->
+
             </ul>
           </li>
                 </ul>

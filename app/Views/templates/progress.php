@@ -6,7 +6,7 @@
 				<b>Members Progress/Activity</b>
 				<div class="card-tools">
 					
-						<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#comment"><i class="fas fa-plus-square"></i> Comment</button>
+						<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#comment"><i class="fas fa-plus-square"></i> Add Comment</button>
 				
 				</div>
 			</div>
@@ -22,7 +22,7 @@
 	
 				
 				<span class="username">
-					<a href="<?=base_url()?>/edittask/<?=$prod['user_id']?>" ><?= $prod['firstname'].' '.$prod['lastname'].' '. $prod['task']?></a>
+					<a href="" data-bs-toggle="modal" data-bs-target="#sendmail" data-bs-whatever="<?=$prod['user_id']?>"><?= $prod['firstname'].' '.$prod['lastname'].' '. $prod['task']?></a>
 				</span>
 				<span class="description">
 					<span class="fa fa-calendar-day"></span>
@@ -78,8 +78,8 @@
 
 						<div class="col-mb-3">
 							<div class="form-group">
-							<input type="text" name="user_id" value="<?=session()->get('userID')?>" hidden>
-              <input type="text" name="name" id="" value="<?= session()->get('firstname').' '.session()->get('lastname')?>" hidden>
+							<input type="text" name="user_id" value="<?=session()->get('userID')?>" >
+              <input type="text" name="name" id="" value="<?= session()->get('firstname').' '.session()->get('lastname')?>" >
              <?php if($prod != null) :?> <input type="text" name="id" id="" value="<?=$prod['project_id']?>" hidden> <?php endif;?>
 								<label for="exampleFormControlFile1">Add File</label>
 								<input name ="file" type="file" class="form-control" id="exampleFormControlFile1">
@@ -106,6 +106,48 @@
 			
 
 				<!-- end modal -->
+
+
+
+
+				<!-- gmail modal -->
+
+
+				<div class="modal fade" id="sendmail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+						
+							<form action="<?=base_url()?>/sendmail" method="post" autocomplete="off">
+							<div class="mb-3">
+								<input type="text" name="task_id" class="form-control" id="recipient-name" hidden>
+								
+							</div>
+							<div class="mb-3">
+								<input type="email" name="email" class="form-control" id="recipient-name" placeholder="email@gmail.com">
+							</div>
+							<div class="mb-3">
+								<input type="text" name="subject" class="form-control" id="recipient-name" placeholder="Subject">
+							</div>
+							<div class="mb-3">
+								<textarea class="form-control" name="message" row="30" col="10" id="message-text" placeholder="Your message"></textarea>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" name="send" class="btn btn-primary">Send</button>
+							</div>
+							</form>
+						</div>
+						
+						</div>
+					</div>
+					</div>
+
+					<!-- end send gmail modal -->
 				
 
 

@@ -11,6 +11,7 @@ use App\Models\TasklistAll;
 use App\Models\DisplayProd;
 use App\Models\CommentModel;
 use App\Models\Notification;
+use App\Models\ChatModel;
 
 
 class ViewProject extends BaseController
@@ -30,6 +31,7 @@ class ViewProject extends BaseController
         $myprod = new DisplayProd();
         $comment = new CommentModel();
         $notify = new Notification();
+      
   
         
         if($id!=null){
@@ -66,19 +68,20 @@ class ViewProject extends BaseController
             $data['comment'] = $view5;
 
 
-            // print_r($data['alltask']);
-            // exit();
 
-
-
-            
             $data['comme'] = $x;
-      
             $data['noti'] = $not;
             $data['pro'] = $p;
-         
             $data['members'] = $user;
+
+
+
+
+
+
     }
+
+
     
     
 
@@ -86,6 +89,31 @@ class ViewProject extends BaseController
         echo view('viewproject');
         echo view('templates/footer');
 	}
+
+    // public function chat($id = null){
+    //     if($id!=null){
+    //         $names = new LeaderNames();
+    //         $students = new StudentModel();
+    //         $chat = new ChatModel();
+    //         $data['leader'] = $names->where('id', $id)->first();
+    //         $data['mess'] = $chat->findall();
+
+
+    //         $arr = $data['project']['user_ids'];
+    //         $ex = explode(",", $arr);
+    //         foreach ($ex as $e){
+    //             $data['mem'][$e]  = $students->where('studentID', $e)->first();
+                
+    //         }
+
+
+
+    //     }
+
+    //     echo view('templates/adminheader', $data);
+    //     echo view('chat');
+    //     echo view('templates/footer');
+    // }
 
    
 

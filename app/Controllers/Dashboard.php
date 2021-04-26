@@ -27,25 +27,22 @@ class Dashboard extends BaseController
         if(session()->get('adviserID') != null){
                 $user = $model3->where('adviserID', session()->get('adviserID'))->findAll();
                 $disp = $model->where('leader_id', session()->get('adviserID'))->first();
-                // $not = $notify->first();
-                // $x = $com->findall();
-                // $p = $model3->where('adviserID', session()->get('adviserID'))->first();
-             
-               
-          
-              
-               
-         
+                $not = $notify->first();
+                $x = $com->findall();
+                $p = $model3->where('adviserID', session()->get('adviserID'))->first();
+
+
+
                
                 foreach ($user as $us){
                         $data['total'] = $model2->where('project_id', $us['id'])->findall();
+
                         $data['total1'] = $model2->where('project_id', $us['id'])->where('task_status', 'complete')->findall();
              
                         if(count($data['total']) != 0){
                                 $data['progress'][$us['id']] = number_format((count($data['total1']) / count($data['total'])* 100),2);
                 
-                           
-                                // echo  $data['total_task'][$us['id']];
+
                                
                         }else{
                                 $data['progress'][$us['id']] = 0;
@@ -55,19 +52,46 @@ class Dashboard extends BaseController
                        
                        $data['total_task'][$us['id']] = count($data['total']);
                      
-                        // echo $data['completed_task'][$us['id']] = count($data['total1']);
-                   
+   
+                }
+                $data['due'] = [];
+                $datas['total'] = $model2->where('project_id', $us['id'])->where('task_status', 'on-going')->findall();
+                
+               
+                foreach ($datas['total'] as $as){
+                        $datas['total'] = $model2->where('project_id', $as['end_date'])->findall();
                         
                        
-                        
-                }
-              
-                
 
-                // print_r($data['total']);
-                // print_r($data['total']);
-                // exit();
-                
+
+                        $due = strtotime(date('Y-m-d', strtotime(date('Y-m-d', strtotime($as['end_date'])))));
+                        $years = floor($due / (365*60*60*24));
+                        $months = floor(($due - $years * 365*60*60*24) / (30*60*60*24));
+                        $diff =  abs(strtotime(date('Y-m-d')) - $due).'<br>';
+                        $duedate = floor(($due - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+                        $today = strtotime(date('Y-m-d'));
+                        $years = floor($today / (365*60*60*24));
+                        $months = floor(($today - $years * 365*60*60*24) / (30*60*60*24));
+                        $diff =  abs(strtotime(date('Y-m-d')) - $today).'<br>';
+                        $todays = floor(($today - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+       
+                        $equals = $todays - $duedate;
+
+                        if( $equals == 0){
+
+                        
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '. $as['task'].' is '.'already expire';
+                        
+                        }elseif($equals < 0 && $equals >-5) {
+                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) over due';
+                                
+                        }elseif($equals <= 3 && $equals > 0){
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) near due';
+                        }
+                }
+
+
+   
 
                 
                
@@ -75,9 +99,11 @@ class Dashboard extends BaseController
         }
         else {
                 $disp = $model->where('leader_id', session()->get('studentID'))->first();
-                // $not = $notify->first();
-                // $x = $com->findall();
-                // $disp = $model->where('leader_id', session()->get('adviserID'))->first();
+                $not = $notify->first();
+                $x = $com->findall();
+                $p = $model3->where('adviserID', session()->get('adviserID'))->first();
+                $disp = $model->where('leader_id', session()->get('adviserID'))->first();
+                
 
                 $stud = $student->where('studentID', session()->get('studentID'))->first();
                  $user['leader'] = $model3->where('leader_id', session()->get('studentID'))->findAll();
@@ -104,17 +130,16 @@ class Dashboard extends BaseController
 
                 foreach ($user as $us){
                         $data['total'] = $model2->where('project_id', $us['id'])->findall();
+                        
                         $data['total1'] = $model2->where('project_id', $us['id'])->where('task_status', 'complete')->findall();
-                      
-                        // $count += count($data['total']);
+
                         $a = $model2->where('project_id', $us['id'])->findall();
                         $count += count($a);
 
                
                         if(count($data['total']) != 0){
                                 $data['progress'][$us['id']] = number_format((count($data['total1']) / count($data['total'])* 100),2);
-                                // count($data['total1']) / ($data['total'])
-                                // $data['progress'] = number_format(($count_complete / $count_task) * 100, 2);
+
                         }else{
                                 $data['progress'][$us['id']] = 0;
                         }
@@ -122,13 +147,53 @@ class Dashboard extends BaseController
                 $data['total_task'][$us['id']] = count($data['total']);
                         
                 }
+            
+       
+                $datas['count_due'] = $model2->where('member_id', session()->get('studentID'))->where('task_status', 'on-going')->findall();
+            
+                foreach ($datas['count_due'] as $as){
+                        $datas['count_due'] = $model2->where('project_id', $as['end_date'])->findall();
+                        
+                       
+
+                        $due = strtotime(date('Y-m-d', strtotime(date('Y-m-d', strtotime($as['end_date'])))));
+                        $years = floor($due / (365*60*60*24));
+                        $months = floor(($due - $years * 365*60*60*24) / (30*60*60*24));
+                        $diff =  abs(strtotime(date('Y-m-d')) - $due).'<br>';
+                        $duedate = floor(($due - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+                        $today = strtotime(date('Y-m-d'));
+                        $years = floor($today / (365*60*60*24));
+                        $months = floor(($today - $years * 365*60*60*24) / (30*60*60*24));
+                        $diff =  abs(strtotime(date('Y-m-d')) - $today).'<br>';
+                        $todays = floor(($today - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+                        // echo date('Y-m-d');
+       
+                        $equals = $todays - $duedate;
+
+                        if( $equals == 0){
+
+                        
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '. $as['task'].' is '.'already expire';
+
+                        
+                        }elseif($equals < 0 && $equals >-5) {
+                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) over due';
+                                
+                        }elseif($equals <= 3 && $equals > 0){
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) near due';
+                        }
+                }
                
      
                
                 $data['count'] = $count;
                 $data['lead'] = $disp;
-                // $data['noti'] = $not;
-                // $data['comme'] = $x;
+                $data['noti'] = $not;
+                $data['comme'] = $x;
+                $data['project'] = $user;
+
+        //        echo $data['project']['leader_id'];
+        //         exit();
          
 
                
@@ -145,14 +210,14 @@ class Dashboard extends BaseController
 
         $data['lead'] = $disp;
         $data['project'] = $user;
-        // $data['noti'] = $not;
-        // // $data['comme'] = $x;
-        // // $data['pro'] = $p;
+        $data['noti'] = $not;
+        $data['comme'] = $x;
+        $data['pro'] = $p;
       
        
 
     
-        // print_r($data['comment']);
+        // print_r($data['noti']);
         // exit();
         
       

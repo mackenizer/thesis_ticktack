@@ -150,7 +150,7 @@ $('.number').on('input keyup keypress',function(){
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>/project/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script>
+<!-- <script src="<?=base_url()?>/project/dist/js/pages/dashboard2.js"></script> -->
 <!-- DataTables  & Plugins -->
 <script src="<?=base_url()?>/project/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>/project/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -600,6 +600,29 @@ $('.number').on('input keyup keypress',function(){
 	var modalBodyInput = exampleModal2.querySelector('.modal-body input')
 
 	modalTitle.textContent = 'Edit progress #' + recipient
+	modalBodyInput.value = recipient
+	})
+
+</script>
+
+
+
+<!-- send mail script -->
+<script>
+	var sendmail = document.getElementById('sendmail')
+	sendmail.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+	// Extract info from data-bs-* attributes
+	var recipient = button.getAttribute('data-bs-whatever')
+	// If necessary, you could initiate an AJAX request here
+	// and then do the updating in a callback.
+	//
+	// Update the modal's content.
+	var modalTitle = sendmail.querySelector('.modal-title')
+	var modalBodyInput = sendmail.querySelector('.modal-body input')
+
+	modalTitle.textContent = 'Send mail to member ID #' + recipient
 	modalBodyInput.value = recipient
 	})
 

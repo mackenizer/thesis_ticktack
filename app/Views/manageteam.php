@@ -38,18 +38,22 @@
                   <?php if($mem != null) : ?>
                     <?php foreach ($mem as $stud) :?>
                         
-                       <option value="<?=$stud['studentID']?>" selected><?=$stud['firstname'],' ',$stud['lastname']?></option>
+                       <option value="<?=$stud['studentID']?>" selected ><?=$stud['firstname'],' ',$stud['lastname']?></option>
               	              	<?php endforeach;?>
                                       <?php endif;?>    
                                   
                              
-                    
-                   
+                                 
                     <?php if($students != null) : ?>
+                     
                         <?php foreach ($students as $stud) :?>
+                          
+                          
                              <option value="<?=$stud['studentID']?>"><?=$stud['firstname'],' ',$stud['lastname']?></option>
+                             
                                     <?php endforeach;?>
                                         <?php endif ;?>
+                        
                    
                 </select>
             </div>

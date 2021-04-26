@@ -47,6 +47,43 @@ class Report extends BaseController
                        
                         
                 }
+
+                $data['due'] = [];
+                $datas['total'] = $model2->where('project_id', $us['id'])->where('task_status', 'on-going')->findall();
+                
+               
+                foreach ($datas['total'] as $as){
+                        $datas['total'] = $model2->where('project_id', $as['end_date'])->findall();
+                        
+                       
+
+
+                        $due = strtotime(date('Y-m-d', strtotime(date('Y-m-d', strtotime($as['end_date'])))));
+                        $years = floor($due / (365*60*60*24));
+                        $months = floor(($due - $years * 365*60*60*24) / (30*60*60*24));
+                        $diff =  abs(strtotime(date('Y-m-d')) - $due).'<br>';
+                        $duedate = floor(($due - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+                        $today = strtotime(date('Y-m-d'));
+                        $years = floor($today / (365*60*60*24));
+                        $months = floor(($today - $years * 365*60*60*24) / (30*60*60*24));
+                        $diff =  abs(strtotime(date('Y-m-d')) - $today).'<br>';
+                        $todays = floor(($today - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+       
+                        $equals = $todays - $duedate;
+
+                        if( $equals == 0){
+
+                        
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '. $as['task'].' is '.'already expire';
+                        
+                        }elseif($equals < 0 && $equals >-5) {
+                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) over due';
+                                
+                        }elseif($equals <= 3 && $equals > 0){
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) near due';
+                        }
+                }
+
                 
 
         //        echo count($data['total1']);

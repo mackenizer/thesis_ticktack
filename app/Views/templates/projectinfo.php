@@ -50,7 +50,7 @@
 										<!-- <img class="img-circle img-thumbnail p-0 shadow-sm border-info img-sm mr-3" src="" alt="Avatar"> -->
 										
                                         <b>
-                                            <?= $leader['firstname'].' '.$leader['lastname']?>
+										<?= $leader['firstname'].' '.$leader['lastname']?>
                                         </b>
                                         <?php endif; ?>
 								</div>

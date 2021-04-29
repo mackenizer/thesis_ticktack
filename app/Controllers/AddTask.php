@@ -62,7 +62,7 @@ class AddTask extends BaseController
                     $email = \Config\Services::email();
                         
                     $email->setTo($to);
-                    $email->setFrom(session()->get('email'), 'testemail@');
+                    $email->setFrom('ticktack667@gmail.com', '@ticktack');
                     $email->setSubject($subject);
                     $email->setMessage($message);
                     // $email->setBody($body);

@@ -40,6 +40,13 @@
                     </div>
                
                 <?php endif; ?>
+
+                <?php if(session()->get('error')): ?>
+                    <div class="alert alert-danger text-center mt-2" role="alert">
+                        <?= session()->get('error') ?>
+                    </div>
+               
+                <?php endif; ?>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->

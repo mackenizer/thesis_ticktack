@@ -6,24 +6,28 @@ webSocket.onmessage = (event) => {
 
 function handleSignallingData(data){
     switch (data.type){
-        case "answer":
+        case "offer":
             peerConn.setRemoteDescription(data.answer)
+            createAndSendAnswer()
             break
         case "candidate":
             peerConn.addIceCandidate(data.candidate)
     }
 }
 
-
-let email
-
-function sendEmail(){
-    email = document.getElementById("username-input").value
-    sendData({
-        type: "store_user",
+function createAndSendAnswer(){
+    peerConn.createAndSendAnswer((answer) => {
+        peerConn.setLocalDescription(answer)
+        sendData({
+            type: "send_answer",
+            answer: answer
+        })
+    }, error => {
+        console.log(error)
     })
-
 }
+
+
 
 function sendData(data){
     data.email = email
@@ -33,9 +37,11 @@ function sendData(data){
 
 
 
-function joinCall(){
+function joinCalls(){
     let localStream
     let peerConn
+    let email
+    email = document.getElementById("username-input").value
     document.getElementById("video-call-div").style.display = "inline"
 
     navigator.getUserMedia({
@@ -68,27 +74,21 @@ function joinCall(){
             if (e.candidate == null)
                 return
             sendData({
-                type: "store_candidate",
+                type: "send_candidate",
                 candidate: e.candidate
             })
         })
-        createAndSendOffer()
 
-
-
-    }, (error) => {
-        console.log(error)
-    })
-}
-
-function createAndSendOffer(){
-    peerConn.createOffer((offer) => {
         sendData({
-            type: "store-offer",
-            offer: offer
+            type: "join_call"
         })
-        peerConn.setLocalDescription(offer)
+
+
+
     }, (error) => {
         console.log(error)
     })
 }
+
+
+

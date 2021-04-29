@@ -49,6 +49,7 @@ class Report extends BaseController
                 }
 
                 $data['due'] = [];
+                if(isset($us)){
                 $datas['total'] = $model2->where('project_id', $us['id'])->where('task_status', 'on-going')->findall();
                 
                
@@ -83,6 +84,7 @@ class Report extends BaseController
                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) near due';
                         }
                 }
+        }
 
                 
 

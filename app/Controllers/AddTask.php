@@ -5,6 +5,8 @@ use App\Models\ProjectModel;
 use App\Models\StudentModel;
 use App\Models\LeaderNames;
 use App\Models\TaskModel;
+use App\Models\UserModel;
+
 
 class AddTask extends BaseController
 {
@@ -22,7 +24,7 @@ class AddTask extends BaseController
     
                 if(!$this->validate($rules)){
                     $data['validation'] = $this->validator;
-                    echo 'he';
+                    echo 'heheheeh';
       
                 }else{
                     $task = new TaskModel();
@@ -44,6 +46,31 @@ class AddTask extends BaseController
                    
     
                     $task->insert($newData);
+                    $stud = new StudentModel();
+                    $usee = new UserModel();
+                    $data['show'] = $stud->where('studentID', $this->request->getVar('members'))->first();
+                    $data['ema'] = $usee->where('userID', $data['show']['userID'])->first();
+                  
+                    $msg = $this->request->getVar('description');
+                    $sub = $this->request->getVar('task');
+                     
+                    $to = $data['ema']['email'];
+                   
+                    $subject = $sub;
+                    $message = '<a href="'.base_url().'/viewproject'.'/'.$id.'">'.$msg.'</a>';
+                    // $body = 'You have new task on TickTack';
+                    $email = \Config\Services::email();
+                        
+                    $email->setTo($to);
+                    $email->setFrom(session()->get('email'), 'testemail@');
+                    $email->setSubject($subject);
+                    $email->setMessage($message);
+                    // $email->setBody($body);
+                    if($email->send()){
+                        echo 'Succesfully sent';
+                    }else{
+                        echo 'error';
+                    }
 
                     $session = session();
                     $session->setFlashdata('success', 'Task successfully created');

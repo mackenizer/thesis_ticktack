@@ -6,7 +6,7 @@
 				<b>Members Progress/Activity</b>
 				<div class="card-tools">
 					
-						<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#comment"><i class="fas fa-plus-square"></i> Add Comment</button>
+						<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#comment"><i class="fas fa-plus-square"></i> Comment</button>
 				
 				</div>
 			</div>

@@ -36,6 +36,7 @@ $routes->get('/', 'Users::index');
 $routes->get('adviser', 'Adviser::index', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 $routes->get('chat', 'Chat::index', ['filter' => 'auth']);
+$routes->get('receiver', 'Receiver::index', ['filter' => 'auth']);
 
 $routes->match(['get', 'post'],'viewproject/(:any)', 'ViewProject::index/$1', ['filter' => 'auth']);
 

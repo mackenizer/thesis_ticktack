@@ -54,9 +54,12 @@ class Dashboard extends BaseController
                      
    
                 }
-                $data['due'] = [];
-                $datas['total'] = $model2->where('project_id', $us['id'])->where('task_status', 'on-going')->findall();
+               
                 
+                if(isset($us)){
+                $data['due'] = [];
+              
+                $datas['total'] = $model2->where('project_id', $us['id'])->where('task_status', 'on-going')->findall();
                
                 foreach ($datas['total'] as $as){
                         $datas['total'] = $model2->where('project_id', $as['end_date'])->findall();
@@ -80,15 +83,17 @@ class Dashboard extends BaseController
                         if( $equals == 0){
 
                         
-                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '. $as['task'].' is '.'already expire';
-                        
-                        }elseif($equals < 0 && $equals >-5) {
-                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) over due';
-                                
-                        }elseif($equals <= 3 && $equals > 0){
-                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) near due';
-                        }
+                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '. $as['task'].' is '.'already expire';
+ 
+                         
+                         }elseif($equals < 0 && $equals >-5) {
+                                 $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) near due';
+                                 
+                         }elseif($equals <= 3 && $equals > 0){
+                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) over due';
+                         }
                 }
+        }
 
 
    
@@ -177,10 +182,10 @@ class Dashboard extends BaseController
 
                         
                         }elseif($equals < 0 && $equals >-5) {
-                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) over due';
+                                $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' ' .$as['task']. ' is - '.($equals*-1) .' day(s) near due';
                                 
                         }elseif($equals <= 3 && $equals > 0){
-                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) near due';
+                               $data['due'][$as['id']] = 'Project ID #'.$as['project_id'].' '.$as['task']. ' is - '.$equals .' day(s) over due';
                         }
                 }
                
@@ -191,15 +196,6 @@ class Dashboard extends BaseController
                 $data['noti'] = $not;
                 $data['comme'] = $x;
                 $data['project'] = $user;
-
-        //        echo $data['project']['leader_id'];
-        //         exit();
-         
-
-               
-                
-                
-
 
         }
 

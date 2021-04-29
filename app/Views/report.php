@@ -202,7 +202,7 @@
                 </colgroup> -->
                 <thead>
                   <th>Project</th>
-                  <th>Task</th>
+                  <th>Total Tasks</th>
                   <th>Completed Task</th>
                   <th>Progress</th>
                   <th>Status</th>

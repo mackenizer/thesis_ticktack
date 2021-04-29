@@ -47,7 +47,9 @@
 							<th>Assign Members</th>
 							<th>Status</th>
 							<th>Time Rendered</th>
+							<th>Ratings</th>
 							<?php if(session()->get('role') == 'adviser' || session()->get('studentID') == $leader['leader_id']) :?> <th>Action</th><?php endif;?>
+						
 						</thead>
 						<tbody>
 						<?php if($prod != null) :?>
@@ -75,6 +77,11 @@
 									<p><?=($pro['total_time_rendered'])?$pro['total_time_rendered']:'0'?> Hrs</p>
 						
 									</td>
+									</td>
+									<td>
+									<p><?=($pro['rate'])?$pro['rate']:'0'?> </p>
+						
+									</td>
 
 									<td>
 									<?php if(session()->get('role') == 'adviser'  ) :?>
@@ -96,12 +103,14 @@
 											</ul>
 											</div>
 									<?php endif;?>
+									
 									<?php endif;?>
-					
+									
+									
 									
 							<?php include_once('templates/modal2.php');?>
 
-									</td>
+									
 								
 									
                                     
@@ -239,7 +248,7 @@
                       
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Description</label>
+                            <label for="exampleInputPassword1" class="form-label">To Do:</label>
                             <textarea name="description" id="" cols="30" rows="10" class="summernote form-control">
 											</textarea>
                         </div>
@@ -407,7 +416,7 @@
 													</div>
 												
 													<div class="mb-3">
-														<label for="exampleInputPassword1" class="form-label">Progress Description</label>
+														<label for="exampleInputPassword1" class="form-label">Progress Update</label>
 														<textarea name="comment" id="" cols="10" rows="10" class="summernote form-control"></textarea>
 													</div>
 													<div class="modal-footer">

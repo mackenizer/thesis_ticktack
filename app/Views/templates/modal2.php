@@ -16,16 +16,16 @@
 										
 										<label for="" class="mt-2">Grade</label>
 										<select class="form-select" name="rate" aria-label="Default select example">
-											<option selected>1.0</option>
-											<option value="1">1.25</option>
-											<option value="2">1.50</option>
-											<option value="3">1.75</option>
-											<option value="4">2.0</option>
-											<option value="5">2.25</option>
-											<option value="6">2.50</option>
-											<option value="7">2.75</option>
-											<option value="8">3.0</option>
-											<option value="9">5.0</option>
+											<option selected value="1.0">1.0</option>
+											<option value="1.25">1.25</option>
+											<option value="1.50">1.50</option>
+											<option value="1.75">1.75</option>
+											<option value="2.0">2.0</option>
+											<option value="2.25">2.25</option>
+											<option value="2.50">2.50</option>
+											<option value="2.75">2.75</option>
+											<option value="3.0">3.0</option>
+											<option value="5.0">5.0</option>
 											</select>           
 										</select>
 									</div>

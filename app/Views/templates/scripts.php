@@ -648,3 +648,24 @@ $('.number').on('input keyup keypress',function(){
 	modalBodyInput.value = recipient
 	})
 </script>
+
+
+
+<script>
+	var updateproj = document.getElementById('updateproj')
+	updateproj.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+	// Extract info from data-bs-* attributes
+	var recipient = button.getAttribute('data-bs-whatever')
+	// If necessary, you could initiate an AJAX request here
+	// and then do the updating in a callback.
+	//
+	// Update the modal's content.
+	var modalTitle = updateproj.querySelector('.modal-title')
+	var modalBodyInput = updateproj.querySelector('.modal-body input')
+
+	modalTitle.textContent = 'Update project # ' + recipient
+	modalBodyInput.value = recipient
+	})
+</script>

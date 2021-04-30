@@ -104,9 +104,17 @@
     <div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>
     <!-- Content Header (Page header) -->
     <div class="content-header">
+    
       <div class="container-fluid">
+      <?php if(session()->get('role') == 'adviser'):?>
+              <h1>Welcome Adviser!</h1>
+              <?php else:?>
+              <h1>Welcome Student!</h1>
+            <?php endif;?>
         <div class="row mb-2">
+        
           <div class="col-sm-6">
+          
             <!-- <h1 class="m-0">Project List</h1> -->
           </div><!-- /.col -->
 
@@ -127,11 +135,7 @@
                
                 <?php endif; ?>
 
-            <?php if(session()->get('role') == 'adviser'):?>
-              <h1>Welcome Adviser!</h1>
-              <?php else:?>
-              <h1>Welcome Student!</h1>
-            <?php endif;?>
+        
 
       </div><!-- /.container-fluid -->
     </div>
@@ -143,6 +147,7 @@
          <div class="col-lg-12">
 	<div class="card card-outline">
 		<div class="card-header">
+          <h2>All Projects</h2>
       <div class="card-tools">
 
 			</div>

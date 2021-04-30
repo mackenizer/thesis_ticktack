@@ -57,10 +57,10 @@ class AddTask extends BaseController
                     $to = $data['ema']['email'];
                    
                     $subject = $sub;
-                    $message = '<a href="'.base_url().'/viewproject'.'/'.$id.'">'.$msg.'</a>';
+                    $message = 'Your new task '.'<a href="'.base_url().'/viewproject'.'/'.$id.'">'.$msg.'</a>';
                     // $body = 'You have new task on TickTack';
                     $email = \Config\Services::email();
-                        
+
                     $email->setTo($to);
                     $email->setFrom('ticktack667@gmail.com', '@ticktack_proj');
                     $email->setSubject($subject);

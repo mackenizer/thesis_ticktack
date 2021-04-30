@@ -112,7 +112,7 @@
             
         </div><!-- /.row -->
             <hr class="border-primary">
-            <h1>My Projects</h1>
+    
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -123,6 +123,7 @@
          <div class="col-lg-12">
 	<div class="card card-outline">
 		<div class="card-header">
+      <h2>My Projects</h2>
             			<div class="card-tools">
 				  <?php if(session()->get('role') != 'adviser') :?> <a class="btn btn-primary btn-sm btn-default btn-flat border-primary" href="<?=base_url()?>/newproject"><i class="fas fa-plus-square"></i> Add New project</a><?php endif;?>
 			</div>
@@ -170,6 +171,7 @@
 
                           <?=$progress[$proj['id']]?>% Complete
                           </small>
+                          
                           <?php endif; ?>
                       </td>
                       <td>
@@ -181,16 +183,17 @@
                       <td class="project-state">
                       <?php
                             if($proj['status'] =='on-going'){
-                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-secondary'>{$proj['status']}</span></a>":"<span class='badge badge-secondary'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#updateproj' data-whatever='".$proj['id']."'><span class='badge badge-secondary'>{$proj['status']}</span></a>":"<span class='badge badge-secondary'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='stop'){
-                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-danger'>{$proj['status']}</span></a>":"<span class='badge badge-danger'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#updateproj' data-whatever='".$proj['id']."'><span class='badge badge-danger'>{$proj['status']}</span></a>":"<span class='badge badge-danger'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='on-hold'){
-                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-info'>{$proj['status']}</span></a>":"<span class='badge badge-info'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#updateproj' data-whatever='".$proj['id']."'><span class='badge badge-info'>{$proj['status']}</span></a>":"<span class='badge badge-info'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='complete'){
-                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-success'>{$proj['status']}</span></a>":"<span class='badge badge-success'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#updateproj' data-whatever='".$proj['id']."'><span class='badge badge-success'>{$proj['status']}</span></a>":"<span class='badge badge-success'>{$proj['status']}</span>";
                               echo "<p><i>Grade: ".$proj['grade']."</i></p>";
                             }
                           ?>
+
                         
                       </td>
                  
@@ -216,11 +219,11 @@
                       </td>
                   
                   </tr>
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="updateproj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                          <h5 class="modal-title" id="exampleModalLabel">Update Project</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -228,7 +231,7 @@
                         <div class="modal-body">
                           <form action="<?=base_url()?>/updateproject" method="post">
                             <div class="form-group">
-                              <input type="text" name="id" class="form-control" id="recipient-name" hidden>
+                              <input type="text" name="id" value= "<?=$proj['id'] ?>" class="form-control" id="recipient-name">
                             </div>
                             <div class="col-mb-3 mt-2">
                             <div class="form-group">

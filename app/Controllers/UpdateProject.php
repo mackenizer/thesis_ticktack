@@ -31,7 +31,6 @@ class UpdateProject extends BaseController
 
                     $model = new ProjectModel();
 
-                    
             
                     $newData = [
                         'id' => $this->request->getVar('id'),
@@ -40,6 +39,9 @@ class UpdateProject extends BaseController
 
 
                     ];
+
+                    // print_r($newData);
+                    // exit();
 
 
                     if($this->request->getVar('status') == 'complete'){

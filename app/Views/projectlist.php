@@ -37,12 +37,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            <?php if(session()->get('role') != 'adviser') :?>
                           <li class="nav-item">
                 <a href="<?=base_url()?>/newproject" class="nav-link nav-new_project tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>Create Project</p>
                 </a>
               </li>
+              <?php endif;?>
                           <li class="nav-item">
                 <a href="<?=base_url()?>/projectlist" class="nav-link nav-project_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
@@ -107,9 +109,10 @@
           <div class="col-sm-6">
             <!-- <h1 class="m-0">Project List</h1> -->
           </div><!-- /.col -->
-
+            
         </div><!-- /.row -->
             <hr class="border-primary">
+            <h1>My Projects</h1>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -121,67 +124,148 @@
 	<div class="card card-outline">
 		<div class="card-header">
             			<div class="card-tools">
-				<a class="btn btn-primary btn-sm btn-default btn-flat border-primary" href="<?=base_url()?>/newproject"><i class="fas fa-plus-square"></i> Add New project</a>
+				  <?php if(session()->get('role') != 'adviser') :?> <a class="btn btn-primary btn-sm btn-default btn-flat border-primary" href="<?=base_url()?>/newproject"><i class="fas fa-plus-square"></i> Add New project</a><?php endif;?>
 			</div>
             		</div>
 		<div class="card-body">
     <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-        <tr>
-						<th class="text-center">#</th>
-						<th>Project</th>
-						<th>Date Started</th>
-						<th>Due Date</th>
-						<th>Status</th>
-					<?php if(session()->get('adviserID') == null) :?><th>Action</th><?php endif;?>
-					</tr>
-        </thead>
-        <tbody>
-        <?php if($project != null):?>
-          <?php foreach($project as $proj) :?>
-            <tr>
-                <td><?= $proj['id']?></td>
-                <td><?= $proj['name']?></td>
-                <td><?= date("M d, Y",strtotime($proj['start_date']))?></td>
-                <td><?= date("M d, Y",strtotime($proj['end_date']))?></td>
+    <thead class="table-success">
+                  <th>Project Name</th>
+                  <th>Info</th>
+                  <th>Progress</th>
+                  <th>Total Tasks</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </thead>
+                <tbody>
+                <tr>
+                <?php if($project != null) : ?>
+                  <?php foreach ($project as $proj) :?>
+               
                 <td>
-                        <?php
+                    
+                        
+                    <?= $proj['name']?>
+                 
+               </td>
+                
+               <td>
+               <p>Project ID: <b><?= $proj['id']?><p>
+              
+                   <small>
+                      Due: <?= $proj['end_date']?>
+                   </small>
+                   <br>
+                   <small>
+                      <b> Project Leader: <?= $proj['firstname'].' '.$proj['lastname']?>
+                   </small>
+               </td>
+                      <td class="project_progress">
+                          <div class="progress progress-sm">
+                          <?php if(isset($progress)) : ?>
+                              <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: <?=$progress[$proj['id']]?>%">
+                              </div>
+                          </div>
+                          <small>
+
+                          <?=$progress[$proj['id']]?>% Complete
+                          </small>
+                          <?php endif; ?>
+                      </td>
+                      <td>
+                   
+                        <p class="center  "><?=$total_task[$proj['id']]?></p>
+                       
+                      </td>
+                      
+                      <td class="project-state">
+                      <?php
                             if($proj['status'] =='on-going'){
-                              echo "<span class='badge badge-secondary'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-secondary'>{$proj['status']}</span></a>":"<span class='badge badge-secondary'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='stop'){
-                              echo "<span class='badge badge-danger'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-danger'>{$proj['status']}</span></a>":"<span class='badge badge-danger'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='on-hold'){
-                              echo "<span class='badge badge-info'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-info'>{$proj['status']}</span></a>":"<span class='badge badge-info'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='complete'){
-                              echo "<span class='badge badge-success'>{$proj['status']}</span>";
+                              echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-success'>{$proj['status']}</span></a>":"<span class='badge badge-success'>{$proj['status']}</span>";
+                              echo "<p><i>Grade: ".$proj['grade']."</i></p>";
                             }
                           ?>
-                </td>
-                <td>
-                <?php if(session()->get('adviserID') == null) :?>
-                <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-		                      Action
-		             </button>
-                 <?php endif;?>
-		                    <div class="dropdown-menu" style="">
+                        
+                      </td>
+                 
+  
                      
-		                      <a class="dropdown-item view_project" href="<?=base_url()?>/viewproject/<?= $proj['id'] ?>" data-id="">View Team</a>
-                          <?php if($proj['user_ids'] != session()->get('studentID') && $proj['leader_id'] == session()->get('studentID') || $proj['adviserID'] == session()->get('adviserID') ) :?>
-		                      <div class="dropdown-divider"></div>
-                          
-		                      <a class="dropdown-item" href="<?=base_url()?>/editproject/<?= $proj['id'] ?>">Edit Project</a>
-		                      <div class="dropdown-divider"></div>
-		                      <a class="dropdown-item delete_project" href="<?=base_url()?>/manageteam/<?= $proj['id'] ?>" data-id="">Manage Team</a>
-                          <?php endif; ?>
-		                    </div>
+                      <td>
 
-                
-                </td>
-            </tr>
-           <?php endforeach;?>
-          <?php endif;?>
-        </tbody>
-        
+                      <div class="dropdown">
+
+                          <a type="button" class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                          </a>
+                        
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+                            <li><a href="<?=base_url()?>/viewproject/<?=$proj['id'] ?>" class="dropdown-item"  >View</a></li>
+                            <?php if($proj['leader_id'] == session()->get('studentID')) :?>
+                            <li><a href="<?=base_url()?>/editproject/<?=$proj['id'] ?>" class="dropdown-item"  >Edit Project</a></li>
+                            <li><a href="<?=base_url()?>/manageteam/<?=$proj['id'] ?>" class="dropdown-item" >Manage Team</a></li>
+                          <?php endif;?>
+                          </ul>
+                          </div>
+                      </td>
+                  
+                  </tr>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form action="<?=base_url()?>/updateproject" method="post">
+                            <div class="form-group">
+                              <input type="text" name="id" class="form-control" id="recipient-name" hidden>
+                            </div>
+                            <div class="col-mb-3 mt-2">
+                            <div class="form-group">
+                            <label for="">Status</label>
+
+                            <select name="status" id="status" class="custom-select custom-select-sm">
+                              
+                                          <option value="on-going" <?php if($proj['status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
+                                          <option value="on-hold" <?php if($proj['status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
+                                          <option value="stop" <?php if($proj['status'] == "stop") { echo "SELECTED"; } ?>>stop</option>
+                                          <option value="complete" <?php if($proj['status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
+
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                  </div>
+                          </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>       
+                  
+
+                <?php endforeach;?>
+                  <?php endif; ?>
+                </tbody>  
+
+               
+
+
+
+
+
     </table>
 		</div>
 	</div>

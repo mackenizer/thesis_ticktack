@@ -23,7 +23,7 @@
               </p>
             </a>
           </li>  
-		  <?php if(session()->get('adviserID') == null):?>
+		 
           <li class="nav-item">
             <a href="#" class="nav-link nav-edit_project nav-view_project">
               <i class="nav-icon fas fa-layer-group"></i>
@@ -32,14 +32,18 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-			<?php endif;?>
+		
+
             <ul class="nav nav-treeview">
+            <?php if(session()->get('role') != 'adviser' ) :?>
                           <li class="nav-item">
                 <a href="<?=base_url()?>/newproject" class="nav-link nav-new_project tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
                   <p>Create Project</p>
                 </a>
               </li>
+              <?php endif;?>
+             
                           <li class="nav-item">
                 <a href="<?=base_url()?>/projectlist" class="nav-link nav-project_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
@@ -47,7 +51,9 @@
                 </a>
               </li>
             </ul>
+        
           </li> 
+        
           <!-- <li class="nav-item">
                 <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
                   <i class="fas fa-tasks nav-icon"></i>

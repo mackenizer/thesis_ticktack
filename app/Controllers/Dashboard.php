@@ -25,7 +25,7 @@ class Dashboard extends BaseController
         
         
         if(session()->get('adviserID') != null){
-                $user = $model3->where('adviserID', session()->get('adviserID'))->findAll();
+                $user = $model3->findAll();
                 $disp = $model->where('leader_id', session()->get('adviserID'))->first();
                 $not = $notify->first();
                 $x = $com->findall();

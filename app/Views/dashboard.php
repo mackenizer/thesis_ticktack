@@ -1,39 +1,118 @@
-<?php $i = 1?>
 <?php $uri = service('uri'); 
 
 ?>
-
-
 <div class="wrapper">
-  <?php include_once('templates/nav.php'); ?>
-  <?php include_once('templates/sidenav.php'); ?>
-  
-
+<?php include('templates/nav.php');?>
+  <script>
+     $('#manage_account').click(function(){
+        uni_modal('Manage Account','manage_user.php?id=1')
+      })
+  </script>
+    <aside class="main-sidebar elevation-4">
+    <div class="dropdown">
+   	<a href="./" class="brand-link">
+       <img src="<?=base_url()?>/assets/images/loggo.jpg" alt="" width="100%" height="200px">
+        
+    </a>
+      
+    </div>
+    <div class="sidebar pb-4 mb-4">
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item dropdown">
+            <a href="<?=base_url()?>/dashboard" class="nav-link nav-home">
+              <i class="nav-icon fas fa-chart-line"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li> 
+           
+          <li class="nav-item">
+            <a href="#" class="nav-link nav-edit_project nav-view_project">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p>
+                Projects
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <?php if(session()->get('role') != 'adviser') :?>
+                          <li class="nav-item">
+                <a href="<?=base_url()?>/newproject" class="nav-link nav-new_project tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Create Project</p>
+                </a>
+              </li>
+              <?php endif;?>
+                          <li class="nav-item">
+                <a href="<?=base_url()?>/projectlist" class="nav-link nav-project_list tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+          <!-- <li class="nav-item">
+                <a href="<?=base_url()?>/tasklist" class="nav-link nav-task_list">
+                  <i class="fas fa-tasks nav-icon"></i>
+                  <p>Task</p>
+                </a>
+          </li> -->
+          <?php if(session()->get('studentID') == null):?>
+                     <li class="nav-item">
+                <a href="<?=base_url()?>/report" class="nav-link nav-reports">
+                  <i class="fas fa-th-list nav-icon"></i>
+                  <p>Report</p>
+                </a>
+          </li>
+          <?php endif;?>
+                              <!-- <li class="nav-item">
+            <a href="#" class="nav-link nav-edit_user">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./index.php?page=new_user" class="nav-link nav-new_user tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Add New</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./index.php?page=user_list" class="nav-link nav-user_list tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li> -->
+            </ul>
+          </li>
+                </ul>
+      </nav>
+    </div>
+  </aside>
+ 
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+  	 <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
+	    <div class="toast-body text-white">
+	    </div>
+	  </div>
+    <div id="toastsContainerTopRight" class="toasts-top-right fixed"></div>
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-         
+            <!-- <h1 class="m-0">Project List</h1> -->
           </div><!-- /.col -->
 
         </div><!-- /.row -->
             <hr class="border-primary">
-         
-            <?php 
-            
-              if(session()->get('adviserID') != null) {
-                echo  "<h2>Welcome Adviser!</h2>";
-              }
-           else{
-            echo  "<h2>Welcome Student!</h2>";
-           }
 
-                
-
-
-            ?>
-          
             <?php if(session()->get('success')): ?>
                     <div class="alert alert-success text-center" role="alert">
                         <?= session()->get('success') ?>
@@ -47,6 +126,13 @@
                     </div>
                
                 <?php endif; ?>
+
+            <?php if(session()->get('role') == 'adviser'):?>
+              <h1>Welcome Adviser!</h1>
+              <?php else:?>
+              <h1>Welcome Student!</h1>
+            <?php endif;?>
+
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -54,26 +140,19 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-         <!-- Info boxes -->
- 
-          
-      <div class="row">
-        <div class="col-md-12">
-        <div class="card card-outline">
-          
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0 table-hover">
-                <colgroup>
-                  <col width="5%">
-                  <col width="30%">
-                  <col width="35%">
-                  <col width="15%">
-                  <col width="15%">
-                </colgroup>
-                <thead class="table-success">
-                  <th>#</th>
-                  <th>Projects</th>
+         <div class="col-lg-12">
+	<div class="card card-outline">
+		<div class="card-header">
+      <div class="card-tools">
+
+			</div>
+            		</div>
+		<div class="card-body">
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead class="table-success">
+                  <!-- <th>#</th> -->
+                  <th>Project Name</th>
+                  <th>Info</th>
                   <th>Progress</th>
                   <th>Total Tasks</th>
                   <th>Status</th>
@@ -81,19 +160,21 @@
                 </thead>
                 <tbody>
                 
+                
+                <tr>
                 <?php if($project != null) : ?>
                   <?php foreach ($project as $proj) :?>
-                <tr>
-                      <td>
-                        <p><b><?= $proj['id']?><p>
-                      </td>
                       
                       <td>
+                    
                         
-                          <a>
                            <?= $proj['name']?>
-                          </a>
-                          <br>
+                        
+                      </td>
+                       
+                      <td>
+                      <p>Project ID: <b><?= $proj['id']?><p>
+                     
                           <small>
                              Due: <?= $proj['end_date']?>
                           </small>
@@ -138,95 +219,147 @@
                  
   
                       <td>
-                        <a class="" href="<?=base_url()?>/viewproject/<?=$proj['id'] ?>">
+                        <a class="" href="<?=base_url()?>/readprojects/<?=$proj['id'] ?>">
                         <i class="fas fa-eye"></i>
                               View
                         </a>
                       </td>
+                      
                   
                   </tr>
-                </tbody>  
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="<?=base_url()?>/updateproject" method="post">
-                            <div class="form-group">
-                              <input type="text" name="id" class="form-control" id="recipient-name" hidden>
-                            </div>
-                            <div class="col-mb-3 mt-2">
-                            <div class="form-group">
-                            <label for="">Status</label>
-
-                            <select name="status" id="status" class="custom-select custom-select-sm">
-                              
-                                          <option value="on-going" <?php if($proj['status'] == "on-going") { echo "SELECTED"; } ?>>on-going</option>
-                                          <option value="on-hold" <?php if($proj['status'] == "on-hold") { echo "SELECTED"; } ?>>on-hold</option>
-                                          <option value="stop" <?php if($proj['status'] == "stop") { echo "SELECTED"; } ?>>stop</option>
-                                          <option value="complete" <?php if($proj['status'] == "complete") { echo "SELECTED"; } ?>>complete</option>
-
-                                          </select>
-                                      </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                  </div>
-                          </form>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>       
-
-
-
-
-
-
+                  
                 <?php endforeach;?>
                   <?php endif; ?>
-              </table>
-            </div>
-          </div>
-        </div>
-        </div>
-       
-         
-      </div> 
-        </div>
-      </div>
-      </div><!--/. container-fluid -->
+                </tbody>  
+
+                
+
+
+
+
+
+
+    </table>
+		</div>
+	</div>
+</div>
+<style>
+	table p{
+		margin: unset !important;
+	}
+	table td{
+		vertical-align: middle !important
+	}
+</style>
+
+
+<script>
+      $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+<!-- <script>
+
+
+
+	$(document).ready(function(){
+		$('#list').dataTable()
+	
+	$('.delete_project').click(function(){
+	_conf("Are you sure to delete this project?","delete_project",[$(this).attr('data-id')])
+	})
+	})
+	function delete_project($id){
+		start_load()
+		$.ajax({
+			url:'ajax.php?action=delete_project',
+			method:'POST',
+			data:{id:$id},
+			success:function(resp){
+				if(resp==1){
+					alert_toast("Data successfully deleted",'success')
+					setTimeout(function(){
+						location.reload()
+					},1500)
+
+				}
+			}
+		})
+	}
+</script>      </div>/. container-fluid -->
     </section>
-   
+    <!-- /.content -->
+    <div class="modal fade" id="confirm_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        <div id="delete_content"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="uni_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title"></h5>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="uni_modal_right" role='dialog'>
+    <div class="modal-dialog modal-full-height  modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="fa fa-arrow-right"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="viewer_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+              <button type="button" class="btn-close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+              <img src="" alt="">
+      </div>
+    </div>
+  </div>
+  </div>
   <!-- /.content-wrapper -->
 
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
  
 </div>
 <!-- ./wrapper -->
 
-
-
-<script>
-
-    $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.data('whatever') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text('Update Project ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-    })
-
-</script>
-
-
-<?php include_once('templates/scripts.php')?>
+<?php include_once('templates/scripts.php'); ?>

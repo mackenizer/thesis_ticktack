@@ -99,6 +99,7 @@
 
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 												<li><a href="" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="<?=$pro['id']?>">Edit</a></li>
+												<li><a href="" class="dropdown-item"  >Delete</a></li>
 												<li><a href="" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?=$pro['id']?>" data-bs-what="<?=$pro['task']?>" data-bs-w="<?=$pro['start_date']?>" data-bs-wh="<?=$pro['end_date']?>" data-bs-wha="<?=$pro['description']?>" data-bs-projid="<?=$pro['project_id']?>">Reassign member</a></li>
 											</ul>
 											</div>

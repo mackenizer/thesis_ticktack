@@ -39,6 +39,7 @@ $routes->get('chat', 'Chat::index', ['filter' => 'auth']);
 $routes->get('receiver', 'Receiver::index', ['filter' => 'auth']);
 
 $routes->match(['get', 'post'],'viewproject/(:any)', 'ViewProject::index/$1', ['filter' => 'auth']);
+$routes->match(['get', 'post'],'readprojects/(:any)', 'ReadProjects::index/$1', ['filter' => 'auth']);
 
 $routes->post('addtask/(:any)', 'AddTask::index/$1');
 $routes->match(['get', 'post'],'edittask/(:any)', 'EditTask::index/$1');

@@ -32,8 +32,8 @@
 				</div>
 			</div><!--  end header -->
 
-			<div class="card-body p-0">
-					<div class="table-responsive">
+			<div class="card-body p-0 z-index">
+					<div class="table-responsive" style="height:250px;">
 					<table class="table table-condensed m-0 table-hover">
 						<colgroup>
 							<col width="5%">
@@ -93,13 +93,13 @@
 									<?php else :?>
 									<?php if(session()->get('studentID') == $leader['leader_id'] ):?>
 										<div class="dropdown">
-											<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+											<a type="button" class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 												Action
 											</a>
 
-											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
 												<li><a href="" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="<?=$pro['id']?>">Edit</a></li>
-												<li><a href="" class="dropdown-item"  >Delete</a></li>
+												<li><a href=""  class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="<?=$pro['id']?>">Delete</a></li>
 												<li><a href="" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?=$pro['id']?>" data-bs-what="<?=$pro['task']?>" data-bs-w="<?=$pro['start_date']?>" data-bs-wh="<?=$pro['end_date']?>" data-bs-wha="<?=$pro['description']?>" data-bs-projid="<?=$pro['project_id']?>">Reassign member</a></li>
 											</ul>
 											</div>
@@ -116,6 +116,37 @@
 									
                                     
 		                </tr>
+
+
+						<!-- delete modal -->
+						<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<form action="<?=base_url()?>/deletetask/<?=$pro['id'] ?>" method="post">
+									<div class="mb-3">
+										<!-- <label for="recipient-name" class="col-form-label">Recipient:</label> -->
+										<input type="text" class="form-control" id="recipient-name" hidden>
+									</div>
+									<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Delete</button>
+									</div>	
+									
+									</form>
+								</div>
+								
+								</div>
+							</div>
+						</div>
+						<!-- delete modal  -->
+
+
+
 
 							<!-- edittask modal -->
 

@@ -42,6 +42,7 @@ $routes->match(['get', 'post'],'viewproject/(:any)', 'ViewProject::index/$1', ['
 $routes->match(['get', 'post'],'readprojects/(:any)', 'ReadProjects::index/$1', ['filter' => 'auth']);
 
 $routes->post('addtask/(:any)', 'AddTask::index/$1');
+$routes->post('deletetask/(:any)', 'DeleteTask::index/$1');
 $routes->match(['get', 'post'],'edittask/(:any)', 'EditTask::index/$1');
 $routes->match(['get', 'post'],'evaluate/(:any)', 'Evaluate::index/$1');
 $routes->match(['get', 'post'],'updatetaskstatus/(:any)', 'UpdateTaskStatus::index/$1');

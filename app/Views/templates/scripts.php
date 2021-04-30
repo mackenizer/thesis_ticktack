@@ -627,3 +627,24 @@ $('.number').on('input keyup keypress',function(){
 	})
 
 </script>
+
+
+
+<script>
+	var exampleModal3 = document.getElementById('exampleModal3')
+	exampleModal3.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+	// Extract info from data-bs-* attributes
+	var recipient = button.getAttribute('data-bs-whatever')
+	// If necessary, you could initiate an AJAX request here
+	// and then do the updating in a callback.
+	//
+	// Update the modal's content.
+	var modalTitle = exampleModal3.querySelector('.modal-title')
+	var modalBodyInput = exampleModal3.querySelector('.modal-body input')
+
+	modalTitle.textContent = 'You sure you want to delete task # ' + recipient +'?'
+	modalBodyInput.value = recipient
+	})
+</script>

@@ -11,21 +11,36 @@ class DeleteTask extends BaseController
 	public function index($id)
 	{
         if($this->request->getMethod() == 'post'){
-                // echo 'xd';
-                // echo $id;
-                // exit();
+                $rules = [
+                        'id' => 'required',
 
-                $task = new TaskModel();
-          
-                $task->delete($id);
+                    ];
         
+                    if(!$this->validate($rules)){
+                        $data['validation'] = $this->validator;
+                        echo 'heheheeh';
+          
+                    }else{
+      
 
-                $session = session();
-                $session->setFlashdata('success', 'Task successfully deleted');
-                return redirect()->to(session()->get('_ci_previous_url'));
-      
-            
+                        $task = new TaskModel();
+
+                        $newData = [
+                                'i' => $this->request->getVar('id'),
+                               
+        
+                            ];
+                
+                        $task->delete($newData);
+                
+
+                        $session = session();
+                        $session->setFlashdata('success', 'Task successfully deleted');
+                        // return redirect()->to(base_url().'/dashboard');
+                        return redirect()->to(session()->get('_ci_previous_url'));
+        
+                        }
+                }
+        
         }
-      
-    }
 }

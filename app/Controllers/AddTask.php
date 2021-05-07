@@ -57,7 +57,7 @@ class AddTask extends BaseController
                     $to = $data['ema']['email'];
                    
                     $subject = $sub;
-                    $message = 'Your new task '.'<a href="'.base_url().'/viewproject'.'/'.$id.'">'.$msg.'</a>';
+                    $message = 'You have a new task - '.'<a href="'.base_url().'/viewproject'.'/'.$id.'">'.$msg.'</a>';
                     // $body = 'You have new task on TickTack';
                     $email = \Config\Services::email();
 
@@ -72,6 +72,7 @@ class AddTask extends BaseController
                         echo 'error';
                     }
 
+                   
                     $session = session();
                     $session->setFlashdata('success', 'Task successfully created');
                     return redirect()->to(base_url().'/viewproject'.'/'.$id);

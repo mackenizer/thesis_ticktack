@@ -613,8 +613,10 @@ $('.number').on('input keyup keypress',function(){
 	sendmail.addEventListener('show.bs.modal', function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget
+
 	// Extract info from data-bs-* attributes
 	var recipient = button.getAttribute('data-bs-whatever')
+
 	// If necessary, you could initiate an AJAX request here
 	// and then do the updating in a callback.
 	//
@@ -622,7 +624,7 @@ $('.number').on('input keyup keypress',function(){
 	var modalTitle = sendmail.querySelector('.modal-title')
 	var modalBodyInput = sendmail.querySelector('.modal-body input')
 
-	modalTitle.textContent = 'Send mail to member ID #' + recipient
+	// modalTitle.textContent = 'Progress Info: ' + recipient
 	modalBodyInput.value = recipient
 	})
 

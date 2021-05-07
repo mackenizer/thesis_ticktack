@@ -189,7 +189,7 @@
           <div class="card-header">
             <b>Project Progress</b>
             <div class="card-tools">
-            	<button class="btn btn-flat btn-sm bg-gradient-success btn-success" id="print"><i class="fa fa-print"></i> Print</button>
+            	<!-- <button class="btn btn-flat btn-sm bg-gradient-success btn-success" id="print"><i class="fa fa-print"></i> Print</button> -->
             </div>
           </div>
           <div class="card-body p-0">

@@ -48,7 +48,7 @@
                           <li class="nav-item">
                 <a href="<?=base_url()?>/projectlist" class="nav-link nav-project_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
+                  <p>My List</p>
                 </a>
               </li>
             </ul>
@@ -209,7 +209,7 @@
                         
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                            <li><a href="<?=base_url()?>/viewproject/<?=$proj['id'] ?>" class="dropdown-item"  >View</a></li>
+                            <li><a href="<?=base_url()?>/viewproject/<?=$proj['id'] ?>" class="dropdown-item"  >View Project</a></li>
                             <?php if($proj['leader_id'] == session()->get('studentID')) :?>
                             <li><a href="<?=base_url()?>/editproject/<?=$proj['id'] ?>" class="dropdown-item"  >Edit Project</a></li>
                             <li><a href="<?=base_url()?>/manageteam/<?=$proj['id'] ?>" class="dropdown-item" >Manage Team</a></li>
@@ -231,7 +231,7 @@
                         <div class="modal-body">
                           <form action="<?=base_url()?>/updateproject" method="post">
                             <div class="form-group">
-                              <input type="text" name="id" value= "<?=$proj['id'] ?>" class="form-control" id="recipient-name">
+                              <input type="text" name="id" value= "<?=$proj['id'] ?>" class="form-control" id="recipient-name" hidden>
                             </div>
                             <div class="col-mb-3 mt-2">
                             <div class="form-group">

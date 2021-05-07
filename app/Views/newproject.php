@@ -97,8 +97,10 @@
               	<option></option>
                   <?php if($students != null) : ?>
                     <?php foreach ($students as $stud) :?>
+                      <?php if($stud['studentID'] != session()->get('studentID')) :?>
               	              	<option value="<?=$stud['studentID']?>" ><?=$stud['firstname'],' ',$stud['lastname']?></option>
-              	              	<?php endforeach;?>
+                                <?php endif ;?>
+                              	<?php endforeach;?>
                                     <?php endif ;?>
               	              </select>
 

@@ -48,7 +48,7 @@
                           <li class="nav-item">
                 <a href="<?=base_url()?>/projectlist" class="nav-link nav-project_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
+                  <p>My List</p>
                 </a>
               </li>
             </ul>
@@ -158,7 +158,6 @@
                   <!-- <th>#</th> -->
                   <th>Project Name</th>
                   <th>Info</th>
-                  <th>Progress</th>
                   <th>Total Tasks</th>
                   <th>Status</th>
                   <th></th>
@@ -188,18 +187,7 @@
                              <b> Project Leader: <?= $proj['firstname'].' '.$proj['lastname']?>
                           </small>
                       </td>
-                      <td class="project_progress">
-                          <div class="progress progress-sm">
-                          <?php if(isset($progress)) : ?>
-                              <div class="progress-bar bg-yellow" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: <?=$progress[$proj['id']]?>%">
-                              </div>
-                          </div>
-                          <small>
-
-                          <?=$progress[$proj['id']]?>% Complete
-                          </small>
-                          <?php endif; ?>
-                      </td>
+        
                       <td>
                    
                         <p class="center  "><?=$total_task[$proj['id']]?></p>
@@ -216,7 +204,7 @@
                               echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-info'>{$proj['status']}</span></a>":"<span class='badge badge-info'>{$proj['status']}</span>";
                             }elseif($proj['status'] =='complete'){
                               echo (session()->get('studentID') == $proj['leader_id'])?"<a href='' data-toggle='modal' data-target='#exampleModal' data-whatever='".$proj['id']."'><span class='badge badge-success'>{$proj['status']}</span></a>":"<span class='badge badge-success'>{$proj['status']}</span>";
-                              echo "<p><i>Grade: ".number_format($proj['grade'],2)."</i></p>";
+                              // echo "<p><i>Grade: ".number_format($proj['grade'],2)."</i></p>";
                             }
                           ?>
                         

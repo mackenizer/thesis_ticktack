@@ -6,7 +6,7 @@
 				<b>Members Progress/Activity</b>
 				<div class="card-tools">
 					
-						<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#comment"><i class="fas fa-plus-square"></i> Comment</button>
+						<button class="btn btn-primary bg-gradient-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#comment"><i class="fas fa-plus-square"></i> Comment Section</button>
 				
 				</div>
 			</div>
@@ -22,15 +22,15 @@
 	
 				
 				<span class="username">
-					<a href="" data-bs-toggle="modal" data-bs-target="#sendmail" data-bs-whatever="<?=$prod['user_id']?>"><?= $prod['firstname'].' '.$prod['lastname'].' '. $prod['task']?></a>
+					<a href="" data-bs-toggle="modal" data-bs-target="#sendmail" data-bs-whatever="<?=$prod['comment']?>" ><?= $prod['firstname'].' '.$prod['lastname'].' '. $prod['task']?></a>
 				</span>
 				<span class="description">
 					<span class="fa fa-calendar-day"></span>
 					<span><b><?= date("F d, Y",strtotime($prod['date']))?></b></span>
 					<span class="fa fa-user-clock"></span>
-						<span>Start: <b><?= $prod['start_time']?></b></span>
+						<span>Start Time: <b><?= date('h:i:s', strtotime($prod['start_time']))?></b></span>
 					<span> | </span>
-						<span>End: <b><?= $prod['end_time']?></b></span>
+						<span>End Time: <b><?= date('h:i:s', strtotime($prod['end_time']))?></b></span>
 					<span> | </span>
 						<span><a href="<?= base_url()?>/uploads/fileUpload/<?= $prod['file']?>" download= "<?= $prod['file']?>" class="link-black text-sm"><i class="fas fa-link mr-1"></i> <?= $prod['file']?></a></b></span>
 				</span>
@@ -48,7 +48,7 @@
 					
 					
 					
-                        <h5 class="modal-title" id="exampleModalLabel">Comment Section</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Activity</h5>
 						
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							
@@ -117,29 +117,26 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">New message</h5>
+							<h5 class="modal-title" id="exampleModalLabel">Progress Info</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 						
 							<form action="<?=base_url()?>/sendmail" method="post" autocomplete="off">
 							<div class="mb-3">
-								<input type="text" name="task_id" class="form-control" id="recipient-name" hidden>
+								<input type="text" name="task_id" class="form-control" id="recipient-name" readonly>
 								
 							</div>
 							<div class="mb-3">
-								<input type="email" name="email" class="form-control" id="recipient-name" placeholder="email@gmail.com">
+
+								
 							</div>
-							<div class="mb-3">
-								<input type="text" name="subject" class="form-control" id="recipient-name" placeholder="Subject">
-							</div>
-							<div class="mb-3">
-								<textarea class="form-control" name="message" row="30" col="10" id="message-text" placeholder="Your message"></textarea>
-							</div>
-							<div class="modal-footer">
+
+							
+							<!-- <div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 								<button type="submit" name="send" class="btn btn-primary">Send</button>
-							</div>
+							</div> -->
 							</form>
 						</div>
 						

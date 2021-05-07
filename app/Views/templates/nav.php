@@ -15,19 +15,21 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li> -->
-     <?php if($uri->getSegment(1) == 'dashboard') :?>
+     <?php if($uri->getSegment(1) == 'projectlist') :?>
       <li class="nav-item dropdown">
        
               <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell text-white"></i><span class="badge bg-danger" id="count" style="border-radius: 50% ; position: relative; top: -10px ; left: -10px"><?=(isset($due))?count($due): null?></span></a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
              
               <?php if(isset($due)) :?>
+            
               <?php foreach ($due as $com) :?>
               <a class="dropdown-item" href="" >
                 <small><b><i><?= $com?></b></i></small><br>
               </a>
                 <?php endforeach;?>
                 <?php endif;?>
+        
                
                 </div>
         </li>

@@ -44,6 +44,7 @@
 						</colgroup>
 						<thead>
 							<th>Task</th>
+							<th>To Do's:</th>
 							<th>Assign Members</th>
 							<th>Status</th>
 							<th>Time Rendered</th>
@@ -58,6 +59,7 @@
 
 			    
 			                        <td class=""><b><?= $pro['task']?></b></td>
+									<td class=""><p class="truncate"><?= $pro['description']?></p></td>
 			                        <td class=""><p class="truncate"><?= $pro['Name']?></p></td>
 			                        <td>
 									<?php
@@ -98,9 +100,9 @@
 											</a>
 
 											<ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-												<li><a href="" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="<?=$pro['id']?>">Edit</a></li>
-												<li><a href=""  class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="<?=$pro['id']?>">Delete</a></li>
-												<li><a href="" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?=$pro['id']?>" data-bs-what="<?=$pro['task']?>" data-bs-w="<?=$pro['start_date']?>" data-bs-wh="<?=$pro['end_date']?>" data-bs-wha="<?=$pro['description']?>" data-bs-projid="<?=$pro['project_id']?>">Reassign member</a></li>
+												<li><a href="" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal2" data-bs-whatever="<?=$pro['id']?>">Edit Progress</a></li>
+												<li><a href=""  class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal3" data-bs-whatever="<?=$pro['id']?>">Delete Task</a></li>
+												<li><a href="" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="<?=$pro['id']?>" data-bs-what="<?=$pro['task']?>" data-bs-w="<?=$pro['start_date']?>" data-bs-wh="<?=$pro['end_date']?>" data-bs-wha="<?=$pro['description']?>" data-bs-projid="<?=$pro['project_id']?>">Edit/Reassign Task</a></li>
 											</ul>
 											</div>
 									<?php endif;?>
@@ -130,7 +132,7 @@
 									<form action="<?=base_url()?>/deletetask/<?=$pro['id'] ?>" method="post">
 									<div class="mb-3">
 										<!-- <label for="recipient-name" class="col-form-label">Recipient:</label> -->
-										<input type="text" class="form-control" id="recipient-name" hidden>
+										<input type="text" name="id" value="<?=$pro['id']?>" class="form-control" id="recipient-name" hidden>
 									</div>
 									<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

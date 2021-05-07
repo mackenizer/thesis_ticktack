@@ -47,7 +47,7 @@
                           <li class="nav-item">
                 <a href="<?=base_url()?>/projectlist" class="nav-link nav-project_list tree-item">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>List</p>
+                  <p>My List</p>
                 </a>
               </li>
             </ul>
